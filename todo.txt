@@ -1,0 +1,4 @@
+- Permettre l'édit des budgets par double clic (WIP)
+- Prévoir une phrase d'équilibre à 0.
+
+- Prévoir un reset de compte, un reset de budget et un full reset
