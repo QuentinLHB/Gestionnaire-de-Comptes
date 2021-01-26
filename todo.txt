@@ -1,4 +1,20 @@
-- Permettre l'édit des budgets par double clic (WIP)
-- Prévoir une phrase d'équilibre à 0.
-
 - Prévoir un reset de compte, un reset de budget et un full reset
+
+- leave une zone de nom d'utilisateur refresh toute la lstComptes
+
+- optimiser updateTotaux() car refait tout le calcul à chaque fois
+
+- Gérer le ping pong des selectedindex des listes
+
+- Voir si besoin de charger les Budgets puisqu'on charge déjà les Comptes qui contiennent
+chacun un budget
+
+- Remplacer le tostring() de compte par une fonction à part entière
+
+- quand le message d'erreur de saisie apparaît, la sélection passe au suivant à tort
+
+
+- Permettre de sauvegarder les mois dans des fichiers séparés (au moment de la sauve,
+on demande le nom du fichier)
+
+- Le nom par défaut doit être "personne A" et "personne B" et non ""
