@@ -389,6 +389,28 @@ namespace Comptes
             lblNomTotalUser.Text = ($"Total dettes {user.nom} :");
         }
 
+        private void txtUserA_Leave(object sender, EventArgs e)
+        {
+            updateLstComptes();
+        }
+
+        private void txtUserB_Leave(object sender, EventArgs e)
+        {
+            updateLstComptes();
+        }
+
+        /// <summary>
+        /// Rafraichis la liste des compte pour afficher le nouveau nom d'utilisateur.
+        /// </summary>
+        private void updateLstComptes()
+        {
+            int k = 0;
+            foreach (Budget budget in data.lesBudgets)
+            {
+                lstComptes.Items[k++] = budget.compte;
+            }
+        }
+
         // ________________________________________ AJOUT DE REPATITIONS ___________________________________
         /// <summary>
         /// Ajoute la repartition entrée dans la textbox au combobox.
@@ -458,30 +480,7 @@ namespace Comptes
             lstBudgets.SelectedIndex = lstComptes.SelectedIndex;
         }
 
-        private void btnSauvegarde_Click(object sender, EventArgs e)
-        {
 
-
-        }
-
-        private void txtUserA_Leave(object sender, EventArgs e)
-        {
-            updateLstComptes();
-        }
-
-        private void txtUserB_Leave(object sender, EventArgs e)
-        {
-            updateLstComptes();
-        }
-
-        private void updateLstComptes()
-        {
-            int k = 0;
-            foreach (Budget budget in data.lesBudgets)
-            {
-                lstComptes.Items[k++] = budget.compte;
-            }
-        }
 
         private void menuSauvegarder_Click(object sender, EventArgs e)
         {
