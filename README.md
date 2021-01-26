@@ -1,5 +1,6 @@
 # Gestionnaire-de-Comptes
 Permet de gérer des comptes mensuels.
+
 Fonctionnalités :
 * Ajout de budgets (nom, répartition entre les deux utilisateurs) 
 * Ajout de sommes pour chaque budget (dans un "compte")
@@ -9,4 +10,4 @@ Fonctionnalités :
 * Suppression et édition de chaque élément
 * Sauvegarde par sérialisation
 
-Ce programme a été développé par Quentin Lehembre à des fins personnelles, et pour tester des éléments de cours, en 1ère année de BTS SIO.
+Ce programme a été développé par Quentin Lehembre à des fins personnelles, et pour pratiquer des éléments de cours, en 1ère année de BTS SIO.
