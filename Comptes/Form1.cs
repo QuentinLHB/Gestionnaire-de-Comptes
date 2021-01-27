@@ -3,29 +3,56 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
+using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
+
+
 
 namespace Comptes
 {
     public partial class frmComptes : Form
     {
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd,
+                         int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        private static extern bool ReleaseCapture();
+
+
+
         public Dictionary<string, double> dctRepartition = new Dictionary<string, double>();
         appData data;
         private const String fichierData = "saveData";
         const int userA = 0; const int userB = 1;
+        const string nomUserA = "personne A"; const string nomUserB = "personne B";
+
 
         public frmComptes()
         {
             InitializeComponent();
-            
+            //this.Text = "DPI Effect";
         }
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+        //    TextRenderer.DrawText(e.Graphics, "Hi There", new Font(this.Font.FontFamily, 32f), new Point(100, 50), Color.Black);
+        //    base.OnPaint(e);
+        //}
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            lblUserA.ForeColor = Color.White;
+
             chargeRepartitions();
 
             chargeData();
@@ -70,11 +97,8 @@ namespace Comptes
             {
                 data = new appData();
 
-                for (int k = 0; k < 2; k++)
-                {
-                    data.lesUsers.Add(new User());
-                }
-
+                data.lesUsers.Add(new User(nomUserA));
+                data.lesUsers.Add(new User(nomUserB));
             }
 
             if (data.lesBudgets != null)
@@ -455,13 +479,30 @@ namespace Comptes
 
         // _____________________________ NAVIGATION _______________________________________
 
+        private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void menuStrip1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!Focused)
+            {
+                Focus();
+            }
+        }
+
         private void resetMenuCompte()
         {
             txtMontantUserA.Focus();
             txtMontantUserA.Text = "";
             txtMontantUserB.Text = "";
         }
-
+        
 
 
         private void lstBudgets_SelectedIndexChanged(object sender, EventArgs e)
@@ -510,8 +551,8 @@ namespace Comptes
                 }
 
             }
-            data.lesUsers[userA].nom = "personne A";
-            data.lesUsers[userB].nom = "personne B";
+            data.lesUsers[userA].nom = nomUserA;
+            data.lesUsers[userB].nom = nomUserB;
 
             foreach (User user in data.lesUsers)
             {
@@ -555,6 +596,11 @@ namespace Comptes
             {
                 e.Cancel = true;
             }
+        }
+
+        private void btnQuitter_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

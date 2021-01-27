@@ -1,13 +1,8 @@
-- Prévoir un reset de compte, un reset de budget et un full reset
 
-- leave une zone de nom d'utilisateur refresh toute la lstComptes
 
 - optimiser updateTotaux() car refait tout le calcul à chaque fois
 
 - Gérer le ping pong des selectedindex des listes
-
-- Voir si besoin de charger les Budgets puisqu'on charge déjà les Comptes qui contiennent
-chacun un budget
 
 - Remplacer le tostring() de compte par une fonction à part entière
 
@@ -18,3 +13,6 @@ chacun un budget
 on demande le nom du fichier)
 
 - Le nom par défaut doit être "personne A" et "personne B" et non ""
+
+365 fin de gp 1
+835
