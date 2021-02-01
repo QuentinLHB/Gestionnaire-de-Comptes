@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -30,31 +29,19 @@ namespace Comptes
 
 
 
-        public Dictionary<string, double> dctRepartition = new Dictionary<string, double>();
-        appData data;
-        private const String fichierData = "saveData";
-        const int userA = 0; const int userB = 1;
-        const string nomUserA = "personne A"; const string nomUserB = "personne B";
+        
+        AppData data;
+        AffichageData affichage;
 
 
         public frmComptes()
         {
             InitializeComponent();
-            //this.Text = "DPI Effect";
         }
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-        //    e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-        //    TextRenderer.DrawText(e.Graphics, "Hi There", new Font(this.Font.FontFamily, 32f), new Point(100, 50), Color.Black);
-        //    base.OnPaint(e);
-        //}
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            lblUserA.ForeColor = Color.White;
-
-            chargeRepartitions();
-
+            affichage = new AffichageData();
             chargeData();
             updateTotaux();
             updateResultat();
@@ -64,16 +51,11 @@ namespace Comptes
 
         private void chargeRepartitions()
         {
-            dctRepartition.Add("50 / 50", 0.5);
-            dctRepartition.Add("60 / 40", 0.6);
-            dctRepartition.Add("70 / 30", 0.7);
-
-
-            foreach (KeyValuePair<string, double> cle in dctRepartition)
+            foreach (KeyValuePair<string, double> paire in data.dctRepartitions)
             {
-                cboRepartition.Items.Add(cle.Key);
-                cboRepartition.SelectedIndex = 0;
+                cboRepartition.Items.Add(paire.Key);
             }
+            cboRepartition.SelectedIndex = 0;
 
         }
 
@@ -84,21 +66,29 @@ namespace Comptes
         private void chargeData()
         {
             
-            Object obj = Serialise.Recup(fichierData);
+            Object obj = Serialise.Recup(affichage.fichierData);
 
             if (obj != null)
             {
-                data = (appData)obj;
-                txtUserA.Text = data.lesUsers[userA].nom;
-                txtUserB.Text = data.lesUsers[userB].nom;
+                data = (AppData)obj;
+
+                if(data.lesUsers[affichage.userA].nom != affichage.nomUserA & data.lesUsers[affichage.userB].nom != affichage.nomUserB)
+                {
+                    txtUserA.Text = data.lesUsers[affichage.userA].nom;
+                    txtUserB.Text = data.lesUsers[affichage.userB].nom;
+                }
+
+                chargeRepartitions();
+
             }
 
             else
             {
-                data = new appData();
+                data = new AppData();
 
-                data.lesUsers.Add(new User(nomUserA));
-                data.lesUsers.Add(new User(nomUserB));
+                data.lesUsers.Add(new User(affichage.nomUserA));
+                data.lesUsers.Add(new User(affichage.nomUserB));
+                chargeRepartitions();
             }
 
             if (data.lesBudgets != null)
@@ -132,8 +122,8 @@ namespace Comptes
         {
             Budget nouveauBudget = new Budget(
                 nom: txtNomBudget.Text,
-                repartition: dctRepartition[cboRepartition.SelectedItem.ToString()],
-                data.lesUsers[userA], data.lesUsers[userB]);
+                repartition: data.dctRepartitions[cboRepartition.SelectedItem.ToString()],
+                data.lesUsers[affichage.userA], data.lesUsers[affichage.userB]);
 
             data.lesBudgets.Add(nouveauBudget);
             lstBudgets.Items.Add(nouveauBudget);
@@ -185,7 +175,7 @@ namespace Comptes
         {
             Budget budgetSelectionne = getBudgetSelectionne();
             budgetSelectionne.nom = txtNomBudget.Text;
-            budgetSelectionne.repartition = dctRepartition[cboRepartition.SelectedItem.ToString()];
+            budgetSelectionne.repartition = data.dctRepartitions[cboRepartition.SelectedItem.ToString()];
             
             lstBudgets.Items[lstBudgets.SelectedIndex] = budgetSelectionne;
             updateAffichageComptes(GetCompteSelectionne());
@@ -271,7 +261,7 @@ namespace Comptes
         {
             try 
             { 
-            compte.depensesUsersA = Eval(txtMontantUserA.Text);
+            compte.depensesUserA = Eval(txtMontantUserA.Text);
             compte.depensesUserB = Eval(txtMontantUserB.Text);
             }
 
@@ -315,22 +305,25 @@ namespace Comptes
         private void lstComptes_DoubleClick(object sender, EventArgs e)
         {
             Compte compte = GetCompteSelectionne();
-            txtMontantUserA.Text = compte.depensesUsersA.ToString();
+            txtMontantUserA.Text = compte.depensesUserA.ToString();
             txtMontantUserB.Text = compte.depensesUserB.ToString();
             txtMontantUserA.Focus();
         }
 
+        /// <summary>
+        /// Si la liste des budgets est vide, désactive le bouton Valider de la zone comptes.
+        /// </summary>
         private void AccesGpbComptes()
         {
             if (lstBudgets.Items.Count != 0)
             {
-                gpbComptes.Enabled = true;
+                btnOKComptes.Enabled = true;
                 lstBudgets.SelectedIndex = 0;
             }
 
             else
             {
-                gpbComptes.Enabled = false;
+                btnOKComptes.Enabled = false;
             }
         }
 
@@ -352,13 +345,13 @@ namespace Comptes
             foreach (Budget budget in data.lesBudgets)
             {
                 totalDettesPersA += budget.compte.depensesUserB * budget.repartition;
-                totalDettesPersB += budget.compte.depensesUsersA * (1 - budget.repartition);
+                totalDettesPersB += budget.compte.depensesUserA * (1 - budget.repartition);
             }
 
-            data.lesUsers[userA].dettes = totalDettesPersA;
-            data.lesUsers[userB].dettes = totalDettesPersB;
-            lblTotalPersA.Text = data.lesUsers[userA].dettes.ToString();
-            lblTotalPersB.Text = data.lesUsers[userB].dettes.ToString();
+            data.lesUsers[affichage.userA].dettes = totalDettesPersA;
+            data.lesUsers[affichage.userB].dettes = totalDettesPersB;
+            lblTotalPersA.Text = data.lesUsers[affichage.userA].dettes.ToString();
+            lblTotalPersB.Text = data.lesUsers[affichage.userB].dettes.ToString();
 
         }
 
@@ -367,17 +360,17 @@ namespace Comptes
         /// </summary>
         private void updateResultat()
         {
-            double resultat = data.lesUsers[userA].dettes - data.lesUsers[userB].dettes;
+            double resultat = data.lesUsers[affichage.userA].dettes - data.lesUsers[affichage.userB].dettes;
 
 
             if (resultat > 0)
             {
-                affichageResultat(data.lesUsers[userA].nom, resultat);
+                affichageResultat(data.lesUsers[affichage.userA].nom, resultat);
             }
 
             else if (resultat < 0)
             {
-                affichageResultat(data.lesUsers[userB].nom, -resultat);
+                affichageResultat(data.lesUsers[affichage.userB].nom, -resultat);
             }
 
             else
@@ -398,24 +391,42 @@ namespace Comptes
 
         private void txtUserA_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[userA], txtUserA, lblUserA, lblNomTotalUserA);
+            updateNomPers(data.lesUsers[affichage.userA], txtUserA, lblUserA, lblNomTotalUserA, affichage.nomUserA);
         }
 
         private void txtUserB_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[userB], txtUserB, lblUserB, lblNomTotalUserB);
+            updateNomPers(data.lesUsers[affichage.userB], txtUserB, lblUserB, lblNomTotalUserB, affichage.nomUserB);
         }
 
-        private void updateNomPers(User user, TextBox txtUser, Label lblPers, Label lblNomTotalUser)
+        /// <summary>
+        /// Modifie le nom de l'utilisateur dans tous les emplacements appropriés.
+        /// </summary>
+        /// <param name="user">Utilisateur concerne (A/B)</param>
+        /// <param name="txtUser">Textbox concernée</param>
+        /// <param name="lblUser">Label de la rubrique Compte concerné.</param>
+        /// <param name="lblNomTotalUser">Label de la rubrique Total concerné.</param>
+        /// <param name="nomDefaut">Nom par défaut à afficher si saisie nulle</param>
+        private void updateNomPers(User user, TextBox txtUser, Label lblUser, Label lblNomTotalUser, string nomDefaut)
         {
-            user.nom = txtUser.Text;
-            lblPers.Text = user.afficheNom();
+            if(txtUser.Text != string.Empty)
+            {
+                user.nom = txtUser.Text;
+            }
+
+            else
+            {
+                user.nom = nomDefaut;
+            }
+
+            lblUser.Text = user.afficheNom();
             lblNomTotalUser.Text = ($"Total dettes {user.nom} :");
         }
 
         private void txtUserA_Leave(object sender, EventArgs e)
         {
             updateLstComptes();
+            
         }
 
         private void txtUserB_Leave(object sender, EventArgs e)
@@ -424,7 +435,7 @@ namespace Comptes
         }
 
         /// <summary>
-        /// Rafraichis la liste des compte pour afficher le nouveau nom d'utilisateur.
+        /// Rafraichit la liste des compte pour afficher le nouveau nom d'utilisateur.
         /// </summary>
         private void updateLstComptes()
         {
@@ -435,7 +446,7 @@ namespace Comptes
             }
         }
 
-        // ________________________________________ AJOUT DE REPATITIONS ___________________________________
+        // ________________________________________ AJOUT DE REPARTITIONS ___________________________________
         /// <summary>
         /// Ajoute la repartition entrée dans la textbox au combobox.
         /// </summary>
@@ -444,7 +455,7 @@ namespace Comptes
         private void btnOKRepartition_Click(object sender, EventArgs e)
         {
             string cle = txtDividende.Text + " / " + txtDiviseur.Text;
-            dctRepartition.Add(cle, double.Parse(txtDividende.Text) / 100);
+            data.dctRepartitions.Add(cle, double.Parse(txtDividende.Text) / 100);
             cboRepartition.Items.Add(cle);
 
             txtDividende.Text = "";
@@ -532,7 +543,7 @@ namespace Comptes
         {
             try
             {
-                Serialise.Sauve(fichierData, data);
+                Serialise.Sauve(affichage.fichierData, data);
             }
             catch
             {
@@ -541,18 +552,18 @@ namespace Comptes
         }
 
 
-            private void menuReinitialiser_Click(object sender, EventArgs e)
+        private void menuReinitialiser_Click(object sender, EventArgs e)
         {
-            if (File.Exists(fichierData))
+
+            if (MessageBox.Show("Toutes les données seront effacées. Confirmer ?", "Réinitialisation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Toutes les données seront effacées. Confirmer ?", "Réinitialisation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (File.Exists(affichage.fichierData))
                 {
-                    File.Delete(fichierData);
+                    File.Delete(affichage.fichierData);
                 }
 
-            }
-            data.lesUsers[userA].nom = nomUserA;
-            data.lesUsers[userB].nom = nomUserB;
+            data.lesUsers[affichage.userA].nom = affichage.nomUserA;
+            data.lesUsers[affichage.userB].nom = affichage.nomUserB;
 
             foreach (User user in data.lesUsers)
             {
@@ -565,7 +576,7 @@ namespace Comptes
             {
                 if (control is TextBox)
                 {
-                    ((TextBox)control).Text = ""; 
+                    ((TextBox)control).Text = string.Empty;
                 }
 
                 lstBudgets.Items.Clear();
@@ -576,6 +587,7 @@ namespace Comptes
             updateResultat();
 
             MessageBox.Show("L'application a été réinitialisée avec succès.", "Réinitialisation", MessageBoxButtons.OK);
+        }
 
         }
 

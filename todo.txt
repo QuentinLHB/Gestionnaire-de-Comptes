@@ -12,7 +12,16 @@
 - Permettre de sauvegarder les mois dans des fichiers séparés (au moment de la sauve,
 on demande le nom du fichier)
 
-- Le nom par défaut doit être "personne A" et "personne B" et non ""
 
-365 fin de gp 1
-835
+- Rendre l'application responsive
+
+- Permettre le minimize
+
+
+- possibilité de rendre la classe d'affichage static ?
+
+- ne pas demander la save si pas de chgt sur l'appli (comparer début et fin d'appData)
+
+-Quand on édite, on ne peut pas changer de control
+
+voir bug : sur une répart 100/0, changer la répart avec une valeur à 0 sur userB ne

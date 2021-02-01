@@ -11,36 +11,78 @@ namespace Comptes
 
 
     [SerializableAttribute]
-    class appData
+    class AppData
     {
+        static AffichageData affichage = new AffichageData();
         public List<User> lesUsers { get; }
         public List<Budget> lesBudgets { get; }
 
-        public appData()
+        private Dictionary<string, double> _dctRepartitions;
+
+        public AppData()
         {
             lesUsers = new List<User>();
             lesBudgets = new List<Budget>();
+            _dctRepartitions = new Dictionary<string, double>();
+            foreach (KeyValuePair<string, double> paire in affichage.repartitionsInitiales)
+            {
+                _dctRepartitions.Add(paire.Key, paire.Value);
+            }
         }
-        
+        public Dictionary<string, double> dctRepartitions { get => _dctRepartitions; }
+
+    }
+
+    /// <summary>
+    /// Stocke toutes les informations constantes d'affichage.
+    /// </summary>
+    class AffichageData
+    {
+        private const String _fichierData = "appData";
+        private const int _userA = 0; public const int _userB = 1;
+        private const string _nomUserA = "personne A";
+        private const string _nomUserB = "personne B";
+        private Dictionary<string, double> _repartitionsInitiales = new Dictionary<string, double>();
+
+        public AffichageData() {
+            repartitionsInitiales.Add("50 / 50", 0.5);
+            repartitionsInitiales.Add("60 / 40", 0.6);
+            repartitionsInitiales.Add("70 / 30", 0.7);
+        }
+
+        public string getFichierData()
+        {
+            return _fichierData;
+        }
+        public String fichierData { get => _fichierData; }
+        public int userA { get => _userA; }
+        public int userB { get => _userB; }
+        public string nomUserA { get => _nomUserA; }
+        public string nomUserB { get => _nomUserB; }
+        public Dictionary<string, double> repartitionsInitiales { get => _repartitionsInitiales; }
     }
 
     [SerializableAttribute]
     class Budget
     {
+        private Compte _compte;
+        private string _nom;
+        private double _repartition;
+
         public Budget(string nom, double repartition, User userA, User userB)
         {
             this.nom = nom;
             this.repartition = repartition;
-            compte = new Compte(this, userA, userB);
+            _compte = new Compte(this, userA, userB);
         }
 
-        public Compte compte { get; }
+        public Compte compte { 
+            get => _compte;
+            }
 
-        public string nom { get; set; }
+        public string nom { get => _nom ; set => _nom = value; }
 
-        public double repartition { get; set; }
-
-        public int index { get; set; }
+        public double repartition { get => _repartition; set => _repartition = value; }
 
         public override string ToString()
         {
@@ -58,39 +100,46 @@ namespace Comptes
     [SerializableAttribute]
     class Compte 
     {
-        public User userA { get; }
-        public User userB { get; }
+        static AffichageData affichage = new AffichageData();
+        private User _userA;
+        private User _userB;
+        private Budget _budget;
+        private double _depensesUserA;
+        private double _depensesUserB;
+
 
         public Compte(Budget budget, User userA, User userB)
         {
-            this.budget = budget;
-            this.userA = userA;
-            this.userB = userB;
+            this._budget = budget;
+            this._userA = userA;
+            this._userB = userB;
         }
+        public User userA { get => _userA; }
+        public User userB { get => _userB; }
 
-        public Budget budget { get; }
+        public Budget budget { get => _budget; }
 
-        public double depensesUsersA { get; set; }
+        public double depensesUserA { get => _depensesUserA; set => _depensesUserA = value; }
 
-        public double depensesUserB { get; set; }
+        public double depensesUserB { get => _depensesUserB; set => _depensesUserB = value; }
 
         public override string ToString()
         {
-            if (this.depensesUsersA != 0 || this.depensesUserB != 0)
+            if (this.depensesUserA != 0 || this.depensesUserB != 0)
             {
-                return ($"{budget.nom} : [{userA.nom} {depensesUsersA}] [{userB.nom} {depensesUserB}]");
+                return ($"{_budget.nom} : [{_userA.nom} {_depensesUserA}] [{_userB.nom} {_depensesUserB}]");
             }
 
             else
             {
-                return budget.nom + " : ";
+                return _budget.nom + " : ";
             }
 
         }
 
         public void reset()
         {
-            depensesUsersA = 0;
+            depensesUserA = 0;
             depensesUserB = 0;
         }
 
@@ -100,11 +149,12 @@ namespace Comptes
     [SerializableAttribute]
     class User
     {
+        private string _nom;
+        private double _dettes;
 
+        public string nom { get => _nom; set => _nom = value; }
 
-        public string nom { get; set; }
-
-        public double dettes { get; set; }
+        public double dettes { get => _dettes; set => _dettes = value; }
 
         public string afficheNom()
         {
