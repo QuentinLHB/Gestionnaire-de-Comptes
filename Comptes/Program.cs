@@ -22,7 +22,7 @@ namespace Comptes.BoW
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmComptes());
+            Application.Run(new frmPrincipal());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

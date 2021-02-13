@@ -25,3 +25,26 @@ on demande le nom du fichier)
 -Quand on édite, on ne peut pas changer de control
 
 voir bug : sur une répart 100/0, changer la répart avec une valeur à 0 sur userB ne
+
+- Permettre une cloture de compte, qui enregistre les données dans un objet
+
+- MIEUX PASSER INFOS ENTRE DEUX FORMS
+
+- Corriger bug sur FenRepartition : crash si rien n'est entré (pb de parse)
+
+class save
+List<savedumois
+
+class savedumois
+static userA #doit être idem pour toutes les saves
+static userB 
+string codeMois #format MMAA
+List<Budgets> lesBudgets 
+
+Lors de l'enregistrement :
+if (ceMois.lesBudgets.Count == moisDernier.lesBudgets.Count)
+foreach budget in ceMois.lesBudgets
+if budget.nom != moisDernier.lesBudgets[...]
+afficher "Remplacer (nom mois dernier) / Garder (Ce mois) / 
+
+

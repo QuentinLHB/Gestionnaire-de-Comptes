@@ -10,12 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.InteropServices;
+using Comptes.Model; //A enlever 
+
 
 
 
 namespace Comptes
 {
-    public partial class frmComptes : Form
+    public partial class frmPrincipal : Form
     {
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -27,14 +29,11 @@ namespace Comptes
         [DllImportAttribute("user32.dll")]
         private static extern bool ReleaseCapture();
 
-
-
-        
         AppData data;
         AffichageData affichage;
 
 
-        public frmComptes()
+        public frmPrincipal()
         {
             InitializeComponent();
         }
@@ -49,14 +48,20 @@ namespace Comptes
 
         }
 
-        private void chargeRepartitions()
+        public void chargeRepartitions(ComboBox comboBox)
         {
             foreach (KeyValuePair<string, double> paire in data.dctRepartitions)
             {
-                cboRepartition.Items.Add(paire.Key);
+                comboBox.Items.Add(paire.Key);
             }
-            cboRepartition.SelectedIndex = 0;
+            comboBox.SelectedIndex = 0;
 
+        }
+
+        public void refreshCboRepartitions()
+        {
+            cboRepartition.Items.Clear();
+            chargeRepartitions(cboRepartition);
         }
 
         /// <summary>
@@ -78,7 +83,7 @@ namespace Comptes
                     txtUserB.Text = data.lesUsers[affichage.userB].nom;
                 }
 
-                chargeRepartitions();
+                chargeRepartitions(cboRepartition);
 
             }
 
@@ -88,7 +93,7 @@ namespace Comptes
 
                 data.lesUsers.Add(new User(affichage.nomUserA));
                 data.lesUsers.Add(new User(affichage.nomUserB));
-                chargeRepartitions();
+                chargeRepartitions(cboRepartition);
             }
 
             if (data.lesBudgets != null)
@@ -216,6 +221,13 @@ namespace Comptes
             }
         }
 
+        private void btnResetBudget_Click(object sender, EventArgs e)
+        {
+            data.lesBudgets.Clear();
+            lstBudgets.Items.Clear();
+            lstComptes.Items.Clear();
+        }
+
         // ____________________________ COMPTES ______________________________________
         /// <summary>
         /// Ajoute les dettes de chacune des personnes dans la liste des comptes.
@@ -288,16 +300,15 @@ namespace Comptes
         {
             if (e.KeyCode == Keys.Delete)
             {
-                videCompte();
+                videCompte(lstComptes.SelectedIndex);
                 updateTotaux();
                 updateResultat();
             }
         }
 
 
-        private void videCompte()
+        private void videCompte(int index)
         {
-            int index = lstComptes.SelectedIndex;
             GetCompteSelectionne().reset();
             lstComptes.Items[index] = data.lesBudgets[index].nom + " :";
         }
@@ -330,6 +341,17 @@ namespace Comptes
         private Compte GetCompteSelectionne()
         {
             return data.lesBudgets[lstComptes.SelectedIndex].compte;
+        }
+
+        private void btnResetComptes_Click(object sender, EventArgs e)
+        {
+            for (int k = 0; k < data.lesBudgets.Count; k++)
+            {
+                lstComptes.SelectedIndex = k;
+                videCompte(k);
+            }
+            updateTotaux();
+            updateResultat();
         }
 
         // ________________________________ TOTAUX DES DETTES __________________________________________
@@ -446,46 +468,19 @@ namespace Comptes
             }
         }
 
+
         // ________________________________________ AJOUT DE REPARTITIONS ___________________________________
-        /// <summary>
-        /// Ajoute la repartition entrée dans la textbox au combobox.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnOKRepartition_Click(object sender, EventArgs e)
+        private void menuAjouterRepartition_Click(object sender, EventArgs e)
         {
-            string cle = txtDividende.Text + " / " + txtDiviseur.Text;
-            data.dctRepartitions.Add(cle, double.Parse(txtDividende.Text) / 100);
-            cboRepartition.Items.Add(cle);
+            FrmRepartition frmRepartition = new FrmRepartition(data, this);
 
-            txtDividende.Text = "";
-            txtDiviseur.Text = "";
+            frmRepartition.ShowDialog();
+            //A terminer (ajout OU NON de répartition)
         }
 
-        /// <summary>
-        /// Vérifie le caractère tapé pour ne garder que les chiffres et back.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtDividende_KeyPress(object sender, KeyPressEventArgs e)
+        public void ajouterRepartition(string repartition)
         {
-            if (!char.IsNumber(e.KeyChar) && e.KeyChar != (char)Keys.Back)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtDividende_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                txtDiviseur.Text = (100 - int.Parse(txtDividende.Text)).ToString();
-            }
-
-            catch
-            {
-                txtDiviseur.Text = "";
-            }
+            cboRepartition.Items.Add(repartition);
         }
 
         // _____________________________ NAVIGATION _______________________________________
@@ -562,29 +557,23 @@ namespace Comptes
                     File.Delete(affichage.fichierData);
                 }
 
-            data.lesUsers[affichage.userA].nom = affichage.nomUserA;
-            data.lesUsers[affichage.userB].nom = affichage.nomUserB;
+                data.reinitialiseData();
+                refreshCboRepartitions();
 
-            foreach (User user in data.lesUsers)
-            {
-                user.dettes = 0;
-            }
-
-            data.lesBudgets.Clear();
-
-            foreach (Control control in this.Controls)
-            {
-                if (control is TextBox)
+                foreach (Control control in this.Controls)
                 {
-                    ((TextBox)control).Text = string.Empty;
+                    if (control is TextBox)
+                    {
+                        ((TextBox)control).Text = string.Empty;
+                    }
+
+                    lstBudgets.Items.Clear();
+                    lstComptes.Items.Clear();
                 }
 
-                lstBudgets.Items.Clear();
-                lstComptes.Items.Clear();
-            }
-
-            updateTotaux();
-            updateResultat();
+                updateTotaux();
+                updateResultat();
+                
 
             MessageBox.Show("L'application a été réinitialisée avec succès.", "Réinitialisation", MessageBoxButtons.OK);
         }
@@ -614,5 +603,12 @@ namespace Comptes
         {
             this.Close();
         }
+
+        private void btnCloture_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

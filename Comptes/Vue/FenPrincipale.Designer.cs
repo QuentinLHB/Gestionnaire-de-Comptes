@@ -1,6 +1,6 @@
 ﻿namespace Comptes
 {
-    partial class frmComptes
+    partial class frmPrincipal
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -31,6 +31,7 @@
             this.txtMontantUserA = new System.Windows.Forms.TextBox();
             this.txtNomBudget = new System.Windows.Forms.TextBox();
             this.gpbAjoutBudget = new System.Windows.Forms.GroupBox();
+            this.btnResetBudget = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnOKBudgets = new System.Windows.Forms.Button();
             this.lstBudgets = new System.Windows.Forms.ListBox();
@@ -41,6 +42,7 @@
             this.txtUserA = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.gpbComptes = new System.Windows.Forms.GroupBox();
+            this.btnResetComptes = new System.Windows.Forms.Button();
             this.txtMontantUserB = new System.Windows.Forms.TextBox();
             this.lblUserB = new System.Windows.Forms.Label();
             this.lblUserA = new System.Windows.Forms.Label();
@@ -48,23 +50,23 @@
             this.lstComptes = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.gpbTotal = new System.Windows.Forms.GroupBox();
+            this.btnCloture = new System.Windows.Forms.Button();
             this.lblResultat = new System.Windows.Forms.Label();
             this.lblTotalPersB = new System.Windows.Forms.Label();
             this.lblTotalPersA = new System.Windows.Forms.Label();
             this.lblNomTotalUserB = new System.Windows.Forms.Label();
             this.lblNomTotalUserA = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtDividende = new System.Windows.Forms.TextBox();
-            this.txtDiviseur = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnOKRepartition = new System.Windows.Forms.Button();
-            this.mainMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFichier = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSauvegarder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReinitialiser = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuRepartition = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAjouterRepartition = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreApp = new System.Windows.Forms.Label();
             this.btnQuitter = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboMois = new System.Windows.Forms.ComboBox();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
@@ -95,6 +97,7 @@
             // 
             // gpbAjoutBudget
             // 
+            this.gpbAjoutBudget.Controls.Add(this.btnResetBudget);
             this.gpbAjoutBudget.Controls.Add(this.btnEdit);
             this.gpbAjoutBudget.Controls.Add(this.btnOKBudgets);
             this.gpbAjoutBudget.Controls.Add(this.lstBudgets);
@@ -108,10 +111,24 @@
             this.gpbAjoutBudget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gpbAjoutBudget.Name = "gpbAjoutBudget";
             this.gpbAjoutBudget.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gpbAjoutBudget.Size = new System.Drawing.Size(350, 545);
+            this.gpbAjoutBudget.Size = new System.Drawing.Size(350, 574);
             this.gpbAjoutBudget.TabIndex = 5;
             this.gpbAjoutBudget.TabStop = false;
             this.gpbAjoutBudget.Text = "Ajouter un budget";
+            // 
+            // btnResetBudget
+            // 
+            this.btnResetBudget.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnResetBudget.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnResetBudget.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnResetBudget.Location = new System.Drawing.Point(255, 527);
+            this.btnResetBudget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnResetBudget.Name = "btnResetBudget";
+            this.btnResetBudget.Size = new System.Drawing.Size(81, 31);
+            this.btnResetBudget.TabIndex = 7;
+            this.btnResetBudget.Text = "Vider";
+            this.btnResetBudget.UseVisualStyleBackColor = false;
+            this.btnResetBudget.Click += new System.EventHandler(this.btnResetBudget_Click);
             // 
             // btnEdit
             // 
@@ -230,6 +247,7 @@
             // 
             // gpbComptes
             // 
+            this.gpbComptes.Controls.Add(this.btnResetComptes);
             this.gpbComptes.Controls.Add(this.txtMontantUserB);
             this.gpbComptes.Controls.Add(this.lblUserB);
             this.gpbComptes.Controls.Add(this.lblUserA);
@@ -242,10 +260,24 @@
             this.gpbComptes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gpbComptes.Name = "gpbComptes";
             this.gpbComptes.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gpbComptes.Size = new System.Drawing.Size(350, 545);
+            this.gpbComptes.Size = new System.Drawing.Size(350, 574);
             this.gpbComptes.TabIndex = 6;
             this.gpbComptes.TabStop = false;
             this.gpbComptes.Text = "Comptes du mois";
+            // 
+            // btnResetComptes
+            // 
+            this.btnResetComptes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnResetComptes.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnResetComptes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnResetComptes.Location = new System.Drawing.Point(255, 527);
+            this.btnResetComptes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnResetComptes.Name = "btnResetComptes";
+            this.btnResetComptes.Size = new System.Drawing.Size(81, 31);
+            this.btnResetComptes.TabIndex = 8;
+            this.btnResetComptes.Text = "Vider";
+            this.btnResetComptes.UseVisualStyleBackColor = false;
+            this.btnResetComptes.Click += new System.EventHandler(this.btnResetComptes_Click);
             // 
             // txtMontantUserB
             // 
@@ -326,6 +358,7 @@
             // 
             // gpbTotal
             // 
+            this.gpbTotal.Controls.Add(this.btnCloture);
             this.gpbTotal.Controls.Add(this.lblResultat);
             this.gpbTotal.Controls.Add(this.lblTotalPersB);
             this.gpbTotal.Controls.Add(this.lblTotalPersA);
@@ -337,10 +370,24 @@
             this.gpbTotal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gpbTotal.Name = "gpbTotal";
             this.gpbTotal.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gpbTotal.Size = new System.Drawing.Size(350, 545);
+            this.gpbTotal.Size = new System.Drawing.Size(350, 574);
             this.gpbTotal.TabIndex = 7;
             this.gpbTotal.TabStop = false;
             this.gpbTotal.Text = "Total";
+            // 
+            // btnCloture
+            // 
+            this.btnCloture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnCloture.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnCloture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnCloture.Location = new System.Drawing.Point(14, 523);
+            this.btnCloture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnCloture.Name = "btnCloture";
+            this.btnCloture.Size = new System.Drawing.Size(320, 31);
+            this.btnCloture.TabIndex = 8;
+            this.btnCloture.Text = "Clotûrer le mois";
+            this.btnCloture.UseVisualStyleBackColor = false;
+            this.btnCloture.Click += new System.EventHandler(this.btnCloture_Click);
             // 
             // lblResultat
             // 
@@ -395,75 +442,16 @@
             this.lblNomTotalUserA.TabIndex = 0;
             this.lblNomTotalUserA.Text = "Total  dettes personne A :";
             // 
-            // label5
+            // menuFichier
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.label5.Location = new System.Drawing.Point(744, 160);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(207, 21);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Ajouter une répartition :";
-            // 
-            // txtDividende
-            // 
-            this.txtDividende.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtDividende.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtDividende.Location = new System.Drawing.Point(958, 156);
-            this.txtDividende.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtDividende.Name = "txtDividende";
-            this.txtDividende.Size = new System.Drawing.Size(52, 28);
-            this.txtDividende.TabIndex = 9;
-            this.txtDividende.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDividende_KeyPress);
-            this.txtDividende.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDividende_KeyUp);
-            // 
-            // txtDiviseur
-            // 
-            this.txtDiviseur.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtDiviseur.Enabled = false;
-            this.txtDiviseur.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtDiviseur.Location = new System.Drawing.Point(1046, 156);
-            this.txtDiviseur.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtDiviseur.Name = "txtDiviseur";
-            this.txtDiviseur.Size = new System.Drawing.Size(52, 28);
-            this.txtDiviseur.TabIndex = 10;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(1018, 159);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(18, 26);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "/";
-            // 
-            // btnOKRepartition
-            // 
-            this.btnOKRepartition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.btnOKRepartition.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOKRepartition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.btnOKRepartition.Location = new System.Drawing.Point(1120, 156);
-            this.btnOKRepartition.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnOKRepartition.Name = "btnOKRepartition";
-            this.btnOKRepartition.Size = new System.Drawing.Size(44, 29);
-            this.btnOKRepartition.TabIndex = 12;
-            this.btnOKRepartition.Text = "OK";
-            this.btnOKRepartition.UseVisualStyleBackColor = false;
-            this.btnOKRepartition.Click += new System.EventHandler(this.btnOKRepartition_Click);
-            // 
-            // mainMenu
-            // 
-            this.mainMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(53)))), ((int)(((byte)(61)))));
-            this.mainMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuFichier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(53)))), ((int)(((byte)(61)))));
+            this.menuFichier.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuSauvegarder,
             this.menuReinitialiser});
-            this.mainMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(66, 24);
-            this.mainMenu.Text = "Fichier";
+            this.menuFichier.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.menuFichier.Name = "menuFichier";
+            this.menuFichier.Size = new System.Drawing.Size(66, 24);
+            this.menuFichier.Text = "Fichier";
             // 
             // menuSauvegarder
             // 
@@ -485,7 +473,8 @@
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainMenu});
+            this.menuFichier,
+            this.menuRepartition});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1250, 28);
@@ -493,6 +482,22 @@
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
             this.menuStrip1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseMove);
+            // 
+            // menuRepartition
+            // 
+            this.menuRepartition.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAjouterRepartition});
+            this.menuRepartition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.menuRepartition.Name = "menuRepartition";
+            this.menuRepartition.Size = new System.Drawing.Size(103, 24);
+            this.menuRepartition.Text = "Répartitions";
+            // 
+            // menuAjouterRepartition
+            // 
+            this.menuAjouterRepartition.Name = "menuAjouterRepartition";
+            this.menuAjouterRepartition.Size = new System.Drawing.Size(233, 26);
+            this.menuAjouterRepartition.Text = "Editer une répartition";
+            this.menuAjouterRepartition.Click += new System.EventHandler(this.menuAjouterRepartition_Click);
             // 
             // panel1
             // 
@@ -530,20 +535,54 @@
             this.btnQuitter.UseVisualStyleBackColor = false;
             this.btnQuitter.Click += new System.EventHandler(this.btnQuitter_Click);
             // 
-            // frmComptes
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.label5.Location = new System.Drawing.Point(526, 163);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(106, 21);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "du mois de ";
+            // 
+            // cboMois
+            // 
+            this.cboMois.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboMois.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMois.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboMois.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboMois.FormattingEnabled = true;
+            this.cboMois.Items.AddRange(new object[] {
+            "Janvier",
+            "Février",
+            "Mars",
+            "Avril",
+            "Mai",
+            "Juin",
+            "Juillet",
+            "Août",
+            "Septembre",
+            "Octobre",
+            "Novembre",
+            "Décembre"});
+            this.cboMois.Location = new System.Drawing.Point(655, 160);
+            this.cboMois.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboMois.Name = "cboMois";
+            this.cboMois.Size = new System.Drawing.Size(168, 29);
+            this.cboMois.TabIndex = 8;
+            // 
+            // frmPrincipal
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.ClientSize = new System.Drawing.Size(1250, 800);
+            this.ClientSize = new System.Drawing.Size(1250, 1000);
+            this.Controls.Add(this.cboMois);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnQuitter);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnOKRepartition);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtDiviseur);
-            this.Controls.Add(this.txtDividende);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.gpbTotal);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.gpbComptes);
@@ -557,7 +596,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "frmComptes";
+            this.Name = "frmPrincipal";
             this.Text = "Gestion des comptes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmComptes_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -601,19 +640,21 @@
         private System.Windows.Forms.Label lblTotalPersB;
         private System.Windows.Forms.Label lblTotalPersA;
         private System.Windows.Forms.Label lblResultat;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtDividende;
-        private System.Windows.Forms.TextBox txtDiviseur;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnOKRepartition;
         private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.ToolStripMenuItem mainMenu;
+        private System.Windows.Forms.ToolStripMenuItem menuFichier;
         private System.Windows.Forms.ToolStripMenuItem menuSauvegarder;
         private System.Windows.Forms.ToolStripMenuItem menuReinitialiser;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitreApp;
         private System.Windows.Forms.Button btnQuitter;
+        private System.Windows.Forms.Button btnResetBudget;
+        private System.Windows.Forms.Button btnResetComptes;
+        private System.Windows.Forms.Button btnCloture;
+        private System.Windows.Forms.ToolStripMenuItem menuRepartition;
+        private System.Windows.Forms.ToolStripMenuItem menuAjouterRepartition;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cboMois;
     }
 }
 

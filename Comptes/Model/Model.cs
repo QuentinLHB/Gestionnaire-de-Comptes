@@ -5,13 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Comptes.Controleur;
 
-namespace Comptes
+namespace Comptes.Model
 {
+    //public class Model
+    //{
+        
+    //    public Model()
+    //    {
+
+    //    }
 
 
     [SerializableAttribute]
-    class AppData
+    public class AppData
     {
         static AffichageData affichage = new AffichageData();
         public List<User> lesUsers { get; }
@@ -24,19 +32,44 @@ namespace Comptes
             lesUsers = new List<User>();
             lesBudgets = new List<Budget>();
             _dctRepartitions = new Dictionary<string, double>();
+            initialiseRepartitions();
+        }
+
+        public void reinitialiseData()
+        {
+            _dctRepartitions.Clear();
+            initialiseRepartitions();
+            lesUsers[affichage.userA].nom = affichage.nomUserA;
+            lesUsers[affichage.userB].nom = affichage.nomUserB;
+            lesBudgets.Clear();
+            foreach (User user in lesUsers)
+            {
+                user.dettes = 0;
+            }
+        }
+
+        private void initialiseRepartitions()
+        {
             foreach (KeyValuePair<string, double> paire in affichage.repartitionsInitiales)
             {
                 _dctRepartitions.Add(paire.Key, paire.Value);
             }
         }
+
         public Dictionary<string, double> dctRepartitions { get => _dctRepartitions; }
 
     }
 
-    /// <summary>
-    /// Stocke toutes les informations constantes d'affichage.
-    /// </summary>
-    class AffichageData
+        public class saveMois
+    {
+        static User _userA;
+        static User _userB;
+    }
+
+        /// <summary>
+        /// Stocke toutes les informations constantes d'affichage.
+        /// </summary>
+        public class AffichageData
     {
         private const String _fichierData = "appData";
         private const int _userA = 0; public const int _userB = 1;
@@ -45,6 +78,11 @@ namespace Comptes
         private Dictionary<string, double> _repartitionsInitiales = new Dictionary<string, double>();
 
         public AffichageData() {
+            initialiseRepartition();
+        }
+
+        public void initialiseRepartition()
+        {
             repartitionsInitiales.Add("50 / 50", 0.5);
             repartitionsInitiales.Add("60 / 40", 0.6);
             repartitionsInitiales.Add("70 / 30", 0.7);
@@ -63,7 +101,7 @@ namespace Comptes
     }
 
     [SerializableAttribute]
-    class Budget
+    public class Budget
     {
         private Compte _compte;
         private string _nom;
@@ -98,9 +136,9 @@ namespace Comptes
     }
 
     [SerializableAttribute]
-    class Compte 
+    public class Compte 
     {
-        static AffichageData affichage = new AffichageData();
+        //static AffichageData affichage = new AffichageData();
         private User _userA;
         private User _userB;
         private Budget _budget;
@@ -147,7 +185,7 @@ namespace Comptes
     }
 
     [SerializableAttribute]
-    class User
+    public class User
     {
         private string _nom;
         private double _dettes;
@@ -168,7 +206,7 @@ namespace Comptes
 
     }
 
-    abstract class Serialise
+    public abstract class Serialise
     {
         /// <summary>
         /// Sérialisation
@@ -226,6 +264,7 @@ namespace Comptes
             }
         }
     }
+    //}
 
 
 
