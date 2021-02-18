@@ -62,11 +62,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuRepartition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAjouterRepartition = new System.Windows.Forms.ToolStripMenuItem();
+            this.sauvegardesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSauvegardes = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreApp = new System.Windows.Forms.Label();
             this.btnQuitter = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cboMois = new System.Windows.Forms.ComboBox();
+            this.cboAnnee = new System.Windows.Forms.ComboBox();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
@@ -133,6 +136,7 @@
             // btnEdit
             // 
             this.btnEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.btnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.btnEdit.Location = new System.Drawing.Point(16, 195);
@@ -148,6 +152,7 @@
             // btnOKBudgets
             // 
             this.btnOKBudgets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnOKBudgets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOKBudgets.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.btnOKBudgets.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.btnOKBudgets.Location = new System.Drawing.Point(16, 195);
@@ -339,7 +344,7 @@
             this.lstComptes.Location = new System.Drawing.Point(16, 236);
             this.lstComptes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lstComptes.Name = "lstComptes";
-            this.lstComptes.Size = new System.Drawing.Size(320, 277);
+            this.lstComptes.Size = new System.Drawing.Size(316, 277);
             this.lstComptes.TabIndex = 7;
             this.lstComptes.SelectedIndexChanged += new System.EventHandler(this.lstComptes_SelectedIndexChanged);
             this.lstComptes.DoubleClick += new System.EventHandler(this.lstComptes_DoubleClick);
@@ -450,7 +455,7 @@
             this.menuReinitialiser});
             this.menuFichier.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuFichier.Name = "menuFichier";
-            this.menuFichier.Size = new System.Drawing.Size(66, 24);
+            this.menuFichier.Size = new System.Drawing.Size(66, 26);
             this.menuFichier.Text = "Fichier";
             // 
             // menuSauvegarder
@@ -474,7 +479,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFichier,
-            this.menuRepartition});
+            this.menuRepartition,
+            this.sauvegardesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1250, 28);
@@ -489,7 +495,7 @@
             this.menuAjouterRepartition});
             this.menuRepartition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuRepartition.Name = "menuRepartition";
-            this.menuRepartition.Size = new System.Drawing.Size(103, 24);
+            this.menuRepartition.Size = new System.Drawing.Size(103, 26);
             this.menuRepartition.Text = "Répartitions";
             // 
             // menuAjouterRepartition
@@ -498,6 +504,22 @@
             this.menuAjouterRepartition.Size = new System.Drawing.Size(233, 26);
             this.menuAjouterRepartition.Text = "Editer une répartition";
             this.menuAjouterRepartition.Click += new System.EventHandler(this.menuAjouterRepartition_Click);
+            // 
+            // sauvegardesToolStripMenuItem
+            // 
+            this.sauvegardesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuSauvegardes});
+            this.sauvegardesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.sauvegardesToolStripMenuItem.Name = "sauvegardesToolStripMenuItem";
+            this.sauvegardesToolStripMenuItem.Size = new System.Drawing.Size(107, 26);
+            this.sauvegardesToolStripMenuItem.Text = "Sauvegardes";
+            // 
+            // menuSauvegardes
+            // 
+            this.menuSauvegardes.Name = "menuSauvegardes";
+            this.menuSauvegardes.Size = new System.Drawing.Size(323, 26);
+            this.menuSauvegardes.Text = "Charger une sauvegarde mensuelle";
+            this.menuSauvegardes.Click += new System.EventHandler(this.menuSauvegardes_Click);
             // 
             // panel1
             // 
@@ -553,32 +575,34 @@
             this.cboMois.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboMois.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.cboMois.FormattingEnabled = true;
-            this.cboMois.Items.AddRange(new object[] {
-            "Janvier",
-            "Février",
-            "Mars",
-            "Avril",
-            "Mai",
-            "Juin",
-            "Juillet",
-            "Août",
-            "Septembre",
-            "Octobre",
-            "Novembre",
-            "Décembre"});
             this.cboMois.Location = new System.Drawing.Point(655, 160);
             this.cboMois.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboMois.Name = "cboMois";
             this.cboMois.Size = new System.Drawing.Size(168, 29);
             this.cboMois.TabIndex = 8;
             // 
+            // cboAnnee
+            // 
+            this.cboAnnee.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboAnnee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboAnnee.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboAnnee.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboAnnee.FormattingEnabled = true;
+            this.cboAnnee.Location = new System.Drawing.Point(831, 159);
+            this.cboAnnee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboAnnee.Name = "cboAnnee";
+            this.cboAnnee.Size = new System.Drawing.Size(85, 29);
+            this.cboAnnee.TabIndex = 18;
+            // 
             // frmPrincipal
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(1250, 1000);
+            this.Controls.Add(this.cboAnnee);
             this.Controls.Add(this.cboMois);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnQuitter);
@@ -596,6 +620,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximumSize = new System.Drawing.Size(1250, 1000);
             this.Name = "frmPrincipal";
             this.Text = "Gestion des comptes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmComptes_FormClosing);
@@ -655,6 +680,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuAjouterRepartition;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cboMois;
+        private System.Windows.Forms.ComboBox cboAnnee;
+        private System.Windows.Forms.ToolStripMenuItem sauvegardesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuSauvegardes;
     }
 }
 

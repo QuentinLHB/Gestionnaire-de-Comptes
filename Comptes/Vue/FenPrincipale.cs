@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.InteropServices;
 using Comptes.Model; //A enlever 
+using System.Globalization;
 
 
 
@@ -30,7 +31,7 @@ namespace Comptes
         private static extern bool ReleaseCapture();
 
         AppData data;
-        AffichageData affichage;
+        AffichageData constantes;
 
 
         public frmPrincipal()
@@ -40,11 +41,12 @@ namespace Comptes
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            affichage = new AffichageData();
+            constantes = new AffichageData();
+            chargeCboDates();
             chargeData();
             updateTotaux();
             updateResultat();
-            AccesGpbComptes();
+            accesAjoutCompte();
 
         }
 
@@ -55,6 +57,33 @@ namespace Comptes
                 comboBox.Items.Add(paire.Key);
             }
             comboBox.SelectedIndex = 0;
+        }
+
+        private void chargeCboDates()
+        {
+            DateTime date = DateTime.Now;
+            for (int annee=date.Year-1; annee < (date.Year + 2); annee++)
+            {
+                cboAnnee.Items.Add(annee);
+            }
+            cboAnnee.SelectedIndex = 1;
+
+            var DateTimeFormatInfo = CultureInfo.GetCultureInfo("fr-FR").DateTimeFormat;
+
+            for (int k = 1; k <= 12; k++)
+            {
+                cboMois.Items.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(k));
+            }
+            
+            if(date.Month != 1)
+            {
+                cboMois.SelectedIndex = date.Month - 2;
+            }
+            else
+            {
+                cboMois.SelectedIndex = constantes.DECEMBRE;
+            }
+            
 
         }
 
@@ -71,16 +100,16 @@ namespace Comptes
         private void chargeData()
         {
             
-            Object obj = Serialise.Recup(affichage.fichierData);
+            Object obj = Serialise.Recup(constantes.fichierData);
 
             if (obj != null)
             {
                 data = (AppData)obj;
 
-                if(data.lesUsers[affichage.userA].nom != affichage.nomUserA & data.lesUsers[affichage.userB].nom != affichage.nomUserB)
+                if(data.lesUsers[constantes.userA].nom != constantes.nomUserA & data.lesUsers[constantes.userB].nom != constantes.nomUserB)
                 {
-                    txtUserA.Text = data.lesUsers[affichage.userA].nom;
-                    txtUserB.Text = data.lesUsers[affichage.userB].nom;
+                    txtUserA.Text = data.lesUsers[constantes.userA].nom;
+                    txtUserB.Text = data.lesUsers[constantes.userB].nom;
                 }
 
                 chargeRepartitions(cboRepartition);
@@ -91,8 +120,8 @@ namespace Comptes
             {
                 data = new AppData();
 
-                data.lesUsers.Add(new User(affichage.nomUserA));
-                data.lesUsers.Add(new User(affichage.nomUserB));
+                data.lesUsers.Add(new User(constantes.nomUserA));
+                data.lesUsers.Add(new User(constantes.nomUserB));
                 chargeRepartitions(cboRepartition);
             }
 
@@ -116,7 +145,7 @@ namespace Comptes
             lstComptes.Items.Add(nouveauBudget.afficheNomBudget());
             lstComptes.SelectedIndex = 0;
             resetBudget();
-            AccesGpbComptes();
+            accesAjoutCompte();
         }
 
         /// <summary>
@@ -128,7 +157,7 @@ namespace Comptes
             Budget nouveauBudget = new Budget(
                 nom: txtNomBudget.Text,
                 repartition: data.dctRepartitions[cboRepartition.SelectedItem.ToString()],
-                data.lesUsers[affichage.userA], data.lesUsers[affichage.userB]);
+                data.lesUsers[constantes.userA].nom, data.lesUsers[constantes.userB].nom);
 
             data.lesBudgets.Add(nouveauBudget);
             lstBudgets.Items.Add(nouveauBudget);
@@ -212,7 +241,7 @@ namespace Comptes
                 lstBudgets.Items.RemoveAt(index);
                 lstComptes.Items.RemoveAt(index);
 
-                AccesGpbComptes();
+                accesAjoutCompte();
 
                 updateTotaux();
                 updateResultat();
@@ -273,8 +302,8 @@ namespace Comptes
         {
             try 
             { 
-            compte.depensesUserA = Eval(txtMontantUserA.Text);
-            compte.depensesUserB = Eval(txtMontantUserB.Text);
+            compte.userA.depenses = Eval(txtMontantUserA.Text);
+            compte.userB.depenses = Eval(txtMontantUserB.Text);
             }
 
             catch
@@ -316,15 +345,15 @@ namespace Comptes
         private void lstComptes_DoubleClick(object sender, EventArgs e)
         {
             Compte compte = GetCompteSelectionne();
-            txtMontantUserA.Text = compte.depensesUserA.ToString();
-            txtMontantUserB.Text = compte.depensesUserB.ToString();
+            txtMontantUserA.Text = compte.userA.depenses.ToString();
+            txtMontantUserB.Text = compte.userB.depenses.ToString();
             txtMontantUserA.Focus();
         }
 
         /// <summary>
         /// Si la liste des budgets est vide, désactive le bouton Valider de la zone comptes.
         /// </summary>
-        private void AccesGpbComptes()
+        private void accesAjoutCompte()
         {
             if (lstBudgets.Items.Count != 0)
             {
@@ -350,6 +379,7 @@ namespace Comptes
                 lstComptes.SelectedIndex = k;
                 videCompte(k);
             }
+            accesAjoutCompte();
             updateTotaux();
             updateResultat();
         }
@@ -366,14 +396,14 @@ namespace Comptes
             double totalDettesPersB = 0;
             foreach (Budget budget in data.lesBudgets)
             {
-                totalDettesPersA += budget.compte.depensesUserB * budget.repartition;
-                totalDettesPersB += budget.compte.depensesUserA * (1 - budget.repartition);
+                totalDettesPersA += budget.compte.userB.depenses * budget.repartition;
+                totalDettesPersB += budget.compte.userA.depenses * (1 - budget.repartition);
             }
 
-            data.lesUsers[affichage.userA].dettes = totalDettesPersA;
-            data.lesUsers[affichage.userB].dettes = totalDettesPersB;
-            lblTotalPersA.Text = data.lesUsers[affichage.userA].dettes.ToString();
-            lblTotalPersB.Text = data.lesUsers[affichage.userB].dettes.ToString();
+            data.lesUsers[constantes.userA].dettes = totalDettesPersA;
+            data.lesUsers[constantes.userB].dettes = totalDettesPersB;
+            lblTotalPersA.Text = data.lesUsers[constantes.userA].dettes.ToString();
+            lblTotalPersB.Text = data.lesUsers[constantes.userB].dettes.ToString();
 
         }
 
@@ -382,17 +412,17 @@ namespace Comptes
         /// </summary>
         private void updateResultat()
         {
-            double resultat = data.lesUsers[affichage.userA].dettes - data.lesUsers[affichage.userB].dettes;
+            double resultat = data.lesUsers[constantes.userA].dettes - data.lesUsers[constantes.userB].dettes;
 
 
             if (resultat > 0)
             {
-                affichageResultat(data.lesUsers[affichage.userA].nom, resultat);
+                affichageResultat(data.lesUsers[constantes.userA].nom, resultat);
             }
 
             else if (resultat < 0)
             {
-                affichageResultat(data.lesUsers[affichage.userB].nom, -resultat);
+                affichageResultat(data.lesUsers[constantes.userB].nom, -resultat);
             }
 
             else
@@ -413,12 +443,12 @@ namespace Comptes
 
         private void txtUserA_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[affichage.userA], txtUserA, lblUserA, lblNomTotalUserA, affichage.nomUserA);
+            updateNomPers(data.lesUsers[constantes.userA], txtUserA, lblUserA, lblNomTotalUserA, constantes.nomUserA);
         }
 
         private void txtUserB_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[affichage.userB], txtUserB, lblUserB, lblNomTotalUserB, affichage.nomUserB);
+            updateNomPers(data.lesUsers[constantes.userB], txtUserB, lblUserB, lblNomTotalUserB, constantes.nomUserB);
         }
 
         /// <summary>
@@ -538,7 +568,7 @@ namespace Comptes
         {
             try
             {
-                Serialise.Sauve(affichage.fichierData, data);
+                Serialise.Sauve(constantes.fichierData, data);
             }
             catch
             {
@@ -552,9 +582,9 @@ namespace Comptes
 
             if (MessageBox.Show("Toutes les données seront effacées. Confirmer ?", "Réinitialisation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (File.Exists(affichage.fichierData))
+                if (File.Exists(constantes.fichierData))
                 {
-                    File.Delete(affichage.fichierData);
+                    File.Delete(constantes.fichierData);
                 }
 
                 data.reinitialiseData();
@@ -606,9 +636,30 @@ namespace Comptes
 
         private void btnCloture_Click(object sender, EventArgs e)
         {
+            List<SaveMois> lesSaves = (List<SaveMois>) Serialise.Recup(constantes.fichierSaveMois);
+            if (lesSaves == null)
+            {
+                lesSaves = new List<SaveMois>();
+            }
+            if ((MessageBox.Show("Valider le mois ? Aucune modification ne pourra êttre appotée", "Cloturer le mois", MessageBoxButtons.YesNo) == DialogResult.Yes))
+            {                
+                SaveMois saveMois = new SaveMois(
+                    mois: cboMois.SelectedItem.ToString(),
+                    annee: cboAnnee.SelectedItem.ToString(),
+                    lesBudgets: data.lesBudgets,
+                    lesUsers: data.lesUsers);
 
+                lesSaves.Add(saveMois);
+
+                Serialise.Sauve(constantes.fichierSaveMois, lesSaves);
+            }
         }
 
+        private void menuSauvegardes_Click(object sender, EventArgs e)
+        {
+            List<SaveMois> lesSaves = (List<SaveMois>)Serialise.Recup(constantes.fichierSaveMois);
 
+            FenSauvegardes fenSauvegardes = new FenSauvegardes(lesSaves[0]); // TODO A changer, c'est pour le test
+        }
     }
 }

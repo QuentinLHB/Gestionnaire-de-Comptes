@@ -24,7 +24,7 @@ namespace Comptes.Model
         static AffichageData affichage = new AffichageData();
         public List<User> lesUsers { get; }
         public List<Budget> lesBudgets { get; }
-
+        private string _mois;
         private Dictionary<string, double> _dctRepartitions;
 
         public AppData()
@@ -57,13 +57,30 @@ namespace Comptes.Model
         }
 
         public Dictionary<string, double> dctRepartitions { get => _dctRepartitions; }
+        public string mois { get => _mois; set => _mois = value; }
 
     }
 
-        public class saveMois
+    [SerializableAttribute]
+    public class SaveMois
     {
-        static User _userA;
-        static User _userB;
+        private List<User> _lesUsers;
+        private List<Budget> _lesBudgets;
+       // private string _mois;
+        private string _tag;
+
+        //public string mois { get => _mois; set => _mois = value; }
+        public List<User> lesUsers { get => _lesUsers; set => _lesUsers = value; }
+        public List<Budget> lesBudgets { get => _lesBudgets; set => _lesBudgets = value; }
+
+        public SaveMois(string mois, string annee, List<Budget> lesBudgets, List<User> lesUsers)
+        {
+            _tag = mois + annee;
+            _lesBudgets = lesBudgets;
+            _lesUsers = lesUsers;
+        }
+
+        public string tag { get => _tag; }
     }
 
         /// <summary>
@@ -71,6 +88,8 @@ namespace Comptes.Model
         /// </summary>
         public class AffichageData
     {
+        private const int _DECEMBRE = 11;
+        private const String _fichierSaveMois = "SauvegardesMensuelles";
         private const String _fichierData = "appData";
         private const int _userA = 0; public const int _userB = 1;
         private const string _nomUserA = "personne A";
@@ -93,11 +112,13 @@ namespace Comptes.Model
             return _fichierData;
         }
         public String fichierData { get => _fichierData; }
+        public String fichierSaveMois { get => _fichierSaveMois; }
         public int userA { get => _userA; }
         public int userB { get => _userB; }
         public string nomUserA { get => _nomUserA; }
         public string nomUserB { get => _nomUserB; }
         public Dictionary<string, double> repartitionsInitiales { get => _repartitionsInitiales; }
+        public int DECEMBRE { get => _DECEMBRE; }
     }
 
     [SerializableAttribute]
@@ -107,11 +128,11 @@ namespace Comptes.Model
         private string _nom;
         private double _repartition;
 
-        public Budget(string nom, double repartition, User userA, User userB)
+        public Budget(string nom, double repartition, string nomUserA, string nomUserB)
         {
             this.nom = nom;
             this.repartition = repartition;
-            _compte = new Compte(this, userA, userB);
+            _compte = new Compte(this, nomUserA, nomUserB);
         }
 
         public Compte compte { 
@@ -142,30 +163,30 @@ namespace Comptes.Model
         private User _userA;
         private User _userB;
         private Budget _budget;
-        private double _depensesUserA;
-        private double _depensesUserB;
+        //private double _depensesUserA;
+        //private double _depensesUserB;
 
 
-        public Compte(Budget budget, User userA, User userB)
+        public Compte(Budget budget, string nomUserA, string nomUserB)
         {
             this._budget = budget;
-            this._userA = userA;
-            this._userB = userB;
+            this._userA = new User(nomUserA);
+            this._userB = new User(nomUserB);
         }
         public User userA { get => _userA; }
         public User userB { get => _userB; }
 
         public Budget budget { get => _budget; }
 
-        public double depensesUserA { get => _depensesUserA; set => _depensesUserA = value; }
+        //public double depensesUserA { get => _depensesUserA; set => _depensesUserA = value; }
 
-        public double depensesUserB { get => _depensesUserB; set => _depensesUserB = value; }
+        //public double depensesUserB { get => _depensesUserB; set => _depensesUserB = value; }
 
         public override string ToString()
         {
-            if (this.depensesUserA != 0 || this.depensesUserB != 0)
+            if (this.userA.depenses != 0 || this.userB.depenses != 0)
             {
-                return ($"{_budget.nom} : [{_userA.nom} {_depensesUserA}] [{_userB.nom} {_depensesUserB}]");
+                return ($"{_budget.nom} : [{_userA.nom} {_userA.depenses}] [{_userB.nom} {_userB.depenses}]");
             }
 
             else
@@ -177,8 +198,8 @@ namespace Comptes.Model
 
         public void reset()
         {
-            depensesUserA = 0;
-            depensesUserB = 0;
+            _userA.depenses = 0;
+            _userB.depenses= 0;
         }
 
 
@@ -189,8 +210,11 @@ namespace Comptes.Model
     {
         private string _nom;
         private double _dettes;
+        private double _depenses;
 
         public string nom { get => _nom; set => _nom = value; }
+
+        public double depenses { get => _depenses; set => _depenses = value; }
 
         public double dettes { get => _dettes; set => _dettes = value; }
 
@@ -202,6 +226,27 @@ namespace Comptes.Model
         public User(string nom = "")
         {
             this.nom = nom;
+        }
+
+    }
+
+    public class DataTableauMensuel
+    {
+        public string nomCompte { get; set; }
+        public string nomUserA { get; set; }
+        public string nomUserB { get; set; }
+        public double depensesA { get; set; }
+        public double depensesB { get; set; }
+        public double total { get; set; }
+
+        public DataTableauMensuel(string nomCompte, string nomUserA, double depensesA,  string nomUserB, double depensesB)
+        {
+            this.nomCompte = nomCompte;
+            this.depensesA = depensesA;
+            this.depensesB = depensesB;
+            this.total = depensesA + depensesB;
+            this.nomUserA = nomUserA;
+            this.nomUserB = nomUserB;
         }
 
     }

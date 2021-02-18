@@ -32,19 +32,22 @@ voir bug : sur une répart 100/0, changer la répart avec une valeur à 0 sur us
 
 - Corriger bug sur FenRepartition : crash si rien n'est entré (pb de parse)
 
-class save
-List<savedumois
+-Remplir le cbo mois avec des datetime automatiquement (++)
 
-class savedumois
-static userA #doit être idem pour toutes les saves
-static userB 
-string codeMois #format MMAA
-List<Budgets> lesBudgets 
+- Construire la save mensuelle, avec les Budgets etc
+Le bouton Cloture fait la save mensuelle après un msg de confirmation
 
-Lors de l'enregistrement :
-if (ceMois.lesBudgets.Count == moisDernier.lesBudgets.Count)
-foreach budget in ceMois.lesBudgets
-if budget.nom != moisDernier.lesBudgets[...]
-afficher "Remplacer (nom mois dernier) / Garder (Ce mois) / 
+- initialisation du la cbo mois
+
+- Si un tag identique est trouvé parmis les saves, l'écraser
+
+- Permettre l'analyse :
+ex : une save avec A B C trois noms de budgets
+une deuxième save avec A B D trois noms de budgets
+List<> list
+# Une boucle vérifie si A est identique à un des items de la liste, si non en fin de boucle :
+# Ajout de A à la liste
+# boucle qui réitère pour les items de chaque save
+# On a une liste avec ABCD
 
 
