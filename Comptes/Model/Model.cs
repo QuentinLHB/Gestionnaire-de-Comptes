@@ -62,25 +62,29 @@ namespace Comptes.Model
     }
 
     [SerializableAttribute]
-    public class SaveMois
+    public class SaveMensuelle
     {
         private List<User> _lesUsers;
         private List<Budget> _lesBudgets;
-       // private string _mois;
-        private string _tag;
+
+        private string _mois;
+        private string _annee;
 
         //public string mois { get => _mois; set => _mois = value; }
         public List<User> lesUsers { get => _lesUsers; set => _lesUsers = value; }
         public List<Budget> lesBudgets { get => _lesBudgets; set => _lesBudgets = value; }
 
-        public SaveMois(string mois, string annee, List<Budget> lesBudgets, List<User> lesUsers)
+        public SaveMensuelle(string mois, string annee, List<Budget> lesBudgets, List<User> lesUsers)
         {
-            _tag = mois + annee;
+            _mois = mois;
+            _annee = annee;
             _lesBudgets = lesBudgets;
             _lesUsers = lesUsers;
         }
 
-        public string tag { get => _tag; }
+        public string annee { get => _annee; }
+        public string mois { get => _mois; }
+        //public string tag { get => _tag; }
     }
 
         /// <summary>
@@ -88,6 +92,7 @@ namespace Comptes.Model
         /// </summary>
         public class AffichageData
     {
+        //public const string BUDGET = "Budget";
         private const int _DECEMBRE = 11;
         private const String _fichierSaveMois = "SauvegardesMensuelles";
         private const String _fichierData = "appData";
@@ -159,12 +164,9 @@ namespace Comptes.Model
     [SerializableAttribute]
     public class Compte 
     {
-        //static AffichageData affichage = new AffichageData();
         private User _userA;
         private User _userB;
         private Budget _budget;
-        //private double _depensesUserA;
-        //private double _depensesUserB;
 
 
         public Compte(Budget budget, string nomUserA, string nomUserB)
@@ -177,10 +179,6 @@ namespace Comptes.Model
         public User userB { get => _userB; }
 
         public Budget budget { get => _budget; }
-
-        //public double depensesUserA { get => _depensesUserA; set => _depensesUserA = value; }
-
-        //public double depensesUserB { get => _depensesUserB; set => _depensesUserB = value; }
 
         public override string ToString()
         {

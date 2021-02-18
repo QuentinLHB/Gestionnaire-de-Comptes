@@ -558,12 +558,16 @@ namespace Comptes
         }
 
 
+        // _____________________ MENU _______________________________________
 
         private void menuSauvegarder_Click(object sender, EventArgs e)
         {
             sauvegarderData();
         }
 
+        /// <summary>
+        /// Sauvegarde les données affichées par sérialisation.
+        /// </summary>
         private void sauvegarderData()
         {
             try
@@ -577,37 +581,50 @@ namespace Comptes
         }
 
 
+        /// <summary>
+        /// Reinitialise les données de l'application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void menuReinitialiser_Click(object sender, EventArgs e)
         {
-
             if (MessageBox.Show("Toutes les données seront effacées. Confirmer ?", "Réinitialisation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (File.Exists(constantes.fichierData))
+                if (File.Exists(constantes.fichierSaveMois))
                 {
-                    File.Delete(constantes.fichierData);
+                    File.Delete(constantes.fichierSaveMois);
                 }
+                reinitialiserAffichage();
 
-                data.reinitialiseData();
-                refreshCboRepartitions();
-
-                foreach (Control control in this.Controls)
-                {
-                    if (control is TextBox)
-                    {
-                        ((TextBox)control).Text = string.Empty;
-                    }
-
-                    lstBudgets.Items.Clear();
-                    lstComptes.Items.Clear();
-                }
-
-                updateTotaux();
-                updateResultat();
-                
-
-            MessageBox.Show("L'application a été réinitialisée avec succès.", "Réinitialisation", MessageBoxButtons.OK);
+                MessageBox.Show("L'application a été réinitialisée avec succès.", "Réinitialisation", MessageBoxButtons.OK);
+            }
+            
         }
 
+        /// <summary>
+        /// Reinitialise le fichier data et les contrôles de l'application.
+        /// </summary>
+        private void reinitialiserAffichage()
+        {
+            if (File.Exists(constantes.fichierData))
+            {
+                File.Delete(constantes.fichierData);
+            }
+
+            data.reinitialiseData();
+            refreshCboRepartitions();
+
+            foreach (Control control in this.Controls)
+            {
+                if (control is TextBox)
+                {
+                    ((TextBox)control).Text = string.Empty;
+                }
+            }
+            lstBudgets.Items.Clear();
+            lstComptes.Items.Clear();
+            updateTotaux();
+            updateResultat();
         }
 
         /// <summary>
@@ -634,32 +651,50 @@ namespace Comptes
             this.Close();
         }
 
+        /// <summary>
+        /// Ajoute au fichier correspondant une sauvegarde des données entrées dans l'application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCloture_Click(object sender, EventArgs e)
         {
-            List<SaveMois> lesSaves = (List<SaveMois>) Serialise.Recup(constantes.fichierSaveMois);
-            if (lesSaves == null)
-            {
-                lesSaves = new List<SaveMois>();
-            }
             if ((MessageBox.Show("Valider le mois ? Aucune modification ne pourra êttre appotée", "Cloturer le mois", MessageBoxButtons.YesNo) == DialogResult.Yes))
-            {                
-                SaveMois saveMois = new SaveMois(
+            {
+                List<SaveMensuelle> lesSaves = (List<SaveMensuelle>)Serialise.Recup(constantes.fichierSaveMois);
+                if (lesSaves == null)
+                {
+                    lesSaves = new List<SaveMensuelle>();
+                }
+                SaveMensuelle saveMois = new SaveMensuelle(
                     mois: cboMois.SelectedItem.ToString(),
                     annee: cboAnnee.SelectedItem.ToString(),
                     lesBudgets: data.lesBudgets,
                     lesUsers: data.lesUsers);
-
+                
                 lesSaves.Add(saveMois);
-
                 Serialise.Sauve(constantes.fichierSaveMois, lesSaves);
+
+                btnResetComptes_Click(null, null);
             }
         }
 
         private void menuSauvegardes_Click(object sender, EventArgs e)
         {
-            List<SaveMois> lesSaves = (List<SaveMois>)Serialise.Recup(constantes.fichierSaveMois);
+            List<SaveMensuelle> lesSaves = (List<SaveMensuelle>)Serialise.Recup(constantes.fichierSaveMois);
 
-            FenSauvegardes fenSauvegardes = new FenSauvegardes(lesSaves[0]); // TODO A changer, c'est pour le test
+            if (lesSaves != null)
+            {
+                FenSauvegardes fenSauvegardes = new FenSauvegardes(lesSaves);
+            }
+            else
+            {
+                MessageBox.Show("Aucune sauvegarde enregistrée.", "Action impossible", MessageBoxButtons.OK);
+            }
+        }
+
+        private void menuResetAffichage_Click(object sender, EventArgs e)
+        {
+            reinitialiserAffichage();
         }
     }
 }

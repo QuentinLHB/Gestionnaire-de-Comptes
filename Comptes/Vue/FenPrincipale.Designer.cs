@@ -70,6 +70,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cboMois = new System.Windows.Forms.ComboBox();
             this.cboAnnee = new System.Windows.Forms.ComboBox();
+            this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuResetAffichage = new System.Windows.Forms.ToolStripMenuItem();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
@@ -455,7 +457,7 @@
             this.menuReinitialiser});
             this.menuFichier.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuFichier.Name = "menuFichier";
-            this.menuFichier.Size = new System.Drawing.Size(66, 26);
+            this.menuFichier.Size = new System.Drawing.Size(66, 24);
             this.menuFichier.Text = "Fichier";
             // 
             // menuSauvegarder
@@ -479,6 +481,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFichier,
+            this.affichageToolStripMenuItem,
             this.menuRepartition,
             this.sauvegardesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -495,7 +498,7 @@
             this.menuAjouterRepartition});
             this.menuRepartition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuRepartition.Name = "menuRepartition";
-            this.menuRepartition.Size = new System.Drawing.Size(103, 26);
+            this.menuRepartition.Size = new System.Drawing.Size(103, 24);
             this.menuRepartition.Text = "Répartitions";
             // 
             // menuAjouterRepartition
@@ -511,7 +514,7 @@
             this.menuSauvegardes});
             this.sauvegardesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.sauvegardesToolStripMenuItem.Name = "sauvegardesToolStripMenuItem";
-            this.sauvegardesToolStripMenuItem.Size = new System.Drawing.Size(107, 26);
+            this.sauvegardesToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
             this.sauvegardesToolStripMenuItem.Text = "Sauvegardes";
             // 
             // menuSauvegardes
@@ -594,6 +597,21 @@
             this.cboAnnee.Size = new System.Drawing.Size(85, 29);
             this.cboAnnee.TabIndex = 18;
             // 
+            // affichageToolStripMenuItem
+            // 
+            this.affichageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuResetAffichage});
+            this.affichageToolStripMenuItem.Name = "affichageToolStripMenuItem";
+            this.affichageToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.affichageToolStripMenuItem.Text = "Affichage";
+            // 
+            // menuResetAffichage
+            // 
+            this.menuResetAffichage.Name = "menuResetAffichage";
+            this.menuResetAffichage.Size = new System.Drawing.Size(242, 26);
+            this.menuResetAffichage.Text = "Réinitialiser l\'affichage";
+            this.menuResetAffichage.Click += new System.EventHandler(this.menuResetAffichage_Click);
+            // 
             // frmPrincipal
             // 
             this.AllowDrop = true;
@@ -601,7 +619,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.ClientSize = new System.Drawing.Size(1250, 1000);
+            this.ClientSize = new System.Drawing.Size(1250, 850);
             this.Controls.Add(this.cboAnnee);
             this.Controls.Add(this.cboMois);
             this.Controls.Add(this.label5);
@@ -683,6 +701,8 @@
         private System.Windows.Forms.ComboBox cboAnnee;
         private System.Windows.Forms.ToolStripMenuItem sauvegardesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuSauvegardes;
+        private System.Windows.Forms.ToolStripMenuItem affichageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuResetAffichage;
     }
 }
 
