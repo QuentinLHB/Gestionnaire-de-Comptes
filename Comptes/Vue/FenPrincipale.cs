@@ -14,8 +14,6 @@ using Comptes.Model; //A enlever
 using System.Globalization;
 
 
-
-
 namespace Comptes
 {
     public partial class frmPrincipal : Form
@@ -31,8 +29,6 @@ namespace Comptes
         private static extern bool ReleaseCapture();
 
         AppData data;
-        AffichageData constantes;
-
 
         public frmPrincipal()
         {
@@ -41,12 +37,16 @@ namespace Comptes
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            constantes = new AffichageData();
+            Constantes.initialiseRepartition();
             chargeCboDates();
             chargeData();
             updateTotaux();
             updateResultat();
             accesAjoutCompte();
+            lblUserA.Text = Constantes.NOM_DEFAUT_USER_A + ":";
+            lblUserB.Text = Constantes.NOM_DEFAUT_USER_B + ":";
+            lblNomTotalUserA.Text = $"Total dettes {Constantes.NOM_DEFAUT_USER_A} :";
+            lblNomTotalUserB.Text = $"Total dettes {Constantes.NOM_DEFAUT_USER_B} :";
 
         }
 
@@ -81,7 +81,7 @@ namespace Comptes
             }
             else
             {
-                cboMois.SelectedIndex = constantes.DECEMBRE;
+                cboMois.SelectedIndex = Constantes.DECEMBRE;
             }
             
 
@@ -100,16 +100,16 @@ namespace Comptes
         private void chargeData()
         {
             
-            Object obj = Serialise.Recup(constantes.fichierData);
+            Object obj = Serialise.Recup(Constantes.FICHIER_DATA);
 
             if (obj != null)
             {
                 data = (AppData)obj;
 
-                if(data.lesUsers[constantes.userA].nom != constantes.nomUserA & data.lesUsers[constantes.userB].nom != constantes.nomUserB)
+                if(data.lesUsers[Constantes.USER_A].nom != Constantes.NOM_DEFAUT_USER_A & data.lesUsers[Constantes.USER_B].nom != Constantes.NOM_DEFAUT_USER_B)
                 {
-                    txtUserA.Text = data.lesUsers[constantes.userA].nom;
-                    txtUserB.Text = data.lesUsers[constantes.userB].nom;
+                    txtUserA.Text = data.lesUsers[Constantes.USER_A].nom;
+                    txtUserB.Text = data.lesUsers[Constantes.USER_B].nom;
                 }
 
                 chargeRepartitions(cboRepartition);
@@ -120,8 +120,8 @@ namespace Comptes
             {
                 data = new AppData();
 
-                data.lesUsers.Add(new User(constantes.nomUserA));
-                data.lesUsers.Add(new User(constantes.nomUserB));
+                data.lesUsers.Add(new User(Constantes.NOM_DEFAUT_USER_A));
+                data.lesUsers.Add(new User(Constantes.NOM_DEFAUT_USER_B));
                 chargeRepartitions(cboRepartition);
             }
 
@@ -135,7 +135,6 @@ namespace Comptes
             }
 
         }
-
 
         // ______________________________ BUDGETS ____________________________________
 
@@ -157,15 +156,13 @@ namespace Comptes
             Budget nouveauBudget = new Budget(
                 nom: txtNomBudget.Text,
                 repartition: data.dctRepartitions[cboRepartition.SelectedItem.ToString()],
-                data.lesUsers[constantes.userA].nom, data.lesUsers[constantes.userB].nom);
+                data.lesUsers[Constantes.USER_A].nom, data.lesUsers[Constantes.USER_B].nom);
 
             data.lesBudgets.Add(nouveauBudget);
             lstBudgets.Items.Add(nouveauBudget);
 
             return nouveauBudget;
         }
-
-
 
         /// <summary>
         /// Réinitialise la cellule et le focus après la validation d'un bouton.
@@ -217,8 +214,6 @@ namespace Comptes
             resetBudget();
         }
 
-
-
         private void lstBudgets_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -232,7 +227,7 @@ namespace Comptes
         /// </summary>
         private void supprimerBudget()
         {
-            if (MessageBox.Show("Voulez-vous vraiment supprimer le budget et son contenu ?", "Suppression", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(Constantes.MSG_SUPPRBUDGET, Constantes.MSG_TITRE_SUPPRBUDGET, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 int index = lstBudgets.SelectedIndex;
 
@@ -258,6 +253,7 @@ namespace Comptes
         }
 
         // ____________________________ COMPTES ______________________________________
+
         /// <summary>
         /// Ajoute les dettes de chacune des personnes dans la liste des comptes.
         /// </summary>
@@ -308,7 +304,7 @@ namespace Comptes
 
             catch
             {
-                MessageBox.Show("Ne saisir que des nombres ou des calculs.", "Erreur", MessageBoxButtons.OK);
+                MessageBox.Show(Constantes.MSG_ERR_SAISIE,Constantes.MSG_TITRE_ERR_SAISIE, MessageBoxButtons.OK);
             }
 
             updateAffichageComptes(compte);
@@ -335,7 +331,10 @@ namespace Comptes
             }
         }
 
-
+        /// <summary>
+        /// Réinitialise l'affichage par défaut d'un item spécifié de la liste des comptes.
+        /// </summary>
+        /// <param name="index">Index de la liste des comptes.</param>
         private void videCompte(int index)
         {
             GetCompteSelectionne().reset();
@@ -400,10 +399,10 @@ namespace Comptes
                 totalDettesPersB += budget.compte.userA.depenses * (1 - budget.repartition);
             }
 
-            data.lesUsers[constantes.userA].dettes = totalDettesPersA;
-            data.lesUsers[constantes.userB].dettes = totalDettesPersB;
-            lblTotalPersA.Text = data.lesUsers[constantes.userA].dettes.ToString();
-            lblTotalPersB.Text = data.lesUsers[constantes.userB].dettes.ToString();
+            data.lesUsers[Constantes.USER_A].dettes = totalDettesPersA;
+            data.lesUsers[Constantes.USER_B].dettes = totalDettesPersB;
+            lblTotalPersA.Text = data.lesUsers[Constantes.USER_A].dettes.ToString();
+            lblTotalPersB.Text = data.lesUsers[Constantes.USER_B].dettes.ToString();
 
         }
 
@@ -412,43 +411,76 @@ namespace Comptes
         /// </summary>
         private void updateResultat()
         {
-            double resultat = data.lesUsers[constantes.userA].dettes - data.lesUsers[constantes.userB].dettes;
+            double resultat = data.lesUsers[Constantes.USER_A].dettes - data.lesUsers[Constantes.USER_B].dettes;
 
 
             if (resultat > 0)
             {
-                affichageResultat(data.lesUsers[constantes.userA].nom, resultat);
+                affichageResultat(data.lesUsers[Constantes.USER_A].nom, resultat);
             }
 
             else if (resultat < 0)
             {
-                affichageResultat(data.lesUsers[constantes.userB].nom, -resultat);
+                affichageResultat(data.lesUsers[Constantes.USER_B].nom, -resultat);
             }
 
             else
             {
-                lblResultat.Text = "Résultat équilibré.";
+                lblResultat.Text = Constantes.EQUILIBRE;
             }
         }
-
-
 
         private void affichageResultat(string nom, double resultat)
         {
             lblResultat.Text = ($"{nom} doit {resultat}.");
         }
 
+        /// <summary>
+        /// Ajoute au fichier correspondant une sauvegarde des données entrées dans l'application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCloture_Click(object sender, EventArgs e)
+        {
+            if (data.lesBudgets.Count != 0)
+            {
+                if ((MessageBox.Show(Constantes.MSG_VALIDATIONSAUVEGARDEMENSUELLE, Constantes.MSG_TITRE_VALIDATIONSAUVEGARDEMENSUELLE, MessageBoxButtons.YesNo) == DialogResult.Yes))
+                {
+                    List<SaveMensuelle> lesSaves = (List<SaveMensuelle>)Serialise.Recup(Constantes.FICHIER_SAVEMENSUELLE);
+                    if (lesSaves == null)
+                    {
+                        lesSaves = new List<SaveMensuelle>();
+                    }
+                    SaveMensuelle saveMois = new SaveMensuelle(
+                        mois: cboMois.SelectedItem.ToString(),
+                        annee: cboAnnee.SelectedItem.ToString(),
+                        lesBudgets: data.lesBudgets,
+                        lesUsers: data.lesUsers);
+
+                    lesSaves.Add(saveMois);
+                    Serialise.Sauve(Constantes.FICHIER_SAVEMENSUELLE, lesSaves);
+
+                    btnResetComptes_Click(null, null);
+                }
+            }
+
+            else
+            {
+                MessageBox.Show(Constantes.MSG_ERR_CLOTURE, Constantes.ERREUR, MessageBoxButtons.OK);
+            }
+
+        }
 
         // ___________________________ GESTION DES UTILISATEURS __________________________
 
         private void txtUserA_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[constantes.userA], txtUserA, lblUserA, lblNomTotalUserA, constantes.nomUserA);
+            updateNomPers(data.lesUsers[Constantes.USER_A], txtUserA, lblUserA, lblNomTotalUserA, Constantes.NOM_DEFAUT_USER_A);
         }
 
         private void txtUserB_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[constantes.userB], txtUserB, lblUserB, lblNomTotalUserB, constantes.nomUserB);
+            updateNomPers(data.lesUsers[Constantes.USER_B], txtUserB, lblUserB, lblNomTotalUserB, Constantes.NOM_DEFAUT_USER_B);
         }
 
         /// <summary>
@@ -498,8 +530,8 @@ namespace Comptes
             }
         }
 
-
         // ________________________________________ AJOUT DE REPARTITIONS ___________________________________
+
         private void menuAjouterRepartition_Click(object sender, EventArgs e)
         {
             FrmRepartition frmRepartition = new FrmRepartition(data, this);
@@ -511,6 +543,106 @@ namespace Comptes
         public void ajouterRepartition(string repartition)
         {
             cboRepartition.Items.Add(repartition);
+        }
+
+        // _____________________ MENU _______________________________________
+
+        private void menuSauvegarder_Click(object sender, EventArgs e)
+        {
+            sauvegarderData();
+        }
+
+        /// <summary>
+        /// Sauvegarde les données affichées par sérialisation.
+        /// </summary>
+        private void sauvegarderData()
+        {
+            try
+            {
+                Serialise.Sauve(Constantes.FICHIER_DATA, data);
+            }
+            catch
+            {
+                MessageBox.Show(Constantes.MSG_ERR_SAUVEGARDE, Constantes.MSG_TITRE_ERR_SAUVEGARDE, MessageBoxButtons.OK);
+            }
+        }
+
+
+        /// <summary>
+        /// Reinitialise les données de l'application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuReinitialiser_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Constantes.MSG_REINITIALISER, Constantes.MSG_TITRE_REINITIALISER, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (File.Exists(Constantes.FICHIER_SAVEMENSUELLE))
+                {
+                    File.Delete(Constantes.FICHIER_SAVEMENSUELLE);
+                }
+                reinitialiserAffichage();
+
+                MessageBox.Show(Constantes.MSG_REINITIALISATIONOK, Constantes.MSG_TITRE_REINITIALISER, MessageBoxButtons.OK);
+            }
+            
+        }
+
+        /// <summary>
+        /// Reinitialise le fichier data et les contrôles de l'application.
+        /// </summary>
+        private void reinitialiserAffichage()
+        {
+            if (File.Exists(Constantes.FICHIER_DATA))
+            {
+                File.Delete(Constantes.FICHIER_DATA);
+            }
+
+            data.reinitialiseData();
+            refreshCboRepartitions();
+
+            foreach (Control control in this.Controls)
+            {
+                if (control is TextBox)
+                {
+                    ((TextBox)control).Text = string.Empty;
+                }
+
+                else if (control is GroupBox)
+                {
+                    GroupBox groupbox = (GroupBox)control;
+                    foreach (Control subcontrol in groupbox.Controls)
+                    {
+                        if (subcontrol is TextBox)
+                        {
+                            ((TextBox)subcontrol).Text = string.Empty;
+                        }
+                    }
+                }
+            }
+            lstBudgets.Items.Clear();
+            lstComptes.Items.Clear();
+            updateTotaux();
+            updateResultat();
+        }
+
+        private void menuSauvegardes_Click(object sender, EventArgs e)
+        {
+            List<SaveMensuelle> lesSaves = (List<SaveMensuelle>)Serialise.Recup(Constantes.FICHIER_SAVEMENSUELLE);
+
+            if (lesSaves != null)
+            {
+                FenSauvegardes fenSauvegardes = new FenSauvegardes(lesSaves);
+            }
+            else
+            {
+                MessageBox.Show(Constantes.MSG_ERR_PASDESAUVEGARDEMENSUELLE, Constantes.MSG_TITRE_ERR_PASDESAUVEGARDE, MessageBoxButtons.OK);
+            }
+        }
+
+        private void menuResetAffichage_Click(object sender, EventArgs e)
+        {
+            reinitialiserAffichage();
         }
 
         // _____________________________ NAVIGATION _______________________________________
@@ -538,8 +670,6 @@ namespace Comptes
             txtMontantUserA.Text = "";
             txtMontantUserB.Text = "";
         }
-        
-
 
         private void lstBudgets_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -557,76 +687,6 @@ namespace Comptes
             lstBudgets.SelectedIndex = lstComptes.SelectedIndex;
         }
 
-
-        // _____________________ MENU _______________________________________
-
-        private void menuSauvegarder_Click(object sender, EventArgs e)
-        {
-            sauvegarderData();
-        }
-
-        /// <summary>
-        /// Sauvegarde les données affichées par sérialisation.
-        /// </summary>
-        private void sauvegarderData()
-        {
-            try
-            {
-                Serialise.Sauve(constantes.fichierData, data);
-            }
-            catch
-            {
-                MessageBox.Show("Erreur.", "Sauvegarde", MessageBoxButtons.OK);
-            }
-        }
-
-
-        /// <summary>
-        /// Reinitialise les données de l'application.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void menuReinitialiser_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Toutes les données seront effacées. Confirmer ?", "Réinitialisation", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                if (File.Exists(constantes.fichierSaveMois))
-                {
-                    File.Delete(constantes.fichierSaveMois);
-                }
-                reinitialiserAffichage();
-
-                MessageBox.Show("L'application a été réinitialisée avec succès.", "Réinitialisation", MessageBoxButtons.OK);
-            }
-            
-        }
-
-        /// <summary>
-        /// Reinitialise le fichier data et les contrôles de l'application.
-        /// </summary>
-        private void reinitialiserAffichage()
-        {
-            if (File.Exists(constantes.fichierData))
-            {
-                File.Delete(constantes.fichierData);
-            }
-
-            data.reinitialiseData();
-            refreshCboRepartitions();
-
-            foreach (Control control in this.Controls)
-            {
-                if (control is TextBox)
-                {
-                    ((TextBox)control).Text = string.Empty;
-                }
-            }
-            lstBudgets.Items.Clear();
-            lstComptes.Items.Clear();
-            updateTotaux();
-            updateResultat();
-        }
-
         /// <summary>
         /// Propose la sauvegarde du fichier et l'annulation de la fermeture de l'application.
         /// </summary>
@@ -634,7 +694,7 @@ namespace Comptes
         /// <param name="e"></param>
         private void frmComptes_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult choix = MessageBox.Show("Voulez-vous sauvegarder avant de quitter?", "Fermeture", MessageBoxButtons.YesNoCancel);
+            DialogResult choix = MessageBox.Show(Constantes.MSG_SAUEGARDERAVANTQUITTER, Constantes.MSG_TITRE_SAUEGARDERAVANTQUITTER, MessageBoxButtons.YesNoCancel);
             if (choix == DialogResult.Yes)
             {
                 sauvegarderData();
@@ -651,50 +711,6 @@ namespace Comptes
             this.Close();
         }
 
-        /// <summary>
-        /// Ajoute au fichier correspondant une sauvegarde des données entrées dans l'application.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnCloture_Click(object sender, EventArgs e)
-        {
-            if ((MessageBox.Show("Valider le mois ? Aucune modification ne pourra êttre appotée", "Cloturer le mois", MessageBoxButtons.YesNo) == DialogResult.Yes))
-            {
-                List<SaveMensuelle> lesSaves = (List<SaveMensuelle>)Serialise.Recup(constantes.fichierSaveMois);
-                if (lesSaves == null)
-                {
-                    lesSaves = new List<SaveMensuelle>();
-                }
-                SaveMensuelle saveMois = new SaveMensuelle(
-                    mois: cboMois.SelectedItem.ToString(),
-                    annee: cboAnnee.SelectedItem.ToString(),
-                    lesBudgets: data.lesBudgets,
-                    lesUsers: data.lesUsers);
-                
-                lesSaves.Add(saveMois);
-                Serialise.Sauve(constantes.fichierSaveMois, lesSaves);
 
-                btnResetComptes_Click(null, null);
-            }
-        }
-
-        private void menuSauvegardes_Click(object sender, EventArgs e)
-        {
-            List<SaveMensuelle> lesSaves = (List<SaveMensuelle>)Serialise.Recup(constantes.fichierSaveMois);
-
-            if (lesSaves != null)
-            {
-                FenSauvegardes fenSauvegardes = new FenSauvegardes(lesSaves);
-            }
-            else
-            {
-                MessageBox.Show("Aucune sauvegarde enregistrée.", "Action impossible", MessageBoxButtons.OK);
-            }
-        }
-
-        private void menuResetAffichage_Click(object sender, EventArgs e)
-        {
-            reinitialiserAffichage();
-        }
     }
 }

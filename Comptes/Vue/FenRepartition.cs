@@ -43,7 +43,7 @@ namespace Comptes
             }
             catch
             {
-                MessageBox.Show("La répartition n'a pas pu être ajoutée.", "Erreur", MessageBoxButtons.OK);
+                MessageBox.Show(Constantes.MSG_ERR_AJOUTREPART, Constantes.ERREUR, MessageBoxButtons.OK);
             }
             frmPrincipal.ajouterRepartition(cle);
             this.Close();
@@ -86,7 +86,7 @@ namespace Comptes
 
             else
             {
-                MessageBox.Show("Erreur : Un minimum d'une répartition doit subsister.", "Action impossible", MessageBoxButtons.OK);
+                MessageBox.Show(Constantes.MSG_ERR_AJOUTREPART2, Constantes.ERREUR, MessageBoxButtons.OK);
             }
 
             Close();

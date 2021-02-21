@@ -21,7 +21,6 @@ namespace Comptes.Model
     [SerializableAttribute]
     public class AppData
     {
-        static AffichageData affichage = new AffichageData();
         public List<User> lesUsers { get; }
         public List<Budget> lesBudgets { get; }
         private string _mois;
@@ -39,8 +38,8 @@ namespace Comptes.Model
         {
             _dctRepartitions.Clear();
             initialiseRepartitions();
-            lesUsers[affichage.userA].nom = affichage.nomUserA;
-            lesUsers[affichage.userB].nom = affichage.nomUserB;
+            lesUsers[Constantes.USER_A].nom = Constantes.NOM_DEFAUT_USER_A;
+            lesUsers[Constantes.USER_B].nom = Constantes.NOM_DEFAUT_USER_B;
             lesBudgets.Clear();
             foreach (User user in lesUsers)
             {
@@ -50,7 +49,7 @@ namespace Comptes.Model
 
         private void initialiseRepartitions()
         {
-            foreach (KeyValuePair<string, double> paire in affichage.repartitionsInitiales)
+            foreach (KeyValuePair<string, double> paire in Constantes.repartitionsInitiales)
             {
                 _dctRepartitions.Add(paire.Key, paire.Value);
             }
@@ -70,7 +69,6 @@ namespace Comptes.Model
         private string _mois;
         private string _annee;
 
-        //public string mois { get => _mois; set => _mois = value; }
         public List<User> lesUsers { get => _lesUsers; set => _lesUsers = value; }
         public List<Budget> lesBudgets { get => _lesBudgets; set => _lesBudgets = value; }
 
@@ -84,46 +82,75 @@ namespace Comptes.Model
 
         public string annee { get => _annee; }
         public string mois { get => _mois; }
-        //public string tag { get => _tag; }
     }
 
         /// <summary>
         /// Stocke toutes les informations constantes d'affichage.
         /// </summary>
-        public class AffichageData
+        public class Constantes
     {
-        //public const string BUDGET = "Budget";
-        private const int _DECEMBRE = 11;
-        private const String _fichierSaveMois = "SauvegardesMensuelles";
-        private const String _fichierData = "appData";
-        private const int _userA = 0; public const int _userB = 1;
-        private const string _nomUserA = "personne A";
-        private const string _nomUserB = "personne B";
-        private Dictionary<string, double> _repartitionsInitiales = new Dictionary<string, double>();
+        public const string BUDGET = "Budget";
+        public const string TOTAL = "Total";
+        public const int DECEMBRE = 11;
 
-        public AffichageData() {
+        public const String FICHIER_SAVEMENSUELLE = "SauvegardesMensuelles";
+        public const String FICHIER_DATA = "appData";
+
+        public const int USER_A = 0; public const int USER_B = 1;
+        public const string NOM_DEFAUT_USER_A = "Utilisateur A";
+        public const string NOM_DEFAUT_USER_B = "Utilisateur B";
+
+        public static Dictionary<string, double> repartitionsInitiales = new Dictionary<string, double>();
+
+        public const string EQUILIBRE = "Résultat équilibré.";
+
+        // Contenu des MessageBox :
+        public const string ERREUR = "Erreur";
+
+        public const string MSG_TITRE_ERR_PASDESAUVEGARDE = "Action impossible";
+        public const string MSG_ERR_PASDESAUVEGARDEMENSUELLE = "Aucune sauvegarde enregistrée.";
+
+        public const string MSG_TITRE_VALIDATIONSAUVEGARDEMENSUELLE = "Cloturer le mois";
+        public const string MSG_VALIDATIONSAUVEGARDEMENSUELLE = "Valider le mois ? Aucune modification ne pourra êttre apportée.";
+
+        public const string MSG_TITRE_SAUEGARDERAVANTQUITTER = "Fermeture";
+        public const string MSG_SAUEGARDERAVANTQUITTER = "Voulez-vous sauvegarder avant de quitter?";
+
+        public const string MSG_TITRE_REINITIALISER = "Réinitialisation";
+        public const string MSG_REINITIALISER = "Toutes les données seront effacées. Confirmer ?";
+        public const string MSG_REINITIALISATIONOK = "L'application a été réinitialisée avec succès.";
+
+        public const string MSG_TITRE_ERR_SAUVEGARDE = "Sauvegarde";
+        public const string MSG_ERR_SAUVEGARDE = ERREUR;
+
+        public const string MSG_TITRE_ERR_SAISIE = ERREUR;
+        public const string MSG_ERR_SAISIE = "Ne saisir que des nombres ou des calculs.";
+
+        public const string MSG_TITRE_SUPPRBUDGET = "Confirmation de suppression";
+        public const string MSG_SUPPRBUDGET = "Voulez-vous vraiment supprimer le budget et son contenu ?";
+
+        public const string MSG_ERR_AJOUTREPART = "La répartition n'a pas pu être ajoutée.";
+        public const string MSG_ERR_AJOUTREPART2 = "Un minimum d'une répartition doit subsister.";
+
+        public const string MSG_ERR_CLOTURE = "Ajouter au moins un budget.";
+
+        public const string MSG_ERR_SELECTIONERRONNEE = "Aucune sauvegarde n'a été trouvée pour le mois suivant :";
+
+        private Constantes() {
             initialiseRepartition();
         }
 
-        public void initialiseRepartition()
+        public static void initialiseRepartition()
         {
             repartitionsInitiales.Add("50 / 50", 0.5);
             repartitionsInitiales.Add("60 / 40", 0.6);
             repartitionsInitiales.Add("70 / 30", 0.7);
         }
 
-        public string getFichierData()
+        public static string DEPENSES(string user)
         {
-            return _fichierData;
+            return $"Dépenses de {user}";
         }
-        public String fichierData { get => _fichierData; }
-        public String fichierSaveMois { get => _fichierSaveMois; }
-        public int userA { get => _userA; }
-        public int userB { get => _userB; }
-        public string nomUserA { get => _nomUserA; }
-        public string nomUserB { get => _nomUserB; }
-        public Dictionary<string, double> repartitionsInitiales { get => _repartitionsInitiales; }
-        public int DECEMBRE { get => _DECEMBRE; }
     }
 
     [SerializableAttribute]
@@ -157,8 +184,6 @@ namespace Comptes.Model
         {
             return nom + " : ";
         }
-
-
     }
 
     [SerializableAttribute]
@@ -307,10 +332,4 @@ namespace Comptes.Model
             }
         }
     }
-    //}
-
-
-
-
-
 }

@@ -8,9 +8,6 @@
 
 - quand le message d'erreur de saisie apparaît, la sélection passe au suivant à tort
 
-- Permettre de sauvegarder les mois dans des fichiers séparés (au moment de la sauve,
-on demande le nom du fichier)
-
 - Rendre l'application responsive
 
 - Permettre le minimize
@@ -29,7 +26,13 @@ voir bug : sur une répart 100/0, changer la répart avec une valeur à 0 sur us
 
 - Créer un paramètre sauvegarde auto
 
-- La réinitialisation ne se fait pas dans les box
+- La réinitialisation ne se fait pas dans les groupbox
+
+- Si la save est vierge de budget, l'app crash si on essaie de charger
+=> test si lesBudgets sont != null avant de cloturer
+=> l'app crash pcq on charge les users avec le premier élément de la save, 
+peut on rendre plus propre les users avec un public static pour tous les budgets
+d'une save (sans altérer les autres saves) ?
 
 - Permettre l'analyse :
 ex : une save avec A B C trois noms de budgets

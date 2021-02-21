@@ -60,6 +60,8 @@
             this.menuSauvegarder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReinitialiser = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuResetAffichage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuRepartition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAjouterRepartition = new System.Windows.Forms.ToolStripMenuItem();
             this.sauvegardesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,8 +72,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cboMois = new System.Windows.Forms.ComboBox();
             this.cboAnnee = new System.Windows.Forms.ComboBox();
-            this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuResetAffichage = new System.Windows.Forms.ToolStripMenuItem();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
@@ -492,6 +492,22 @@
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
             this.menuStrip1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseMove);
             // 
+            // affichageToolStripMenuItem
+            // 
+            this.affichageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuResetAffichage});
+            this.affichageToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.affichageToolStripMenuItem.Name = "affichageToolStripMenuItem";
+            this.affichageToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.affichageToolStripMenuItem.Text = "Affichage";
+            // 
+            // menuResetAffichage
+            // 
+            this.menuResetAffichage.Name = "menuResetAffichage";
+            this.menuResetAffichage.Size = new System.Drawing.Size(242, 26);
+            this.menuResetAffichage.Text = "Réinitialiser l\'affichage";
+            this.menuResetAffichage.Click += new System.EventHandler(this.menuResetAffichage_Click);
+            // 
             // menuRepartition
             // 
             this.menuRepartition.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -596,21 +612,6 @@
             this.cboAnnee.Name = "cboAnnee";
             this.cboAnnee.Size = new System.Drawing.Size(85, 29);
             this.cboAnnee.TabIndex = 18;
-            // 
-            // affichageToolStripMenuItem
-            // 
-            this.affichageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuResetAffichage});
-            this.affichageToolStripMenuItem.Name = "affichageToolStripMenuItem";
-            this.affichageToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
-            this.affichageToolStripMenuItem.Text = "Affichage";
-            // 
-            // menuResetAffichage
-            // 
-            this.menuResetAffichage.Name = "menuResetAffichage";
-            this.menuResetAffichage.Size = new System.Drawing.Size(242, 26);
-            this.menuResetAffichage.Text = "Réinitialiser l\'affichage";
-            this.menuResetAffichage.Click += new System.EventHandler(this.menuResetAffichage_Click);
             // 
             // frmPrincipal
             // 
