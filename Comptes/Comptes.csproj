@@ -51,10 +51,28 @@
   <ItemGroup>
     <Compile Include="Controleur\Controleur.cs" />
     <Compile Include="Model\Model.cs" />
-    <Compile Include="Vue\FenPrincipale.cs">
+    <Compile Include="Vue\FenPrincipale\Budgets.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vue\FenPrincipale.Designer.cs">
+    <Compile Include="Vue\FenPrincipale\Users.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FenPrincipale\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FenPrincipale\Dettes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FenPrincipale\Comptes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FenPrincipale\Navigation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FenPrincipale\FenPrincipale.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FenPrincipale\FenPrincipale.Designer.cs">
       <DependentUpon>FenPrincipale.cs</DependentUpon>
     </Compile>
     <Compile Include="Vue\FenRepartition.cs">
@@ -71,7 +89,7 @@
     <Compile Include="Vue\FenSauvegardes.Designer.cs">
       <DependentUpon>FenSauvegardes.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Vue\FenPrincipale.resx">
+    <EmbeddedResource Include="Vue\FenPrincipale\FenPrincipale.resx">
       <DependentUpon>FenPrincipale.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vue\FenRepartition.resx">

@@ -12,8 +12,6 @@
 
 - Permettre le minimize
 
-- possibilité de rendre la classe d'affichage static ?
-
 - ne pas demander la save si pas de chgt sur l'appli (comparer début et fin d'appData)
 
 -Quand on édite, on ne peut pas changer de control

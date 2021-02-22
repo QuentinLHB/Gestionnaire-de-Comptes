@@ -136,6 +136,11 @@ namespace Comptes.Model
 
         public const string MSG_ERR_SELECTIONERRONNEE = "Aucune sauvegarde n'a été trouvée pour le mois suivant :";
 
+        public const string MSG_TITRE_ECRASEMENT = "Ecrasement";
+        public const string MSG_ECRASEMENT = "Une sauvegarde existe déjà pour ce mois. L'écraser ?";
+        public const string MSG_ECRASEMENT_YES = "La sauvegarde mensuelle a été écrasée.";
+        public const string MSG_ECRASEMENT_NO = "La sauvgarde n'a pas été effectuée.";
+
         private Constantes() {
             initialiseRepartition();
         }

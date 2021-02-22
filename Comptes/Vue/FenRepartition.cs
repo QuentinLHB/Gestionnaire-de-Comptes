@@ -40,12 +40,13 @@ namespace Comptes
             try
             {
                 data.dctRepartitions.Add(cle, double.Parse(txtDividende.Text) / 100);
+                frmPrincipal.ajouterRepartition(cle);
             }
             catch
             {
                 MessageBox.Show(Constantes.MSG_ERR_AJOUTREPART, Constantes.ERREUR, MessageBoxButtons.OK);
             }
-            frmPrincipal.ajouterRepartition(cle);
+
             this.Close();
         }
 
@@ -88,7 +89,7 @@ namespace Comptes
             {
                 MessageBox.Show(Constantes.MSG_ERR_AJOUTREPART2, Constantes.ERREUR, MessageBoxButtons.OK);
             }
-
+            frmPrincipal.flagChangement(true);
             Close();
         }
 
