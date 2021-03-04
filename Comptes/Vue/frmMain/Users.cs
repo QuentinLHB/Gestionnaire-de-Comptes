@@ -15,23 +15,23 @@ using System.Globalization;
 
 namespace Comptes
 {
-    public partial class frmPrincipal : Form
+    public partial class frmMain : Form
     {
 
-        private void changementUser(bool changement)
+        private void setFlagUserChange(bool change)
         {
-            flagChangementNomUser = changement;
+            flagUserNameChange = change;
         }
 
         private void txtUserA_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[Constantes.USER_A], txtUserA, lblUserA, lblNomTotalUserA, Constantes.NOM_DEFAUT_USER_A);
+            updateNomPers(Const.USER_A, txtUserA, lblUserA, lblNomTotalUserA, Const.DEFAULT_NAME_USER_A);
 
         }
 
         private void txtUserB_TextChanged(object sender, EventArgs e)
         {
-            updateNomPers(data.lesUsers[Constantes.USER_B], txtUserB, lblUserB, lblNomTotalUserB, Constantes.NOM_DEFAUT_USER_B);
+            updateNomPers(Const.USER_B, txtUserB, lblUserB, lblNomTotalUserB, Const.DEFAULT_NAME_USER_B);
         }
 
         /// <summary>
@@ -42,21 +42,21 @@ namespace Comptes
         /// <param name="lblUser">Label de la rubrique Compte concerné.</param>
         /// <param name="lblNomTotalUser">Label de la rubrique Total concerné.</param>
         /// <param name="nomDefaut">Nom par défaut à afficher si saisie nulle</param>
-        private void updateNomPers(User user, TextBox txtUser, Label lblUser, Label lblNomTotalUser, string nomDefaut)
+        private void updateNomPers(int userIndex, TextBox txtUser, Label lblUser, Label lblNomTotalUser, string nomDefaut)
         {
             if (txtUser.Text != string.Empty)
             {
-                user.nom = txtUser.Text;
+                User.setName(userIndex, txtUser.Text);
             }
 
             else
             {
-                user.nom = nomDefaut;
+                User.setName(userIndex, nomDefaut);
             }
 
-            lblUser.Text = user.afficheNom();
-            lblNomTotalUser.Text = ($"Total dettes {user.nom} :");
-            flagChangementNomUser = true;
+            lblUser.Text = User.displayName(userIndex);
+            lblNomTotalUser.Text = User.displayDebts(userIndex);
+            setFlagUserChange(change: true);
         }
 
         private void txtUserA_Leave(object sender, EventArgs e)
@@ -74,18 +74,21 @@ namespace Comptes
         /// </summary>
         private void updateLstComptes()
         {
-            if (flagChangementNomUser)
+            if (flagUserNameChange)
             {
-                int k = 0;
-                foreach (Budget budget in data.lesBudgets)
+                //int k = 0;
+                //foreach (Budget budget in data.allBudgets)
+                //{
+                //    lstAccounts.Items[k++] = budget.account;
+                //}
+
+                for (int i = 0; i < data.allBudgets.Count; i++)
                 {
-                    budget.compte.userA.nom = txtUserA.Text;
-                    budget.compte.userB.nom = txtUserB.Text;
-                    lstComptes.Items[k++] = budget.compte;
+                    lstAccounts.Items[i] = data.allBudgets[i].account;
                 }
-                flagChangement(changement: true);
+                setFlagChange(change: true);
             }
-            flagChangementNomUser = false;
+            setFlagUserChange(change: false);
         }
     }
 }

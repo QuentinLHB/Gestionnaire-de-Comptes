@@ -9,150 +9,174 @@ using Comptes.Controleur;
 
 namespace Comptes.Model
 {
-    //public class Model
-    //{
-        
-    //    public Model()
-    //    {
-
-    //    }
-
-
     [SerializableAttribute]
     public class AppData
     {
-        public List<User> lesUsers { get; }
-        public List<Budget> lesBudgets { get; }
-        private string _mois;
-        private Dictionary<string, double> _dctRepartitions;
+        public string[] userNames = new string[2];
+        //public string[] userDebts = new string[2];
+        public List<Budget> allBudgets { get; }
+        private string _month;
+        private Dictionary<string, double> _dctDivisions;
 
         public AppData()
         {
-            lesUsers = new List<User>();
-            lesBudgets = new List<Budget>();
-            _dctRepartitions = new Dictionary<string, double>();
-            initialiseRepartitions();
+            //allUsers = new List<User>();
+            allBudgets = new List<Budget>();
+            _dctDivisions = new Dictionary<string, double>();
+            initializeDivisions();
         }
 
-        public void reinitialiseData()
+        public void resetData()
         {
-            _dctRepartitions.Clear();
-            initialiseRepartitions();
-            lesUsers[Constantes.USER_A].nom = Constantes.NOM_DEFAUT_USER_A;
-            lesUsers[Constantes.USER_B].nom = Constantes.NOM_DEFAUT_USER_B;
-            lesBudgets.Clear();
-            foreach (User user in lesUsers)
+            _dctDivisions.Clear();
+            initializeDivisions();
+            User.setName(Const.USER_A, Const.DEFAULT_NAME_USER_A);
+            User.setName(Const.USER_B, Const.DEFAULT_NAME_USER_B);
+            allBudgets.Clear();
+        }
+
+        private void initializeDivisions()
+        {
+            foreach (KeyValuePair<string, double> pair in Const.initialDivision)
             {
-                user.dettes = 0;
+                _dctDivisions.Add(pair.Key, pair.Value);
             }
         }
 
-        private void initialiseRepartitions()
+        public Dictionary<string, double> dctDivisions { get => _dctDivisions; }
+        public string month { get => _month; set => _month = value; }
+
+        public void storeUserData()
         {
-            foreach (KeyValuePair<string, double> paire in Constantes.repartitionsInitiales)
+            for (int userIndex = 0; userIndex < 2; userIndex++)
             {
-                _dctRepartitions.Add(paire.Key, paire.Value);
+                this.userNames[userIndex] = User.getName(userIndex);
             }
         }
-
-        public Dictionary<string, double> dctRepartitions { get => _dctRepartitions; }
-        public string mois { get => _mois; set => _mois = value; }
-
     }
 
     [SerializableAttribute]
-    public class SaveMensuelle
+    public class MonthlySave
     {
-        private List<User> _lesUsers;
-        private List<Budget> _lesBudgets;
+        //private List<User> _allUsers;
+        private List<Budget> _allBudgets;
 
-        private string _mois;
-        private string _annee;
+        private string _month;
+        private string _year;
 
-        public List<User> lesUsers { get => _lesUsers; set => _lesUsers = value; }
-        public List<Budget> lesBudgets { get => _lesBudgets; set => _lesBudgets = value; }
+        //public List<User> allUsers { get => _allUsers; set => _allUsers = value; }
+        public List<Budget> allBudgets { get => _allBudgets; set => _allBudgets = value; }
 
-        public SaveMensuelle(string mois, string annee, List<Budget> lesBudgets, List<User> lesUsers)
+        public MonthlySave(string month, string year, List<Budget> allBudgets)
         {
-            _mois = mois;
-            _annee = annee;
-            _lesBudgets = lesBudgets;
-            _lesUsers = lesUsers;
+            _month = month;
+            _year = year;
+            _allBudgets = allBudgets;
+            //_allUsers = allUsers;
         }
 
-        public string annee { get => _annee; }
-        public string mois { get => _mois; }
+        public string year { get => _year; }
+        public string month { get => _month; }
+
+        /// <summary>
+        /// Vérifie si une sauvegarde existe déjà parmi les existantes.
+        /// </summary>
+        /// <param name="allSaves">Liste des sauvegardes mensuelles.</param>
+        /// <param name="selectedMonth">Mois sélectionné.</param>
+        /// <param name="selectedYear">Année sélectionnée.</param>
+        /// <returns></returns>
+        public static MonthlySave findMonthlySave(List<MonthlySave> allSaves, string selectedMonth, string selectedYear)
+            {
+            MonthlySave existingSave = null;
+            foreach (MonthlySave save in allSaves)
+            {
+                if (save.month == selectedMonth & save.year == selectedYear)
+                {
+                    existingSave = save;
+                    break;
+                }
+
+            }
+            return existingSave;
+        }
     }
 
         /// <summary>
         /// Stocke toutes les informations constantes d'affichage.
         /// </summary>
-        public class Constantes
+        public class Const
     {
         public const string BUDGET = "Budget";
         public const string TOTAL = "Total";
-        public const int DECEMBRE = 11;
+        public const int DECEMBER = 11;
 
-        public const String FICHIER_SAVEMENSUELLE = "SauvegardesMensuelles";
-        public const String FICHIER_DATA = "appData";
+        public const String FILE_MONTHLYRECAP = "SauvegardesMensuelles";
+        public const String FILE_DATA = "appData";
 
         public const int USER_A = 0; public const int USER_B = 1;
-        public const string NOM_DEFAUT_USER_A = "Utilisateur A";
-        public const string NOM_DEFAUT_USER_B = "Utilisateur B";
+        public const string DEFAULT_NAME_USER_A = "Utilisateur A";
+        public const string DEFAULT_NAME_USER_B = "Utilisateur B";
 
-        public static Dictionary<string, double> repartitionsInitiales = new Dictionary<string, double>();
+        public static Dictionary<string, double> initialDivision = new Dictionary<string, double>();
 
-        public const string EQUILIBRE = "Résultat équilibré.";
+        public const string BALANCEDRESULT = "Résultat équilibré.";
+        
+        public static string debtDisplay(string name, double result)
+        {
+            return ($"{name} doit {result}€.");
+
+        }
 
         // Contenu des MessageBox :
-        public const string ERREUR = "Erreur";
+        public const string ERROR = "Erreur";
 
-        public const string MSG_TITRE_ERR_PASDESAUVEGARDE = "Action impossible";
-        public const string MSG_ERR_PASDESAUVEGARDEMENSUELLE = "Aucune sauvegarde enregistrée.";
+        public const string MSG_TITLE_ERR_NOSAVE = "Action impossible";
+        public const string MSG_ERR_NO_MONTHLYSAVE = "Aucune sauvegarde enregistrée.";
 
-        public const string MSG_TITRE_VALIDATIONSAUVEGARDEMENSUELLE = "Cloturer le mois";
-        public const string MSG_VALIDATIONSAUVEGARDEMENSUELLE = "Valider le mois ? Aucune modification ne pourra êttre apportée.";
+        public const string MSG_TITLE_VALIDATIONMONYLYSAVE = "Cloturer le mois";
+        public const string MSG_VALIDATIONMONYLYSAVE = "Valider le mois ? Aucune modification ne pourra êttre apportée.";
 
-        public const string MSG_TITRE_SAUEGARDERAVANTQUITTER = "Fermeture";
-        public const string MSG_SAUEGARDERAVANTQUITTER = "Voulez-vous sauvegarder avant de quitter?";
+        public const string MSG_TITLE_SAVEBEFOREQUIT = "Fermeture";
+        public const string MSG_SAVEBEFOREQUIT = "Voulez-vous sauvegarder avant de quitter?";
 
-        public const string MSG_TITRE_REINITIALISER = "Réinitialisation";
-        public const string MSG_REINITIALISER = "Toutes les données seront effacées. Confirmer ?";
-        public const string MSG_REINITIALISATIONOK = "L'application a été réinitialisée avec succès.";
+        public const string MSG_TITLE_RESET = "Réinitialisation";
+        public const string MSG_RESET = "Toutes les données seront effacées. Confirmer ?";
+        public const string MSG_RESETOK = "L'application a été réinitialisée avec succès.";
 
-        public const string MSG_TITRE_ERR_SAUVEGARDE = "Sauvegarde";
-        public const string MSG_ERR_SAUVEGARDE = ERREUR;
+        public const string MSG_TITRE_ERR_SAVE = "Sauvegarde";
+        public const string MSG_ERR_SAVE = ERROR;
 
-        public const string MSG_TITRE_ERR_SAISIE = ERREUR;
-        public const string MSG_ERR_SAISIE = "Ne saisir que des nombres ou des calculs.";
+        public const string MSG_TITRE_ERR_WRONGINPUT = ERROR;
+        public const string MSG_ERR_WRONGINPUT = "Ne saisir que des nombres ou des calculs.";
 
-        public const string MSG_TITRE_SUPPRBUDGET = "Confirmation de suppression";
-        public const string MSG_SUPPRBUDGET = "Voulez-vous vraiment supprimer le budget et son contenu ?";
+        public const string MSG_TITLE_DELETE = "Confirmation de suppression";
+        public const string MSG_DELETEBUDGET = "Voulez-vous vraiment supprimer le budget et son contenu ?";
+        public const string MSG_DELETEMONTLYSAVE = "Voulez-vous vraiment supprimer cette sauvegarde mensuelle de manière permanente ?";
 
-        public const string MSG_ERR_AJOUTREPART = "La répartition n'a pas pu être ajoutée.";
-        public const string MSG_ERR_AJOUTREPART2 = "Un minimum d'une répartition doit subsister.";
+        public const string MSG_ERR_ADDDIVISION = "La répartition n'a pas pu être ajoutée.";
+        public const string MSG_ERR_ADDDIVISION2 = "Un minimum d'une répartition doit subsister.";
 
-        public const string MSG_ERR_CLOTURE = "Ajouter au moins un budget.";
+        public const string MSG_ERR_FINALIZE = "Ajouter au moins un budget.";
 
-        public const string MSG_ERR_SELECTIONERRONNEE = "Aucune sauvegarde n'a été trouvée pour le mois suivant :";
+        public const string MSG_ERR_WRONGSELECTION = "Aucune sauvegarde n'a été trouvée pour le mois suivant :";
 
-        public const string MSG_TITRE_ECRASEMENT = "Ecrasement";
-        public const string MSG_ECRASEMENT = "Une sauvegarde existe déjà pour ce mois. L'écraser ?";
-        public const string MSG_ECRASEMENT_YES = "La sauvegarde mensuelle a été écrasée.";
-        public const string MSG_ECRASEMENT_NO = "La sauvgarde n'a pas été effectuée.";
+        public const string MSG_TITLE_REPLACE = "Ecrasement";
+        public const string MSG_REPLACE = "Une sauvegarde existe déjà pour ce mois. L'écraser ?";
+        public const string MSG_REPLACE_YES = "La sauvegarde mensuelle a été écrasée.";
+        public const string MSG_REPLACE_NO = "La sauvgarde n'a pas été effectuée.";
 
-        private Constantes() {
-            initialiseRepartition();
+        private Const() {
+            initializDivisions();
         }
 
-        public static void initialiseRepartition()
+        public static void initializDivisions()
         {
-            repartitionsInitiales.Add("50 / 50", 0.5);
-            repartitionsInitiales.Add("60 / 40", 0.6);
-            repartitionsInitiales.Add("70 / 30", 0.7);
+            initialDivision.Add("50 / 50", 0.5);
+            initialDivision.Add("60 / 40", 0.6);
+            initialDivision.Add("70 / 30", 0.7);
         }
 
-        public static string DEPENSES(string user)
+        public static string EXPENSES(string user)
         {
             return $"Dépenses de {user}";
         }
@@ -161,49 +185,70 @@ namespace Comptes.Model
     [SerializableAttribute]
     public class Budget
     {
-        private Compte _compte;
-        private string _nom;
-        private double _repartition;
+        private Account _account;
+        private string _name;
+        private double _division;
 
-        public Budget(string nom, double repartition, string nomUserA, string nomUserB)
+        public Budget(string name, double division)
         {
-            this.nom = nom;
-            this.repartition = repartition;
-            _compte = new Compte(this, nomUserA, nomUserB);
+            this._name = name;
+            this._division = division;
+            _account = new Account(this);
         }
 
-        public Compte compte { 
-            get => _compte;
+        public Account account { 
+            get => _account;
             }
 
-        public string nom { get => _nom ; set => _nom = value; }
+        public string name { get => _name ; set => _name = value; }
 
-        public double repartition { get => _repartition; set => _repartition = value; }
+        public double division { get => _division; set => _division = value; }
 
         public override string ToString()
         {
-            return nom + " : " + (repartition * 100).ToString() + " / " + (100 - repartition * 100).ToString();
+            return name + " : " + (division * 100).ToString() + " / " + (100 - division * 100).ToString();
         }
 
-        public string afficheNomBudget()
+        public string displayBudgetName()
         {
-            return nom + " : ";
+            return name + " : ";
+        }
+
+        /// <summary>
+        /// Calcule les dettes totales et met à jour l'objet User.
+        /// </summary>
+        /// <param name="allBudgets"></param>
+        public static void calculateDebts(List<Budget> allBudgets)
+        {
+            double totalDebtsUserA = 0;
+            double totalDebtsUserB = 0;
+            foreach (Budget budget in allBudgets)
+            {
+                totalDebtsUserA += budget.account.userB.expenses * budget.division;
+                totalDebtsUserB += budget.account.userA.expenses * (1 - budget.division);
+            }
+
+            User.setDebts(Const.USER_A, Math.Round(totalDebtsUserA, 2));
+            User.setDebts(Const.USER_B, Math.Round(totalDebtsUserB, 2));
+
+            //double[] totalDebts = { Math.Round(totalDebtsUserA, 2), Math.Round(totalDebtsUserB, 2) };
+            //return totalDebts;
         }
     }
 
     [SerializableAttribute]
-    public class Compte 
+    public class Account 
     {
         private User _userA;
         private User _userB;
         private Budget _budget;
 
 
-        public Compte(Budget budget, string nomUserA, string nomUserB)
+        public Account(Budget budget)
         {
             this._budget = budget;
-            this._userA = new User(nomUserA);
-            this._userB = new User(nomUserB);
+            this._userA = new User();
+            this._userB = new User();
         }
         public User userA { get => _userA; }
         public User userB { get => _userB; }
@@ -212,22 +257,22 @@ namespace Comptes.Model
 
         public override string ToString()
         {
-            if (this.userA.depenses != 0 || this.userB.depenses != 0)
+            if (this.userA.expenses != 0 || this.userB.expenses != 0)
             {
-                return ($"{_budget.nom} : [{_userA.nom} {_userA.depenses}] [{_userB.nom} {_userB.depenses}]");
+                return ($"{_budget.name} : [{User.getName(Const.USER_A)} {_userA.expenses}] [{User.getName(Const.USER_B)} {_userB.expenses}]");
             }
 
             else
             {
-                return _budget.nom + " : ";
+                return _budget.name + " : ";
             }
 
         }
 
         public void reset()
         {
-            _userA.depenses = 0;
-            _userB.depenses= 0;
+            _userA.expenses = 0;
+            _userB.expenses= 0;
         }
 
 
@@ -236,45 +281,90 @@ namespace Comptes.Model
     [SerializableAttribute]
     public class User
     {
-        private string _nom;
-        private double _dettes;
-        private double _depenses;
+        private static string[] names = new string[2];
+        private static double[] debts = new double[2];
+        //private static string _name;
+        private double _debts;
+        private double _expenses;
 
-        public string nom { get => _nom; set => _nom = value; }
-
-        public double depenses { get => _depenses; set => _depenses = value; }
-
-        public double dettes { get => _dettes; set => _dettes = value; }
-
-        public string afficheNom()
+        public static void initializeStaticData()
         {
-            return nom + " : ";
+            names[Const.USER_A] = Const.DEFAULT_NAME_USER_A;
+            names[Const.USER_B] = Const.DEFAULT_NAME_USER_B;
+            
         }
 
-        public User(string nom = "")
+        public static void initializeNames(AppData data)
         {
-            this.nom = nom;
+            names[Const.USER_A] = data.userNames[Const.USER_A];
+            names[Const.USER_B] = data.userNames[Const.USER_B];
+        }
+
+        public static void Clear()
+        {
+
+        }
+        //public static string name { get => _name; set => _name = value; }
+
+        public static string getName(int index)
+        {
+            return names[index];
+        }
+
+        public static void setName(int index, string name)
+        {
+            names[index] = name;
+        }
+
+        public static double getDebts(int index)
+        {
+            return debts[index];
+        }
+
+        public static void setDebts(int index, double debt)
+        {
+            debts[index] = debt;
+        }
+
+        public double expenses { get => _expenses; set => _expenses = value; }
+
+        //public double debts { get => _debts; set => _debts = value; }
+
+        public static string displayName(int index)
+        {
+            return names[index] + " : ";
+        }
+
+        public static string displayDebts(int index)
+        {
+            return ($"Total dettes {names[index]} :");
+        }
+
+        public User(string name = "")
+        {
+            //User._name = name;
         }
 
     }
 
-    public class DataTableauMensuel
+    public class DataMonthlyReport
     {
-        public string nomCompte { get; set; }
-        public string nomUserA { get; set; }
-        public string nomUserB { get; set; }
-        public double depensesA { get; set; }
-        public double depensesB { get; set; }
+        public string accountName { get; set; }
+        public static string nameUserA { get; set; }
+        public static string nameUserB { get; set; }
+        public double expensesA { get; set; }
+        public double expensesB { get; set; }
         public double total { get; set; }
 
-        public DataTableauMensuel(string nomCompte, string nomUserA, double depensesA,  string nomUserB, double depensesB)
+        public DataMonthlyReport(string accountName, double expensesA, double expensesB)
         {
-            this.nomCompte = nomCompte;
-            this.depensesA = depensesA;
-            this.depensesB = depensesB;
-            this.total = depensesA + depensesB;
-            this.nomUserA = nomUserA;
-            this.nomUserB = nomUserB;
+            this.accountName = accountName;
+            this.expensesA = expensesA;
+            this.expensesB = expensesB;
+            this.total = expensesA + expensesB;
+            DataMonthlyReport.nameUserA = User.getName(Const.USER_A);
+            DataMonthlyReport.nameUserB = User.getName(Const.USER_B);
+            //this.nameUserB = nameUserB;
         }
 
     }
@@ -284,21 +374,21 @@ namespace Comptes.Model
         /// <summary>
         /// Sérialisation
         /// </summary>
-        /// <param name="fichier">nom du fichier de sauvegarde</param>
-        /// <param name="objet">objet à sérialiser</param>
-        public static void Sauve(string fichier, Object objet)
+        /// <param name="file">nom du fichier de sauvegarde</param>
+        /// <param name="obj">objet à sérialiser</param>
+        public static void Save(string file, Object obj)
         {
             // si le fichier existe, il faut le supprimer
-            if (File.Exists(fichier))
+            if (File.Exists(file))
             {
-                File.Delete(fichier);
+                File.Delete(file);
             }
             // création du flux pour l'écriture dans le fichier
-            FileStream flux = new FileStream(fichier, FileMode.Create);
+            FileStream flux = new FileStream(file, FileMode.Create);
             // création d'un objet pour le formatage en binaire des informations
             BinaryFormatter fbinaire = new BinaryFormatter();
             // sérialisation des objets de la collection
-            fbinaire.Serialize(flux, objet);
+            fbinaire.Serialize(flux, obj);
             // fermeture du flux
             flux.Close();
         }
@@ -306,25 +396,25 @@ namespace Comptes.Model
         /// <summary>
         /// Désérialisation
         /// </summary>
-        /// <param name="fichier">nom du fichier de sauvegarde</param>
+        /// <param name="file">nom du fichier de sauvegarde</param>
         /// <returns>objet désérialisé</returns>
-        public static Object Recup(string fichier)
+        public static Object Load(string file)
         {
             // Contrôle de l'existance du fichier
-            if (File.Exists(fichier))
+            if (File.Exists(file))
             {
                 // ouverture du flux pour la lecture dans le fichier
-                FileStream flux = new FileStream(fichier, FileMode.Open);
+                FileStream flux = new FileStream(file, FileMode.Open);
                 // création d'un objet pour le formatage en binaire des informations
                 BinaryFormatter fbinaire = new BinaryFormatter();
                 // récupération de l'objet sérialisé
                 try
                 {
-                    Object objet = fbinaire.Deserialize(flux);
+                    Object obj = fbinaire.Deserialize(flux);
                     // fermeture du flux
                     flux.Close();
                     // retour de l'objet
-                    return objet;
+                    return obj;
                 }
                 catch
                 {

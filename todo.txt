@@ -2,7 +2,7 @@
 
 - optimiser updateTotaux() car refait tout le calcul à chaque fois
 
-- Gérer le ping pong des selectedindex des listes
+- Gérer le ping pong des selectedindex des listes (tester avec le bouton edit)
 
 - Remplacer le tostring() de compte par une fonction à part entière
 
@@ -12,25 +12,20 @@
 
 - Permettre le minimize
 
-- ne pas demander la save si pas de chgt sur l'appli (comparer début et fin d'appData)
-
--Quand on édite, on ne peut pas changer de control
-
-voir bug : sur une répart 100/0, changer la répart avec une valeur à 0 sur userB ne
+-Quand on édite, on ne peut pas changer de control OU si on change de ctrl, l'edit saute
 
 - Corriger bug sur FenRepartition : crash si rien n'est entré (pb de parse)
 
-- Si un tag identique est trouvé parmis les saves, l'écraser
-
 - Créer un paramètre sauvegarde auto
+- Créer un paramètre chargement M ou M-1
 
-- La réinitialisation ne se fait pas dans les groupbox
+- Permettre d'éditer ou de supprimer une save
 
 - Si la save est vierge de budget, l'app crash si on essaie de charger
-=> test si lesBudgets sont != null avant de cloturer
-=> l'app crash pcq on charge les users avec le premier élément de la save, 
-peut on rendre plus propre les users avec un public static pour tous les budgets
-d'une save (sans altérer les autres saves) ?
+
+- Changer les virgules en point dans la saisie des chiffres, enlever les espaces avant après??
+
+- Dépenses totales d'un mois
 
 - Permettre l'analyse :
 ex : une save avec A B C trois noms de budgets
@@ -40,5 +35,22 @@ List<> list
 # Ajout de A à la liste
 # boucle qui réitère pour les items de chaque save
 # On a une liste avec ABCD
+
+Moyenne de dépenses de chaque budget :
+
+Tableau doit ressembler à :
+BUDGET | DEPENSE MOYENNE | DEPENSE DU MOIS | EVOLUTION
+Donc créer une classe qui a ces membres et peut calculer les éléments nécessaires.
+
+On créera ainsi une liste d'objets de cette classe, qui seront affichés dans la gridview.
+
+Récupérer toutes les saves
+
+Créer une liste vide sortedBudgets
+
+pour chaque budget de chaque save
+Vérifier si le nom du budget existe déjà dans sortedBudgets
+Oui : Ajouter les dépenses du mois au budget
+Non : Ajouter le budget et la dépense
 
 

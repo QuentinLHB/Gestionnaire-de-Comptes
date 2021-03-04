@@ -1,6 +1,6 @@
 ﻿namespace Comptes
 {
-    partial class FrmRepartition
+    partial class FrmDivisions
     {
         /// <summary>
         /// Required designer variable.
@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.btnAjouterRepartition = new System.Windows.Forms.Button();
-            this.txtDiviseur = new System.Windows.Forms.TextBox();
-            this.txtDividende = new System.Windows.Forms.TextBox();
+            this.txtDivider = new System.Windows.Forms.TextBox();
+            this.txtDividend = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreFenRepartition = new System.Windows.Forms.Label();
             this.menuStripRepartition = new System.Windows.Forms.MenuStrip();
             this.btnQuitter = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.cboRepartition = new System.Windows.Forms.ComboBox();
+            this.cboDivisions = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSupprimerRepartition = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -59,26 +59,26 @@
             // 
             // txtDiviseur
             // 
-            this.txtDiviseur.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtDiviseur.Enabled = false;
-            this.txtDiviseur.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtDiviseur.Location = new System.Drawing.Point(377, 139);
-            this.txtDiviseur.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtDiviseur.Name = "txtDiviseur";
-            this.txtDiviseur.Size = new System.Drawing.Size(52, 26);
-            this.txtDiviseur.TabIndex = 15;
+            this.txtDivider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.txtDivider.Enabled = false;
+            this.txtDivider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.txtDivider.Location = new System.Drawing.Point(377, 139);
+            this.txtDivider.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtDivider.Name = "txtDiviseur";
+            this.txtDivider.Size = new System.Drawing.Size(52, 26);
+            this.txtDivider.TabIndex = 15;
             // 
             // txtDividende
             // 
-            this.txtDividende.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtDividende.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtDividende.Location = new System.Drawing.Point(289, 139);
-            this.txtDividende.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtDividende.Name = "txtDividende";
-            this.txtDividende.Size = new System.Drawing.Size(52, 26);
-            this.txtDividende.TabIndex = 14;
-            this.txtDividende.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDividende_KeyPress);
-            this.txtDividende.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDividende_KeyUp);
+            this.txtDividend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.txtDividend.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.txtDividend.Location = new System.Drawing.Point(289, 139);
+            this.txtDividend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtDividend.Name = "txtDividende";
+            this.txtDividend.Size = new System.Drawing.Size(52, 26);
+            this.txtDividend.TabIndex = 14;
+            this.txtDividend.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDividende_KeyPress);
+            this.txtDividend.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDividende_KeyUp);
             // 
             // label5
             // 
@@ -95,7 +95,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
             this.panel1.Controls.Add(this.lblTitreFenRepartition);
-            this.panel1.Location = new System.Drawing.Point(0, 27);
+            this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(733, 76);
@@ -118,7 +118,7 @@
             this.menuStripRepartition.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStripRepartition.Location = new System.Drawing.Point(0, 0);
             this.menuStripRepartition.Name = "menuStripRepartition";
-            this.menuStripRepartition.Size = new System.Drawing.Size(733, 24);
+            this.menuStripRepartition.Size = new System.Drawing.Size(733, 30);
             this.menuStripRepartition.TabIndex = 18;
             this.menuStripRepartition.Text = "menuStrip1";
             this.menuStripRepartition.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStripRepartition_MouseDown);
@@ -133,7 +133,7 @@
             this.btnQuitter.Location = new System.Drawing.Point(655, 0);
             this.btnQuitter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnQuitter.Name = "btnQuitter";
-            this.btnQuitter.Size = new System.Drawing.Size(78, 31);
+            this.btnQuitter.Size = new System.Drawing.Size(78, 28);
             this.btnQuitter.TabIndex = 19;
             this.btnQuitter.Text = "X";
             this.btnQuitter.UseVisualStyleBackColor = false;
@@ -152,16 +152,16 @@
             // 
             // cboRepartition
             // 
-            this.cboRepartition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboRepartition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboRepartition.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboRepartition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboRepartition.FormattingEnabled = true;
-            this.cboRepartition.Location = new System.Drawing.Point(290, 197);
-            this.cboRepartition.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboRepartition.Name = "cboRepartition";
-            this.cboRepartition.Size = new System.Drawing.Size(168, 29);
-            this.cboRepartition.TabIndex = 21;
+            this.cboDivisions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboDivisions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboDivisions.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboDivisions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboDivisions.FormattingEnabled = true;
+            this.cboDivisions.Location = new System.Drawing.Point(290, 197);
+            this.cboDivisions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboDivisions.Name = "cboRepartition";
+            this.cboDivisions.Size = new System.Drawing.Size(168, 29);
+            this.cboDivisions.TabIndex = 21;
             // 
             // label2
             // 
@@ -195,13 +195,13 @@
             this.ClientSize = new System.Drawing.Size(733, 391);
             this.Controls.Add(this.btnSupprimerRepartition);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.cboRepartition);
+            this.Controls.Add(this.cboDivisions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnQuitter);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnAjouterRepartition);
-            this.Controls.Add(this.txtDiviseur);
-            this.Controls.Add(this.txtDividende);
+            this.Controls.Add(this.txtDivider);
+            this.Controls.Add(this.txtDividend);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuStripRepartition);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -220,15 +220,15 @@
 
         #endregion
         private System.Windows.Forms.Button btnAjouterRepartition;
-        private System.Windows.Forms.TextBox txtDiviseur;
-        private System.Windows.Forms.TextBox txtDividende;
+        private System.Windows.Forms.TextBox txtDivider;
+        private System.Windows.Forms.TextBox txtDividend;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitreFenRepartition;
         private System.Windows.Forms.MenuStrip menuStripRepartition;
         private System.Windows.Forms.Button btnQuitter;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cboRepartition;
+        private System.Windows.Forms.ComboBox cboDivisions;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSupprimerRepartition;
     }

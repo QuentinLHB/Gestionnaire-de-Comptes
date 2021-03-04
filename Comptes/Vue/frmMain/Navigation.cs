@@ -19,7 +19,7 @@ using System.Globalization;
 namespace Comptes
 {
 
-    public partial class frmPrincipal : Form
+    public partial class frmMain : Form
     {
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -48,16 +48,16 @@ namespace Comptes
             }
         }
 
-        private void resetMenuCompte()
+        private void resetAccountBox()
         {
-            txtMontantUserA.Focus();
-            txtMontantUserA.Text = "";
-            txtMontantUserB.Text = "";
+            txtAmountUserA.Focus();
+            txtAmountUserA.Text = "";
+            txtAmountUserB.Text = "";
         }
 
         private void lstBudgets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstComptes.SelectedIndex = lstBudgets.SelectedIndex;
+            lstAccounts.SelectedIndex = lstBudgets.SelectedIndex;
         }
 
         static Double Eval(String expression)
@@ -68,12 +68,12 @@ namespace Comptes
 
         private void lstComptes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstBudgets.SelectedIndex = lstComptes.SelectedIndex;
+            lstBudgets.SelectedIndex = lstAccounts.SelectedIndex;
         }
 
-        public void flagChangement(bool changement)
+        public void setFlagChange(bool change)
         {
-            this.flagChangementData = changement;
+            this.flagDataChange = change;
         }
 
         /// <summary>
@@ -83,15 +83,15 @@ namespace Comptes
         /// <param name="e"></param>
         private void frmComptes_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (flagChangementData)
+            if (flagDataChange)
             {
-                DialogResult choix = MessageBox.Show(Constantes.MSG_SAUEGARDERAVANTQUITTER, Constantes.MSG_TITRE_SAUEGARDERAVANTQUITTER, MessageBoxButtons.YesNoCancel);
-                if (choix == DialogResult.Yes)
+                DialogResult choice = MessageBox.Show(Const.MSG_SAVEBEFOREQUIT, Const.MSG_TITLE_SAVEBEFOREQUIT, MessageBoxButtons.YesNoCancel);
+                if (choice == DialogResult.Yes)
                 {
-                    sauvegarderData();
+                    saveData();
                 }
 
-                else if (choix == DialogResult.Cancel)
+                else if (choice == DialogResult.Cancel)
                 {
                     e.Cancel = true;
                 }
@@ -103,5 +103,9 @@ namespace Comptes
         {
             this.Close();
         }
+
+
     }
+
+
 }

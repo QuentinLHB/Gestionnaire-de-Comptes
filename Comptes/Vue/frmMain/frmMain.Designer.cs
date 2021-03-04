@@ -1,6 +1,6 @@
 ﻿namespace Comptes
 {
-    partial class frmPrincipal
+    partial class frmMain
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtMontantUserA = new System.Windows.Forms.TextBox();
-            this.txtNomBudget = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            this.txtAmountUserA = new System.Windows.Forms.TextBox();
+            this.txtBudgetName = new System.Windows.Forms.TextBox();
             this.gpbAjoutBudget = new System.Windows.Forms.GroupBox();
             this.btnResetBudget = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnOKBudgets = new System.Windows.Forms.Button();
             this.lstBudgets = new System.Windows.Forms.ListBox();
-            this.cboRepartition = new System.Windows.Forms.ComboBox();
+            this.cboDivisions = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtUserB = new System.Windows.Forms.TextBox();
@@ -43,17 +44,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.gpbComptes = new System.Windows.Forms.GroupBox();
             this.btnResetComptes = new System.Windows.Forms.Button();
-            this.txtMontantUserB = new System.Windows.Forms.TextBox();
+            this.txtAmountUserB = new System.Windows.Forms.TextBox();
             this.lblUserB = new System.Windows.Forms.Label();
             this.lblUserA = new System.Windows.Forms.Label();
-            this.btnOKComptes = new System.Windows.Forms.Button();
-            this.lstComptes = new System.Windows.Forms.ListBox();
+            this.btnOKAccount = new System.Windows.Forms.Button();
+            this.lstAccounts = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.gpbTotal = new System.Windows.Forms.GroupBox();
             this.btnCloture = new System.Windows.Forms.Button();
-            this.lblResultat = new System.Windows.Forms.Label();
-            this.lblTotalPersB = new System.Windows.Forms.Label();
-            this.lblTotalPersA = new System.Windows.Forms.Label();
+            this.lblResults = new System.Windows.Forms.Label();
+            this.lblTotalUserB = new System.Windows.Forms.Label();
+            this.lblTotalUserA = new System.Windows.Forms.Label();
             this.lblNomTotalUserB = new System.Windows.Forms.Label();
             this.lblNomTotalUserA = new System.Windows.Forms.Label();
             this.menuFichier = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,14 +65,16 @@
             this.menuResetAffichage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuRepartition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAjouterRepartition = new System.Windows.Forms.ToolStripMenuItem();
-            this.sauvegardesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuSauvegardes = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyseToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuChargerAnalyse = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreApp = new System.Windows.Forms.Label();
             this.btnQuitter = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.cboMois = new System.Windows.Forms.ComboBox();
-            this.cboAnnee = new System.Windows.Forms.ComboBox();
+            this.cboMonth = new System.Windows.Forms.ComboBox();
+            this.cboYear = new System.Windows.Forms.ComboBox();
+            this.btnMinimize = new System.Windows.Forms.Button();
+            this.evolutionDesDépensesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
@@ -79,26 +82,26 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // txtMontantUserA
+            // txtAmountUserA
             // 
-            this.txtMontantUserA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtMontantUserA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtMontantUserA.Location = new System.Drawing.Point(148, 60);
-            this.txtMontantUserA.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtMontantUserA.Name = "txtMontantUserA";
-            this.txtMontantUserA.Size = new System.Drawing.Size(184, 28);
-            this.txtMontantUserA.TabIndex = 2;
+            this.txtAmountUserA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.txtAmountUserA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.txtAmountUserA.Location = new System.Drawing.Point(148, 60);
+            this.txtAmountUserA.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtAmountUserA.Name = "txtAmountUserA";
+            this.txtAmountUserA.Size = new System.Drawing.Size(184, 28);
+            this.txtAmountUserA.TabIndex = 2;
             // 
-            // txtNomBudget
+            // txtBudgetName
             // 
-            this.txtNomBudget.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtNomBudget.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomBudget.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtNomBudget.Location = new System.Drawing.Point(160, 55);
-            this.txtNomBudget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtNomBudget.Name = "txtNomBudget";
-            this.txtNomBudget.Size = new System.Drawing.Size(168, 28);
-            this.txtNomBudget.TabIndex = 1;
+            this.txtBudgetName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.txtBudgetName.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBudgetName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.txtBudgetName.Location = new System.Drawing.Point(160, 55);
+            this.txtBudgetName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtBudgetName.Name = "txtBudgetName";
+            this.txtBudgetName.Size = new System.Drawing.Size(168, 28);
+            this.txtBudgetName.TabIndex = 1;
             // 
             // gpbAjoutBudget
             // 
@@ -106,10 +109,10 @@
             this.gpbAjoutBudget.Controls.Add(this.btnEdit);
             this.gpbAjoutBudget.Controls.Add(this.btnOKBudgets);
             this.gpbAjoutBudget.Controls.Add(this.lstBudgets);
-            this.gpbAjoutBudget.Controls.Add(this.cboRepartition);
+            this.gpbAjoutBudget.Controls.Add(this.cboDivisions);
             this.gpbAjoutBudget.Controls.Add(this.label2);
             this.gpbAjoutBudget.Controls.Add(this.label1);
-            this.gpbAjoutBudget.Controls.Add(this.txtNomBudget);
+            this.gpbAjoutBudget.Controls.Add(this.txtBudgetName);
             this.gpbAjoutBudget.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpbAjoutBudget.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.gpbAjoutBudget.Location = new System.Drawing.Point(50, 222);
@@ -117,7 +120,7 @@
             this.gpbAjoutBudget.Name = "gpbAjoutBudget";
             this.gpbAjoutBudget.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gpbAjoutBudget.Size = new System.Drawing.Size(350, 574);
-            this.gpbAjoutBudget.TabIndex = 5;
+            this.gpbAjoutBudget.TabIndex = 7;
             this.gpbAjoutBudget.TabStop = false;
             this.gpbAjoutBudget.Text = "Ajouter un budget";
             // 
@@ -182,18 +185,18 @@
             this.lstBudgets.DoubleClick += new System.EventHandler(this.lstBudgets_DoubleClick);
             this.lstBudgets.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lstBudgets_KeyUp);
             // 
-            // cboRepartition
+            // cboDivisions
             // 
-            this.cboRepartition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboRepartition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboRepartition.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboRepartition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboRepartition.FormattingEnabled = true;
-            this.cboRepartition.Location = new System.Drawing.Point(160, 98);
-            this.cboRepartition.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboRepartition.Name = "cboRepartition";
-            this.cboRepartition.Size = new System.Drawing.Size(168, 29);
-            this.cboRepartition.TabIndex = 3;
+            this.cboDivisions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboDivisions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboDivisions.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboDivisions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboDivisions.FormattingEnabled = true;
+            this.cboDivisions.Location = new System.Drawing.Point(160, 98);
+            this.cboDivisions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboDivisions.Name = "cboDivisions";
+            this.cboDivisions.Size = new System.Drawing.Size(168, 29);
+            this.cboDivisions.TabIndex = 3;
             // 
             // label2
             // 
@@ -255,12 +258,12 @@
             // gpbComptes
             // 
             this.gpbComptes.Controls.Add(this.btnResetComptes);
-            this.gpbComptes.Controls.Add(this.txtMontantUserB);
+            this.gpbComptes.Controls.Add(this.txtAmountUserB);
             this.gpbComptes.Controls.Add(this.lblUserB);
             this.gpbComptes.Controls.Add(this.lblUserA);
-            this.gpbComptes.Controls.Add(this.btnOKComptes);
-            this.gpbComptes.Controls.Add(this.lstComptes);
-            this.gpbComptes.Controls.Add(this.txtMontantUserA);
+            this.gpbComptes.Controls.Add(this.btnOKAccount);
+            this.gpbComptes.Controls.Add(this.lstAccounts);
+            this.gpbComptes.Controls.Add(this.txtAmountUserA);
             this.gpbComptes.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpbComptes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.gpbComptes.Location = new System.Drawing.Point(450, 222);
@@ -268,7 +271,7 @@
             this.gpbComptes.Name = "gpbComptes";
             this.gpbComptes.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gpbComptes.Size = new System.Drawing.Size(350, 574);
-            this.gpbComptes.TabIndex = 6;
+            this.gpbComptes.TabIndex = 8;
             this.gpbComptes.TabStop = false;
             this.gpbComptes.Text = "Comptes du mois";
             // 
@@ -284,17 +287,17 @@
             this.btnResetComptes.TabIndex = 8;
             this.btnResetComptes.Text = "Vider";
             this.btnResetComptes.UseVisualStyleBackColor = false;
-            this.btnResetComptes.Click += new System.EventHandler(this.btnResetComptes_Click);
+            this.btnResetComptes.Click += new System.EventHandler(this.btnResetAccounts_Click);
             // 
-            // txtMontantUserB
+            // txtAmountUserB
             // 
-            this.txtMontantUserB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtMontantUserB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtMontantUserB.Location = new System.Drawing.Point(148, 102);
-            this.txtMontantUserB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtMontantUserB.Name = "txtMontantUserB";
-            this.txtMontantUserB.Size = new System.Drawing.Size(184, 28);
-            this.txtMontantUserB.TabIndex = 4;
+            this.txtAmountUserB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.txtAmountUserB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.txtAmountUserB.Location = new System.Drawing.Point(148, 102);
+            this.txtAmountUserB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtAmountUserB.Name = "txtAmountUserB";
+            this.txtAmountUserB.Size = new System.Drawing.Size(184, 28);
+            this.txtAmountUserB.TabIndex = 4;
             // 
             // lblUserB
             // 
@@ -320,37 +323,37 @@
             this.lblUserA.TabIndex = 1;
             this.lblUserA.Text = "personne A :";
             // 
-            // btnOKComptes
+            // btnOKAccount
             // 
-            this.btnOKComptes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.btnOKComptes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(76)))), ((int)(((byte)(117)))));
-            this.btnOKComptes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOKComptes.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOKComptes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.btnOKComptes.Location = new System.Drawing.Point(16, 195);
-            this.btnOKComptes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnOKComptes.Name = "btnOKComptes";
-            this.btnOKComptes.Size = new System.Drawing.Size(316, 35);
-            this.btnOKComptes.TabIndex = 6;
-            this.btnOKComptes.Text = "Valider";
-            this.btnOKComptes.UseVisualStyleBackColor = false;
-            this.btnOKComptes.Click += new System.EventHandler(this.btnOKComptes_Click);
+            this.btnOKAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnOKAccount.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(76)))), ((int)(((byte)(117)))));
+            this.btnOKAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOKAccount.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOKAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnOKAccount.Location = new System.Drawing.Point(16, 195);
+            this.btnOKAccount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnOKAccount.Name = "btnOKAccount";
+            this.btnOKAccount.Size = new System.Drawing.Size(316, 35);
+            this.btnOKAccount.TabIndex = 6;
+            this.btnOKAccount.Text = "Valider";
+            this.btnOKAccount.UseVisualStyleBackColor = false;
+            this.btnOKAccount.Click += new System.EventHandler(this.btnOKComptes_Click);
             // 
-            // lstComptes
+            // lstAccounts
             // 
-            this.lstComptes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(76)))), ((int)(((byte)(117)))));
-            this.lstComptes.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstComptes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lstComptes.FormattingEnabled = true;
-            this.lstComptes.ItemHeight = 21;
-            this.lstComptes.Location = new System.Drawing.Point(16, 236);
-            this.lstComptes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.lstComptes.Name = "lstComptes";
-            this.lstComptes.Size = new System.Drawing.Size(316, 277);
-            this.lstComptes.TabIndex = 7;
-            this.lstComptes.SelectedIndexChanged += new System.EventHandler(this.lstComptes_SelectedIndexChanged);
-            this.lstComptes.DoubleClick += new System.EventHandler(this.lstComptes_DoubleClick);
-            this.lstComptes.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lstComptes_KeyUp);
+            this.lstAccounts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(76)))), ((int)(((byte)(117)))));
+            this.lstAccounts.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstAccounts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lstAccounts.FormattingEnabled = true;
+            this.lstAccounts.ItemHeight = 21;
+            this.lstAccounts.Location = new System.Drawing.Point(16, 236);
+            this.lstAccounts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.lstAccounts.Name = "lstAccounts";
+            this.lstAccounts.Size = new System.Drawing.Size(316, 277);
+            this.lstAccounts.TabIndex = 7;
+            this.lstAccounts.SelectedIndexChanged += new System.EventHandler(this.lstComptes_SelectedIndexChanged);
+            this.lstAccounts.DoubleClick += new System.EventHandler(this.lstComptes_DoubleClick);
+            this.lstAccounts.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lstComptes_KeyUp);
             // 
             // label4
             // 
@@ -366,9 +369,9 @@
             // gpbTotal
             // 
             this.gpbTotal.Controls.Add(this.btnCloture);
-            this.gpbTotal.Controls.Add(this.lblResultat);
-            this.gpbTotal.Controls.Add(this.lblTotalPersB);
-            this.gpbTotal.Controls.Add(this.lblTotalPersA);
+            this.gpbTotal.Controls.Add(this.lblResults);
+            this.gpbTotal.Controls.Add(this.lblTotalUserB);
+            this.gpbTotal.Controls.Add(this.lblTotalUserA);
             this.gpbTotal.Controls.Add(this.lblNomTotalUserB);
             this.gpbTotal.Controls.Add(this.lblNomTotalUserA);
             this.gpbTotal.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -378,7 +381,7 @@
             this.gpbTotal.Name = "gpbTotal";
             this.gpbTotal.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gpbTotal.Size = new System.Drawing.Size(350, 574);
-            this.gpbTotal.TabIndex = 7;
+            this.gpbTotal.TabIndex = 9;
             this.gpbTotal.TabStop = false;
             this.gpbTotal.Text = "Total";
             // 
@@ -396,38 +399,38 @@
             this.btnCloture.UseVisualStyleBackColor = false;
             this.btnCloture.Click += new System.EventHandler(this.btnCloture_Click);
             // 
-            // lblResultat
+            // lblResults
             // 
-            this.lblResultat.AutoSize = true;
-            this.lblResultat.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResultat.Location = new System.Drawing.Point(8, 362);
-            this.lblResultat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblResultat.Name = "lblResultat";
-            this.lblResultat.Size = new System.Drawing.Size(75, 31);
-            this.lblResultat.TabIndex = 11;
-            this.lblResultat.Text = "Total";
+            this.lblResults.AutoSize = true;
+            this.lblResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResults.Location = new System.Drawing.Point(8, 362);
+            this.lblResults.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblResults.Name = "lblResults";
+            this.lblResults.Size = new System.Drawing.Size(75, 31);
+            this.lblResults.TabIndex = 11;
+            this.lblResults.Text = "Total";
             // 
-            // lblTotalPersB
+            // lblTotalUserB
             // 
-            this.lblTotalPersB.AutoSize = true;
-            this.lblTotalPersB.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPersB.Location = new System.Drawing.Point(8, 249);
-            this.lblTotalPersB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTotalPersB.Name = "lblTotalPersB";
-            this.lblTotalPersB.Size = new System.Drawing.Size(29, 31);
-            this.lblTotalPersB.TabIndex = 10;
-            this.lblTotalPersB.Text = "0";
+            this.lblTotalUserB.AutoSize = true;
+            this.lblTotalUserB.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalUserB.Location = new System.Drawing.Point(8, 249);
+            this.lblTotalUserB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotalUserB.Name = "lblTotalUserB";
+            this.lblTotalUserB.Size = new System.Drawing.Size(29, 31);
+            this.lblTotalUserB.TabIndex = 10;
+            this.lblTotalUserB.Text = "0";
             // 
-            // lblTotalPersA
+            // lblTotalUserA
             // 
-            this.lblTotalPersA.AutoSize = true;
-            this.lblTotalPersA.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPersA.Location = new System.Drawing.Point(8, 109);
-            this.lblTotalPersA.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTotalPersA.Name = "lblTotalPersA";
-            this.lblTotalPersA.Size = new System.Drawing.Size(29, 31);
-            this.lblTotalPersA.TabIndex = 9;
-            this.lblTotalPersA.Text = "0";
+            this.lblTotalUserA.AutoSize = true;
+            this.lblTotalUserA.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalUserA.Location = new System.Drawing.Point(8, 109);
+            this.lblTotalUserA.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotalUserA.Name = "lblTotalUserA";
+            this.lblTotalUserA.Size = new System.Drawing.Size(29, 31);
+            this.lblTotalUserA.TabIndex = 9;
+            this.lblTotalUserA.Text = "0";
             // 
             // lblNomTotalUserB
             // 
@@ -462,18 +465,22 @@
             // 
             // menuSauvegarder
             // 
+            this.menuSauvegarder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.menuSauvegarder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuSauvegarder.Name = "menuSauvegarder";
             this.menuSauvegarder.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.menuSauvegarder.Size = new System.Drawing.Size(255, 26);
             this.menuSauvegarder.Text = "Sauvegarder";
-            this.menuSauvegarder.Click += new System.EventHandler(this.menuSauvegarder_Click);
+            this.menuSauvegarder.Click += new System.EventHandler(this.menuSave_Click);
             // 
             // menuReinitialiser
             // 
+            this.menuReinitialiser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.menuReinitialiser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuReinitialiser.Name = "menuReinitialiser";
             this.menuReinitialiser.Size = new System.Drawing.Size(255, 26);
             this.menuReinitialiser.Text = "Réinitialiser l\'application";
-            this.menuReinitialiser.Click += new System.EventHandler(this.menuReinitialiser_Click);
+            this.menuReinitialiser.Click += new System.EventHandler(this.menuResetApp_Click);
             // 
             // menuStrip1
             // 
@@ -483,11 +490,11 @@
             this.menuFichier,
             this.affichageToolStripMenuItem,
             this.menuRepartition,
-            this.sauvegardesToolStripMenuItem});
+            this.analyseToolStripMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1250, 28);
-            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
             this.menuStrip1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseMove);
@@ -503,10 +510,12 @@
             // 
             // menuResetAffichage
             // 
+            this.menuResetAffichage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.menuResetAffichage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuResetAffichage.Name = "menuResetAffichage";
             this.menuResetAffichage.Size = new System.Drawing.Size(242, 26);
             this.menuResetAffichage.Text = "Réinitialiser l\'affichage";
-            this.menuResetAffichage.Click += new System.EventHandler(this.menuResetAffichage_Click);
+            this.menuResetAffichage.Click += new System.EventHandler(this.menuResetDisplay_Click);
             // 
             // menuRepartition
             // 
@@ -519,26 +528,32 @@
             // 
             // menuAjouterRepartition
             // 
+            this.menuAjouterRepartition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.menuAjouterRepartition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuAjouterRepartition.Name = "menuAjouterRepartition";
             this.menuAjouterRepartition.Size = new System.Drawing.Size(233, 26);
             this.menuAjouterRepartition.Text = "Editer une répartition";
-            this.menuAjouterRepartition.Click += new System.EventHandler(this.menuAjouterRepartition_Click);
+            this.menuAjouterRepartition.Click += new System.EventHandler(this.menuEditDivisions_Click);
             // 
-            // sauvegardesToolStripMenuItem
+            // analyseToolStripMenu
             // 
-            this.sauvegardesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuSauvegardes});
-            this.sauvegardesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.sauvegardesToolStripMenuItem.Name = "sauvegardesToolStripMenuItem";
-            this.sauvegardesToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
-            this.sauvegardesToolStripMenuItem.Text = "Sauvegardes";
+            this.analyseToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuChargerAnalyse,
+            this.evolutionDesDépensesToolStripMenuItem});
+            this.analyseToolStripMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.analyseToolStripMenu.Name = "analyseToolStripMenu";
+            this.analyseToolStripMenu.Size = new System.Drawing.Size(74, 24);
+            this.analyseToolStripMenu.Text = "Analyse";
             // 
-            // menuSauvegardes
+            // menuChargerAnalyse
             // 
-            this.menuSauvegardes.Name = "menuSauvegardes";
-            this.menuSauvegardes.Size = new System.Drawing.Size(323, 26);
-            this.menuSauvegardes.Text = "Charger une sauvegarde mensuelle";
-            this.menuSauvegardes.Click += new System.EventHandler(this.menuSauvegardes_Click);
+            this.menuChargerAnalyse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.menuChargerAnalyse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.menuChargerAnalyse.Name = "menuChargerAnalyse";
+            this.menuChargerAnalyse.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.menuChargerAnalyse.Size = new System.Drawing.Size(376, 26);
+            this.menuChargerAnalyse.Text = "Charger une sauvegarde mensuelle";
+            this.menuChargerAnalyse.Click += new System.EventHandler(this.menuMonthlySaves_Click);
             // 
             // panel1
             // 
@@ -571,7 +586,7 @@
             this.btnQuitter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnQuitter.Name = "btnQuitter";
             this.btnQuitter.Size = new System.Drawing.Size(78, 31);
-            this.btnQuitter.TabIndex = 16;
+            this.btnQuitter.TabIndex = 12;
             this.btnQuitter.Text = "X";
             this.btnQuitter.UseVisualStyleBackColor = false;
             this.btnQuitter.Click += new System.EventHandler(this.btnQuitter_Click);
@@ -584,36 +599,57 @@
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 21);
-            this.label5.TabIndex = 17;
+            this.label5.TabIndex = 4;
             this.label5.Text = "du mois de ";
             // 
-            // cboMois
+            // cboMonth
             // 
-            this.cboMois.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboMois.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMois.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboMois.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboMois.FormattingEnabled = true;
-            this.cboMois.Location = new System.Drawing.Point(655, 160);
-            this.cboMois.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboMois.Name = "cboMois";
-            this.cboMois.Size = new System.Drawing.Size(168, 29);
-            this.cboMois.TabIndex = 8;
+            this.cboMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMonth.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboMonth.FormattingEnabled = true;
+            this.cboMonth.Location = new System.Drawing.Point(655, 160);
+            this.cboMonth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboMonth.Name = "cboMonth";
+            this.cboMonth.Size = new System.Drawing.Size(168, 29);
+            this.cboMonth.TabIndex = 5;
             // 
-            // cboAnnee
+            // cboYear
             // 
-            this.cboAnnee.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboAnnee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboAnnee.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboAnnee.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboAnnee.FormattingEnabled = true;
-            this.cboAnnee.Location = new System.Drawing.Point(831, 159);
-            this.cboAnnee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboAnnee.Name = "cboAnnee";
-            this.cboAnnee.Size = new System.Drawing.Size(85, 29);
-            this.cboAnnee.TabIndex = 18;
+            this.cboYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboYear.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboYear.FormattingEnabled = true;
+            this.cboYear.Location = new System.Drawing.Point(831, 159);
+            this.cboYear.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboYear.Name = "cboYear";
+            this.cboYear.Size = new System.Drawing.Size(85, 29);
+            this.cboYear.TabIndex = 6;
             // 
-            // frmPrincipal
+            // btnMinimize
+            // 
+            this.btnMinimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.btnMinimize.FlatAppearance.BorderSize = 0;
+            this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinimize.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMinimize.Location = new System.Drawing.Point(1087, 0);
+            this.btnMinimize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(78, 31);
+            this.btnMinimize.TabIndex = 11;
+            this.btnMinimize.Text = "—";
+            this.btnMinimize.UseVisualStyleBackColor = false;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            // 
+            // evolutionDesDépensesToolStripMenuItem
+            // 
+            this.evolutionDesDépensesToolStripMenuItem.Name = "evolutionDesDépensesToolStripMenuItem";
+            this.evolutionDesDépensesToolStripMenuItem.Size = new System.Drawing.Size(376, 26);
+            this.evolutionDesDépensesToolStripMenuItem.Text = "Evolution des dépenses";
+            // 
+            // frmMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -621,8 +657,9 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(1250, 850);
-            this.Controls.Add(this.cboAnnee);
-            this.Controls.Add(this.cboMois);
+            this.Controls.Add(this.btnMinimize);
+            this.Controls.Add(this.cboYear);
+            this.Controls.Add(this.cboMonth);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnQuitter);
             this.Controls.Add(this.panel1);
@@ -637,10 +674,11 @@
             this.Font = new System.Drawing.Font("Century Schoolbook", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximumSize = new System.Drawing.Size(1250, 1000);
-            this.Name = "frmPrincipal";
+            this.Name = "frmMain";
             this.Text = "Gestion des comptes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmComptes_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -660,30 +698,30 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtMontantUserA;
-        private System.Windows.Forms.TextBox txtNomBudget;
+        private System.Windows.Forms.TextBox txtAmountUserA;
+        private System.Windows.Forms.TextBox txtBudgetName;
         private System.Windows.Forms.GroupBox gpbAjoutBudget;
         private System.Windows.Forms.ListBox lstBudgets;
-        private System.Windows.Forms.ComboBox cboRepartition;
+        private System.Windows.Forms.ComboBox cboDivisions;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gpbComptes;
-        private System.Windows.Forms.ListBox lstComptes;
-        private System.Windows.Forms.Button btnOKComptes;
+        private System.Windows.Forms.ListBox lstAccounts;
+        private System.Windows.Forms.Button btnOKAccount;
         private System.Windows.Forms.Button btnOKBudgets;
         private System.Windows.Forms.TextBox txtUserB;
         private System.Windows.Forms.TextBox txtUserA;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtMontantUserB;
+        private System.Windows.Forms.TextBox txtAmountUserB;
         private System.Windows.Forms.Label lblUserB;
         private System.Windows.Forms.Label lblUserA;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox gpbTotal;
         private System.Windows.Forms.Label lblNomTotalUserB;
         private System.Windows.Forms.Label lblNomTotalUserA;
-        private System.Windows.Forms.Label lblTotalPersB;
-        private System.Windows.Forms.Label lblTotalPersA;
-        private System.Windows.Forms.Label lblResultat;
+        private System.Windows.Forms.Label lblTotalUserB;
+        private System.Windows.Forms.Label lblTotalUserA;
+        private System.Windows.Forms.Label lblResults;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.ToolStripMenuItem menuFichier;
         private System.Windows.Forms.ToolStripMenuItem menuSauvegarder;
@@ -698,12 +736,14 @@
         private System.Windows.Forms.ToolStripMenuItem menuRepartition;
         private System.Windows.Forms.ToolStripMenuItem menuAjouterRepartition;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cboMois;
-        private System.Windows.Forms.ComboBox cboAnnee;
-        private System.Windows.Forms.ToolStripMenuItem sauvegardesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem menuSauvegardes;
+        private System.Windows.Forms.ComboBox cboMonth;
+        private System.Windows.Forms.ComboBox cboYear;
+        private System.Windows.Forms.ToolStripMenuItem analyseToolStripMenu;
+        private System.Windows.Forms.ToolStripMenuItem menuChargerAnalyse;
         private System.Windows.Forms.ToolStripMenuItem affichageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuResetAffichage;
+        private System.Windows.Forms.Button btnMinimize;
+        private System.Windows.Forms.ToolStripMenuItem evolutionDesDépensesToolStripMenuItem;
     }
 }
 

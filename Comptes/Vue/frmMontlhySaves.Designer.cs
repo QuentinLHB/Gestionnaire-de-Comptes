@@ -1,6 +1,6 @@
 ﻿namespace Comptes
 {
-    partial class FenSauvegardes
+    partial class FenSummary
     {
         /// <summary>
         /// Required designer variable.
@@ -35,20 +35,21 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnQuitter = new System.Windows.Forms.Button();
             this.grdBudgets = new System.Windows.Forms.DataGridView();
+            this.accountName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expensesA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expensesB = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataMonthlyReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreFen = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cboMois = new System.Windows.Forms.ComboBox();
-            this.cboAnnee = new System.Windows.Forms.ComboBox();
+            this.lblActionName = new System.Windows.Forms.Label();
+            this.cboMonth = new System.Windows.Forms.ComboBox();
+            this.cboYear = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
-            this.dataTableauMensuelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nomCompteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.depensesADataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.depensesBDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelMonthlyReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTableauMensuelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -60,6 +61,8 @@
             this.menuStrip1.Size = new System.Drawing.Size(900, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
+            this.menuStrip1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseMove);
             // 
             // contextMenuStrip1
             // 
@@ -73,10 +76,11 @@
             this.btnQuitter.FlatAppearance.BorderSize = 0;
             this.btnQuitter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuitter.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnQuitter.Location = new System.Drawing.Point(822, 0);
+            this.btnQuitter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnQuitter.Location = new System.Drawing.Point(822, -3);
             this.btnQuitter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnQuitter.Name = "btnQuitter";
-            this.btnQuitter.Size = new System.Drawing.Size(78, 31);
+            this.btnQuitter.Size = new System.Drawing.Size(78, 28);
             this.btnQuitter.TabIndex = 17;
             this.btnQuitter.Text = "X";
             this.btnQuitter.UseVisualStyleBackColor = false;
@@ -88,6 +92,7 @@
             this.grdBudgets.AllowUserToDeleteRows = false;
             this.grdBudgets.AllowUserToResizeColumns = false;
             this.grdBudgets.AllowUserToResizeRows = false;
+            this.grdBudgets.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.grdBudgets.AutoGenerateColumns = false;
             this.grdBudgets.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.grdBudgets.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -102,11 +107,11 @@
             this.grdBudgets.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdBudgets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdBudgets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nomCompteDataGridViewTextBoxColumn,
-            this.depensesADataGridViewTextBoxColumn,
-            this.depensesBDataGridViewTextBoxColumn,
+            this.accountName,
+            this.expensesA,
+            this.expensesB,
             this.totalDataGridViewTextBoxColumn});
-            this.grdBudgets.DataSource = this.dataTableauMensuelBindingSource;
+            this.grdBudgets.DataSource = this.dataMonthlyReportBindingSource;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(66)))), ((int)(((byte)(102)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -116,7 +121,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.grdBudgets.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdBudgets.EnableHeadersVisualStyles = false;
-            this.grdBudgets.Location = new System.Drawing.Point(79, 230);
+            this.grdBudgets.Location = new System.Drawing.Point(79, 245);
             this.grdBudgets.Name = "grdBudgets";
             this.grdBudgets.ReadOnly = true;
             this.grdBudgets.RowHeadersVisible = false;
@@ -126,11 +131,52 @@
             this.grdBudgets.TabIndex = 18;
             this.grdBudgets.Visible = false;
             // 
+            // accountName
+            // 
+            this.accountName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.accountName.DataPropertyName = "accountName";
+            this.accountName.HeaderText = "Budget";
+            this.accountName.MinimumWidth = 6;
+            this.accountName.Name = "accountName";
+            this.accountName.ReadOnly = true;
+            this.accountName.Width = 104;
+            // 
+            // expensesA
+            // 
+            this.expensesA.DataPropertyName = "expensesA";
+            this.expensesA.HeaderText = "Dépenses A";
+            this.expensesA.MinimumWidth = 6;
+            this.expensesA.Name = "expensesA";
+            this.expensesA.ReadOnly = true;
+            this.expensesA.Width = 170;
+            // 
+            // expensesB
+            // 
+            this.expensesB.DataPropertyName = "expensesB";
+            this.expensesB.HeaderText = "Dépenses B";
+            this.expensesB.MinimumWidth = 6;
+            this.expensesB.Name = "expensesB";
+            this.expensesB.ReadOnly = true;
+            this.expensesB.Width = 170;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalDataGridViewTextBoxColumn.Width = 170;
+            // 
+            // dataMonthlyReportBindingSource
+            // 
+            this.dataMonthlyReportBindingSource.DataSource = typeof(Comptes.Model.DataMonthlyReport);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
             this.panel1.Controls.Add(this.lblTitreFen);
-            this.panel1.Location = new System.Drawing.Point(0, 27);
+            this.panel1.Location = new System.Drawing.Point(0, 25);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(900, 95);
@@ -148,43 +194,43 @@
             this.lblTitreFen.TabIndex = 0;
             this.lblTitreFen.Text = "Récap\' Mensuel";
             // 
-            // label3
+            // lblActionName
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(75, 157);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(238, 21);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "Charger la sauvegarde de ";
+            this.lblActionName.AutoSize = true;
+            this.lblActionName.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.lblActionName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblActionName.Location = new System.Drawing.Point(75, 159);
+            this.lblActionName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActionName.Name = "lblActionName";
+            this.lblActionName.Size = new System.Drawing.Size(238, 21);
+            this.lblActionName.TabIndex = 21;
+            this.lblActionName.Text = "Charger la sauvegarde de ";
             // 
-            // cboMois
+            // cboMonth
             // 
-            this.cboMois.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboMois.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMois.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboMois.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboMois.FormattingEnabled = true;
-            this.cboMois.Location = new System.Drawing.Point(350, 157);
-            this.cboMois.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboMois.Name = "cboMois";
-            this.cboMois.Size = new System.Drawing.Size(168, 29);
-            this.cboMois.TabIndex = 22;
+            this.cboMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMonth.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboMonth.FormattingEnabled = true;
+            this.cboMonth.Location = new System.Drawing.Point(350, 157);
+            this.cboMonth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboMonth.Name = "cboMonth";
+            this.cboMonth.Size = new System.Drawing.Size(168, 29);
+            this.cboMonth.TabIndex = 22;
             // 
-            // cboAnnee
+            // cboYear
             // 
-            this.cboAnnee.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboAnnee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboAnnee.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboAnnee.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboAnnee.FormattingEnabled = true;
-            this.cboAnnee.Location = new System.Drawing.Point(561, 157);
-            this.cboAnnee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboAnnee.Name = "cboAnnee";
-            this.cboAnnee.Size = new System.Drawing.Size(85, 29);
-            this.cboAnnee.TabIndex = 23;
+            this.cboYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboYear.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.cboYear.FormattingEnabled = true;
+            this.cboYear.Location = new System.Drawing.Point(561, 157);
+            this.cboYear.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cboYear.Name = "cboYear";
+            this.cboYear.Size = new System.Drawing.Size(85, 29);
+            this.cboYear.TabIndex = 23;
             // 
             // btnOK
             // 
@@ -200,70 +246,44 @@
             this.btnOK.UseVisualStyleBackColor = false;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // dataTableauMensuelBindingSource
+            // btnDelMonthlyReport
             // 
-            this.dataTableauMensuelBindingSource.DataSource = typeof(Comptes.Model.DataTableauMensuel);
+            this.btnDelMonthlyReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnDelMonthlyReport.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnDelMonthlyReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnDelMonthlyReport.Location = new System.Drawing.Point(561, 199);
+            this.btnDelMonthlyReport.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnDelMonthlyReport.Name = "btnDelMonthlyReport";
+            this.btnDelMonthlyReport.Size = new System.Drawing.Size(199, 31);
+            this.btnDelMonthlyReport.TabIndex = 25;
+            this.btnDelMonthlyReport.Text = "Supprimer";
+            this.btnDelMonthlyReport.UseVisualStyleBackColor = false;
+            this.btnDelMonthlyReport.Click += new System.EventHandler(this.btnDelMonthlyReport_Click);
             // 
-            // nomCompteDataGridViewTextBoxColumn
-            // 
-            this.nomCompteDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.nomCompteDataGridViewTextBoxColumn.DataPropertyName = "nomCompte";
-            this.nomCompteDataGridViewTextBoxColumn.HeaderText = "nomCompte";
-            this.nomCompteDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.nomCompteDataGridViewTextBoxColumn.Name = "nomCompteDataGridViewTextBoxColumn";
-            this.nomCompteDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nomCompteDataGridViewTextBoxColumn.Width = 155;
-            // 
-            // depensesADataGridViewTextBoxColumn
-            // 
-            this.depensesADataGridViewTextBoxColumn.DataPropertyName = "depensesA";
-            this.depensesADataGridViewTextBoxColumn.HeaderText = "depensesA";
-            this.depensesADataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.depensesADataGridViewTextBoxColumn.Name = "depensesADataGridViewTextBoxColumn";
-            this.depensesADataGridViewTextBoxColumn.ReadOnly = true;
-            this.depensesADataGridViewTextBoxColumn.Width = 200;
-            // 
-            // depensesBDataGridViewTextBoxColumn
-            // 
-            this.depensesBDataGridViewTextBoxColumn.DataPropertyName = "depensesB";
-            this.depensesBDataGridViewTextBoxColumn.HeaderText = "depensesB";
-            this.depensesBDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.depensesBDataGridViewTextBoxColumn.Name = "depensesBDataGridViewTextBoxColumn";
-            this.depensesBDataGridViewTextBoxColumn.ReadOnly = true;
-            this.depensesBDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
-            this.totalDataGridViewTextBoxColumn.HeaderText = "total";
-            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
-            this.totalDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // FenSauvegardes
+            // FenSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.ClientSize = new System.Drawing.Size(900, 600);
+            this.ClientSize = new System.Drawing.Size(900, 630);
+            this.Controls.Add(this.btnDelMonthlyReport);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.cboAnnee);
-            this.Controls.Add(this.cboMois);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cboYear);
+            this.Controls.Add(this.cboMonth);
+            this.Controls.Add(this.lblActionName);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grdBudgets);
             this.Controls.Add(this.btnQuitter);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "FenSauvegardes";
+            this.Name = "FenSummary";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTableauMensuelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,16 +295,20 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button btnQuitter;
         private System.Windows.Forms.DataGridView grdBudgets;
-        private System.Windows.Forms.BindingSource dataTableauMensuelBindingSource;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitreFen;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cboMois;
-        private System.Windows.Forms.ComboBox cboAnnee;
+        private System.Windows.Forms.Label lblActionName;
+        private System.Windows.Forms.ComboBox cboMonth;
+        private System.Windows.Forms.ComboBox cboYear;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomCompteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn depensesADataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn depensesBDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource dataMonthlyReportBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn expensesA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn expensesB;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnDelMonthlyReport;
     }
 }

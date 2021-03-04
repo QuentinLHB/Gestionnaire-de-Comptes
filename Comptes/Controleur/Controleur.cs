@@ -10,7 +10,7 @@ namespace Comptes.Controleur
 {
     public class Controleur
     {
-        public Controleur(frmPrincipal vue)
+        public Controleur(frmMain vue)
         {
 
         }

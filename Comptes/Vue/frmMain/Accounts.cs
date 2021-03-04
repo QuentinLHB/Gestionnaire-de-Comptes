@@ -15,7 +15,7 @@ using System.Globalization;
 
 namespace Comptes
 {
-    public partial class frmPrincipal : Form
+    public partial class frmMain : Form
     {
         /// <summary>
         /// Ajoute les dettes de chacune des personnes dans la liste des comptes.
@@ -24,33 +24,32 @@ namespace Comptes
         /// <param name="e"></param>
         private void btnOKComptes_Click(object sender, EventArgs e)
         {
-            Compte compte = GetCompteSelectionne();
+            Account account = getSelectedAccount();
 
-            verifieSiVide();
-            affichageDesDepenses(compte);
-            updateTotaux();
-            updateResultat();
+            checkIfEmpty();
+            displayExpenses(account);
+            updateTotals();
 
             try { lstBudgets.SelectedIndex++; }
             catch { }
-            resetMenuCompte();
-            flagChangement(changement: true);
+            resetAccountBox();
+            setFlagChange(change: true);
 
         }
 
         /// <summary>
         /// Gère les textBox des montants si elles sont vides.
         /// </summary>
-        private void verifieSiVide()
+        private void checkIfEmpty()
         {
-            if (txtMontantUserA.Text.Equals(""))
+            if (txtAmountUserA.Text.Equals(""))
             {
-                txtMontantUserA.Text = "0";
+                txtAmountUserA.Text = "0";
             }
 
-            if (txtMontantUserB.Text.Equals(""))
+            if (txtAmountUserB.Text.Equals(""))
             {
-                txtMontantUserB.Text = "0";
+                txtAmountUserB.Text = "0";
             }
         }
 
@@ -58,29 +57,29 @@ namespace Comptes
         /// Affiche les dépenses entrées dans la listBox des Comptes.
         /// </summary>
         /// <param name="compte"></param>
-        private void affichageDesDepenses(Compte compte)
+        private void displayExpenses(Account compte)
         {
             try
             {
-                compte.userA.depenses = Eval(txtMontantUserA.Text);
-                compte.userB.depenses = Eval(txtMontantUserB.Text);
+                compte.userA.expenses = Eval(txtAmountUserA.Text);
+                compte.userB.expenses = Eval(txtAmountUserB.Text);
             }
 
             catch
             {
-                MessageBox.Show(Constantes.MSG_ERR_SAISIE, Constantes.MSG_TITRE_ERR_SAISIE, MessageBoxButtons.OK);
+                MessageBox.Show(Const.MSG_ERR_WRONGINPUT, Const.MSG_TITRE_ERR_WRONGINPUT, MessageBoxButtons.OK);
             }
 
-            updateAffichageComptes(compte);
+            updateAccountDislay(compte);
         }
 
         /// <summary>
         /// Met à jour l'affichage du compte sélectionné dans la liste.
         /// </summary>
-        /// <param name="compte"></param>
-        private void updateAffichageComptes(Compte compte)
+        /// <param name="account"></param>
+        private void updateAccountDislay(Account account)
         {
-            lstComptes.Items[lstComptes.SelectedIndex] = compte;
+            lstAccounts.Items[lstAccounts.SelectedIndex] = account;
 
         }
 
@@ -89,9 +88,8 @@ namespace Comptes
         {
             if (e.KeyCode == Keys.Delete)
             {
-                videCompte(lstComptes.SelectedIndex);
-                updateTotaux();
-                updateResultat();
+                emptyAccountData(lstAccounts.SelectedIndex);
+                updateTotals();
             }
         }
 
@@ -99,52 +97,51 @@ namespace Comptes
         /// Réinitialise l'affichage par défaut d'un item spécifié de la liste des comptes.
         /// </summary>
         /// <param name="index">Index de la liste des comptes.</param>
-        private void videCompte(int index)
+        private void emptyAccountData(int index)
         {
-            GetCompteSelectionne().reset();
-            lstComptes.Items[index] = data.lesBudgets[index].nom + " :";
+            getSelectedAccount().reset();
+            lstAccounts.Items[index] = data.allBudgets[index].name + " :";
         }
 
         private void lstComptes_DoubleClick(object sender, EventArgs e)
         {
-            Compte compte = GetCompteSelectionne();
-            txtMontantUserA.Text = compte.userA.depenses.ToString();
-            txtMontantUserB.Text = compte.userB.depenses.ToString();
-            txtMontantUserA.Focus();
+            Account account = getSelectedAccount();
+            txtAmountUserA.Text = account.userA.expenses.ToString();
+            txtAmountUserB.Text = account.userB.expenses.ToString();
+            txtAmountUserA.Focus();
         }
 
         /// <summary>
         /// Si la liste des budgets est vide, désactive le bouton Valider de la zone comptes.
         /// </summary>
-        private void accesAjoutCompte()
+        private void accessAddAccount()
         {
             if (lstBudgets.Items.Count != 0)
             {
-                btnOKComptes.Enabled = true;
+                btnOKAccount.Enabled = true;
                 lstBudgets.SelectedIndex = 0;
             }
 
             else
             {
-                btnOKComptes.Enabled = false;
+                btnOKAccount.Enabled = false;
             }
         }
 
-        private Compte GetCompteSelectionne()
+        private Account getSelectedAccount()
         {
-            return data.lesBudgets[lstComptes.SelectedIndex].compte;
+            return data.allBudgets[lstAccounts.SelectedIndex].account;
         }
 
-        private void btnResetComptes_Click(object sender, EventArgs e)
+        private void btnResetAccounts_Click(object sender, EventArgs e)
         {
-            for (int k = 0; k < data.lesBudgets.Count; k++)
+            for (int k = 0; k < data.allBudgets.Count; k++)
             {
-                lstComptes.SelectedIndex = k;
-                videCompte(k);
+                lstAccounts.SelectedIndex = k;
+                emptyAccountData(k);
             }
-            accesAjoutCompte();
-            updateTotaux();
-            updateResultat();
+            accessAddAccount();
+            updateTotals();
         }
     }
 }

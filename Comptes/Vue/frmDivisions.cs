@@ -12,7 +12,7 @@ using Comptes.Model;
 
 namespace Comptes
 {
-    public partial class FrmRepartition : Form
+    public partial class FrmDivisions : Form
     {
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -23,28 +23,28 @@ namespace Comptes
         [DllImportAttribute("user32.dll")]
         private static extern bool ReleaseCapture();
 
-        frmPrincipal frmPrincipal;
+        frmMain frmMain;
         AppData data;
-        public FrmRepartition(AppData data, frmPrincipal frmPrincipal)
+        public FrmDivisions(AppData data, frmMain frmMain)
         {
             InitializeComponent();
             this.data = data;
-            this.frmPrincipal = frmPrincipal;
-            frmPrincipal.chargeRepartitions(cboRepartition);
+            this.frmMain = frmMain;
+            frmMain.loadDivisions(cboDivisions);
         }
 
         //____________________________AJOUTER ______________________________________
         private void btnAjouterRepartition_Click(object sender, EventArgs e)
         {
-            string cle = txtDividende.Text + " / " + txtDiviseur.Text;
+            string key = txtDividend.Text + " / " + txtDivider.Text;
             try
             {
-                data.dctRepartitions.Add(cle, double.Parse(txtDividende.Text) / 100);
-                frmPrincipal.ajouterRepartition(cle);
+                data.dctDivisions.Add(key, double.Parse(txtDividend.Text) / 100);
+                frmMain.addDivision(key);
             }
             catch
             {
-                MessageBox.Show(Constantes.MSG_ERR_AJOUTREPART, Constantes.ERREUR, MessageBoxButtons.OK);
+                MessageBox.Show(Const.MSG_ERR_ADDDIVISION, Const.ERROR, MessageBoxButtons.OK);
             }
 
             this.Close();
@@ -67,29 +67,29 @@ namespace Comptes
         {
             try
             {
-                txtDiviseur.Text = (100 - int.Parse(txtDividende.Text)).ToString();
+                txtDivider.Text = (100 - int.Parse(txtDividend.Text)).ToString();
             }
 
             catch
             {
-                txtDiviseur.Text = "";
+                txtDivider.Text = "";
             }
         }
 
         // __________________________ SUPPRIMER ______________________________________
         private void btnSupprimerRepartition_Click(object sender, EventArgs e)
         {
-            if (data.dctRepartitions.Count != 1)
+            if (data.dctDivisions.Count != 1)
             {
-                data.dctRepartitions.Remove(cboRepartition.SelectedItem.ToString());
-                frmPrincipal.refreshCboRepartitions();
+                data.dctDivisions.Remove(cboDivisions.SelectedItem.ToString());
+                frmMain.refreshCboDivisions();
             }
 
             else
             {
-                MessageBox.Show(Constantes.MSG_ERR_AJOUTREPART2, Constantes.ERREUR, MessageBoxButtons.OK);
+                MessageBox.Show(Const.MSG_ERR_ADDDIVISION2, Const.ERROR, MessageBoxButtons.OK);
             }
-            frmPrincipal.flagChangement(true);
+            frmMain.setFlagChange(true);
             Close();
         }
 
