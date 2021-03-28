@@ -67,6 +67,7 @@
             this.menuAjouterRepartition = new System.Windows.Forms.ToolStripMenuItem();
             this.analyseToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChargerAnalyse = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAnalysis = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreApp = new System.Windows.Forms.Label();
             this.btnQuitter = new System.Windows.Forms.Button();
@@ -74,7 +75,6 @@
             this.cboMonth = new System.Windows.Forms.ComboBox();
             this.cboYear = new System.Windows.Forms.ComboBox();
             this.btnMinimize = new System.Windows.Forms.Button();
-            this.evolutionDesDépensesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
@@ -539,7 +539,7 @@
             // 
             this.analyseToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuChargerAnalyse,
-            this.evolutionDesDépensesToolStripMenuItem});
+            this.menuAnalysis});
             this.analyseToolStripMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.analyseToolStripMenu.Name = "analyseToolStripMenu";
             this.analyseToolStripMenu.Size = new System.Drawing.Size(74, 24);
@@ -554,6 +554,13 @@
             this.menuChargerAnalyse.Size = new System.Drawing.Size(376, 26);
             this.menuChargerAnalyse.Text = "Charger une sauvegarde mensuelle";
             this.menuChargerAnalyse.Click += new System.EventHandler(this.menuMonthlySaves_Click);
+            // 
+            // menuAnalysis
+            // 
+            this.menuAnalysis.Name = "menuAnalysis";
+            this.menuAnalysis.Size = new System.Drawing.Size(376, 26);
+            this.menuAnalysis.Text = "Evolution des dépenses";
+            this.menuAnalysis.Click += new System.EventHandler(this.menuAnalysis_Click);
             // 
             // panel1
             // 
@@ -642,12 +649,6 @@
             this.btnMinimize.Text = "—";
             this.btnMinimize.UseVisualStyleBackColor = false;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
-            // 
-            // evolutionDesDépensesToolStripMenuItem
-            // 
-            this.evolutionDesDépensesToolStripMenuItem.Name = "evolutionDesDépensesToolStripMenuItem";
-            this.evolutionDesDépensesToolStripMenuItem.Size = new System.Drawing.Size(376, 26);
-            this.evolutionDesDépensesToolStripMenuItem.Text = "Evolution des dépenses";
             // 
             // frmMain
             // 
@@ -743,7 +744,7 @@
         private System.Windows.Forms.ToolStripMenuItem affichageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuResetAffichage;
         private System.Windows.Forms.Button btnMinimize;
-        private System.Windows.Forms.ToolStripMenuItem evolutionDesDépensesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuAnalysis;
     }
 }
 

@@ -5,23 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Comptes.Controleur;
+using Comptes.Control;
+using Comptes.Constants;
 
 namespace Comptes.Model
 {
     [SerializableAttribute]
     public class AppData
     {
+        //public static List<DistinctBudget> sortedBudgets { get; set; }
+
         public string[] userNames = new string[2];
-        //public string[] userDebts = new string[2];
         public List<Budget> allBudgets { get; }
         private string _month;
         private Dictionary<string, double> _dctDivisions;
 
         public AppData()
         {
-            //allUsers = new List<User>();
             allBudgets = new List<Budget>();
+            //sortedBudgets = new List<DistinctBudget>();
             _dctDivisions = new Dictionary<string, double>();
             initializeDivisions();
         }
@@ -61,13 +63,13 @@ namespace Comptes.Model
         //private List<User> _allUsers;
         private List<Budget> _allBudgets;
 
-        private string _month;
-        private string _year;
+        private int _month;
+        private int _year;
 
         //public List<User> allUsers { get => _allUsers; set => _allUsers = value; }
         public List<Budget> allBudgets { get => _allBudgets; set => _allBudgets = value; }
 
-        public MonthlySave(string month, string year, List<Budget> allBudgets)
+        public MonthlySave(int month, int year, List<Budget> allBudgets)
         {
             _month = month;
             _year = year;
@@ -75,17 +77,18 @@ namespace Comptes.Model
             //_allUsers = allUsers;
         }
 
-        public string year { get => _year; }
-        public string month { get => _month; }
+        public int year { get => _year; }
+
+        public int month { get => _month; }
 
         /// <summary>
         /// Vérifie si une sauvegarde existe déjà parmi les existantes.
         /// </summary>
         /// <param name="allSaves">Liste des sauvegardes mensuelles.</param>
-        /// <param name="selectedMonth">Mois sélectionné.</param>
+        /// <param name="selectedMonth">Numéro du mois sélectionné (1-12).</param>
         /// <param name="selectedYear">Année sélectionnée.</param>
         /// <returns></returns>
-        public static MonthlySave findMonthlySave(List<MonthlySave> allSaves, string selectedMonth, string selectedYear)
+        public static MonthlySave findMonthlySave(List<MonthlySave> allSaves, int selectedMonth, int selectedYear)
             {
             MonthlySave existingSave = null;
             foreach (MonthlySave save in allSaves)
@@ -99,88 +102,10 @@ namespace Comptes.Model
             }
             return existingSave;
         }
+
     }
 
-        /// <summary>
-        /// Stocke toutes les informations constantes d'affichage.
-        /// </summary>
-        public class Const
-    {
-        public const string BUDGET = "Budget";
-        public const string TOTAL = "Total";
-        public const int DECEMBER = 11;
 
-        public const String FILE_MONTHLYRECAP = "SauvegardesMensuelles";
-        public const String FILE_DATA = "appData";
-
-        public const int USER_A = 0; public const int USER_B = 1;
-        public const string DEFAULT_NAME_USER_A = "Utilisateur A";
-        public const string DEFAULT_NAME_USER_B = "Utilisateur B";
-
-        public static Dictionary<string, double> initialDivision = new Dictionary<string, double>();
-
-        public const string BALANCEDRESULT = "Résultat équilibré.";
-        
-        public static string debtDisplay(string name, double result)
-        {
-            return ($"{name} doit {result}€.");
-
-        }
-
-        // Contenu des MessageBox :
-        public const string ERROR = "Erreur";
-
-        public const string MSG_TITLE_ERR_NOSAVE = "Action impossible";
-        public const string MSG_ERR_NO_MONTHLYSAVE = "Aucune sauvegarde enregistrée.";
-
-        public const string MSG_TITLE_VALIDATIONMONYLYSAVE = "Cloturer le mois";
-        public const string MSG_VALIDATIONMONYLYSAVE = "Valider le mois ? Aucune modification ne pourra êttre apportée.";
-
-        public const string MSG_TITLE_SAVEBEFOREQUIT = "Fermeture";
-        public const string MSG_SAVEBEFOREQUIT = "Voulez-vous sauvegarder avant de quitter?";
-
-        public const string MSG_TITLE_RESET = "Réinitialisation";
-        public const string MSG_RESET = "Toutes les données seront effacées. Confirmer ?";
-        public const string MSG_RESETOK = "L'application a été réinitialisée avec succès.";
-
-        public const string MSG_TITRE_ERR_SAVE = "Sauvegarde";
-        public const string MSG_ERR_SAVE = ERROR;
-
-        public const string MSG_TITRE_ERR_WRONGINPUT = ERROR;
-        public const string MSG_ERR_WRONGINPUT = "Ne saisir que des nombres ou des calculs.";
-
-        public const string MSG_TITLE_DELETE = "Confirmation de suppression";
-        public const string MSG_DELETEBUDGET = "Voulez-vous vraiment supprimer le budget et son contenu ?";
-        public const string MSG_DELETEMONTLYSAVE = "Voulez-vous vraiment supprimer cette sauvegarde mensuelle de manière permanente ?";
-
-        public const string MSG_ERR_ADDDIVISION = "La répartition n'a pas pu être ajoutée.";
-        public const string MSG_ERR_ADDDIVISION2 = "Un minimum d'une répartition doit subsister.";
-
-        public const string MSG_ERR_FINALIZE = "Ajouter au moins un budget.";
-
-        public const string MSG_ERR_WRONGSELECTION = "Aucune sauvegarde n'a été trouvée pour le mois suivant :";
-
-        public const string MSG_TITLE_REPLACE = "Ecrasement";
-        public const string MSG_REPLACE = "Une sauvegarde existe déjà pour ce mois. L'écraser ?";
-        public const string MSG_REPLACE_YES = "La sauvegarde mensuelle a été écrasée.";
-        public const string MSG_REPLACE_NO = "La sauvgarde n'a pas été effectuée.";
-
-        private Const() {
-            initializDivisions();
-        }
-
-        public static void initializDivisions()
-        {
-            initialDivision.Add("50 / 50", 0.5);
-            initialDivision.Add("60 / 40", 0.6);
-            initialDivision.Add("70 / 30", 0.7);
-        }
-
-        public static string EXPENSES(string user)
-        {
-            return $"Dépenses de {user}";
-        }
-    }
 
     [SerializableAttribute]
     public class Budget
@@ -234,6 +159,8 @@ namespace Comptes.Model
             //double[] totalDebts = { Math.Round(totalDebtsUserA, 2), Math.Round(totalDebtsUserB, 2) };
             //return totalDebts;
         }
+
+        
     }
 
     [SerializableAttribute]
@@ -352,21 +279,243 @@ namespace Comptes.Model
         public string accountName { get; set; }
         public static string nameUserA { get; set; }
         public static string nameUserB { get; set; }
-        public double expensesA { get; set; }
-        public double expensesB { get; set; }
-        public double total { get; set; }
+        public string expensesA { get; set; }
+        public string expensesB { get; set; }
+        public string total { get; set; }
 
         public DataMonthlyReport(string accountName, double expensesA, double expensesB)
         {
             this.accountName = accountName;
-            this.expensesA = expensesA;
-            this.expensesB = expensesB;
-            this.total = expensesA + expensesB;
+            this.expensesA = expensesA + "€";
+            this.expensesB = expensesB + "€";
+            this.total = (expensesA + expensesB) + "€";
             DataMonthlyReport.nameUserA = User.getName(Const.USER_A);
             DataMonthlyReport.nameUserB = User.getName(Const.USER_B);
             //this.nameUserB = nameUserB;
         }
 
+    }
+    /// <summary>
+    /// Entité regroupant les données de tous les objets "Budget" portant le même nom.
+    /// </summary>
+    public class DistinctBudget
+    {
+        /// <summary>
+        /// CONSTRUCTEUR
+        /// </summary>
+        /// <param name="name">Nom du budget</param>
+        /// <param name="initialValue">Première valeur à ajouter au total du budget de ce nom.</param>
+        public DistinctBudget(string name)
+        {
+            allMonthes = new List<Budget>();
+            this.name = name;
+        }
+
+        public List<Budget> allMonthes;
+        
+        public string name { get; set; }
+
+        /// <summary>
+        /// Additionne les dépenses des comptes du même nom.
+        /// </summary>
+        /// <returns>Total</returns>
+        public double getTotal()
+        {
+            double somme = 0;
+            foreach(Budget budget in allMonthes)
+            {
+                somme += budget.account.userA.expenses + budget.account.userB.expenses;
+            }
+            return Math.Round(somme, 2);
+        }
+
+        public int getOccurence()
+        {
+            return allMonthes.Count;
+        }
+
+        public void addBudget(Budget budget)
+        {
+            allMonthes.Add(budget);
+        }
+
+        public static double getTotalExpenses()
+        {
+            double somme = 0;
+            foreach (DistinctBudget budget in sortedBudgets)
+            {
+                somme += budget.getTotal();
+            }
+            return somme;
+        }
+
+        public Budget getLastBudget()
+        {
+            return allMonthes[allMonthes.Count-1];
+        }
+
+        public double calculateEvolution(double average, Budget budget)
+        {          
+
+            double totalLastBudget = budget.account.userA.expenses + budget.account.userB.expenses;
+            double evolution = ((totalLastBudget - average) / average) * 100;
+            return Math.Round(evolution, 2);
+        }
+
+        /// <summary>
+        /// Trie tous les budgets des sauvegardes.
+        /// </summary>
+        /// <param name="allMonthlySaves">Liste des sauvegardes mensuelles</param>
+        public static void sortBudgets(List<MonthlySave> allMonthlySaves)
+        {
+            sortedBudgets.Clear();
+            foreach (MonthlySave monthlySave in allMonthlySaves)
+            {
+                comparesBudgets(monthlySave);                
+            }
+        }
+
+        /// <summary>
+        /// Trie les budgets selon une année.
+        /// </summary>
+        /// <param name="allMonthlySaves">Liste des sauvegardes mensuelles</param>
+        /// <param name="year">Année sur laquelle doit s'opérer le tri.</param>
+        public static void sortBudgets(List<MonthlySave> allMonthlySaves, int year)
+        {
+            sortedBudgets.Clear();
+            foreach (MonthlySave monthlySave in allMonthlySaves)
+            {
+                if(monthlySave.year == year)
+                {
+                    comparesBudgets(monthlySave);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Trie les budgets selon deux dates
+        /// </summary>
+        /// <param name="allMonthlySaves">Liste des sauvegardes mensuelles</param>
+        /// <param name="monthStart">Mois à partir duquel commencer</param>
+        /// <param name="yearStart">Année à partir de laquelle commencer</param>
+        /// <param name="monthStop">Mois auquel arrêter</param>
+        /// <param name="yearStop">Année à laquelle arrêter</param>
+        public static void sortBudgets(List<MonthlySave> allMonthlySaves, int monthStart, int yearStart, int monthStop, int yearStop)
+        {
+            if (yearStart > yearStop)
+            {
+                int temp = yearStop;
+                yearStop = yearStart;
+                yearStart = temp;
+            }
+            sortedBudgets.Clear();
+            foreach (MonthlySave monthlySave in allMonthlySaves)
+            {
+                if (monthlySave.year >= yearStart && monthlySave.year <= yearStop)
+                {
+                    if(yearStart == yearStop)
+                    {
+                        if(monthlySave.month >= monthStart && monthlySave.month <= monthStop)
+                        {
+                            comparesBudgets(monthlySave);
+                        }
+                    }
+                    else if (monthlySave.year == yearStart)
+                    {
+                        if (monthlySave.month >= monthStart)
+                        {
+                            comparesBudgets(monthlySave);
+                        }
+                    }
+                    
+                    else if(monthlySave.year == yearStop)
+                    {
+                        if(monthlySave.month <= monthStop)
+                        {
+                            comparesBudgets(monthlySave);
+                        }
+                    }
+
+                    else
+                    {
+                        comparesBudgets(monthlySave);
+                    }
+                }
+            }
+        }
+
+        private static void comparesBudgets(MonthlySave monthlySave)
+        {
+            bool exists;
+            foreach (Budget budget in monthlySave.allBudgets)
+            {
+                exists = false;
+                foreach (DistinctBudget distinctBudget in sortedBudgets)
+                {
+                    if (budget.name.ToUpper() == distinctBudget.name.ToUpper())
+                    {
+                        exists = true;
+                        distinctBudget.addBudget(budget);
+                    }
+
+                }
+                if (!exists) {
+                    DistinctBudget distinctBudget = new DistinctBudget(budget.name);
+                    distinctBudget.addBudget(budget);
+                    sortedBudgets.Add(distinctBudget);
+
+                }
+            }
+        }
+
+        public static List<DistinctBudget> sortedBudgets = new List<DistinctBudget>();
+        public static List<DistinctBudget> getSortedBudget()
+        {
+            return sortedBudgets;
+        }
+    }
+
+    public class DataAnalysis
+    {
+        //private MonthlySave saveRef;
+        public string budget { get; set; }
+
+        public string expensesRef { get; set; }
+
+        public string total { get; set; }
+        public string average { get; set; }
+
+        public string evolution { get; set; }
+        public string proportion { get; set; }
+
+        public DataAnalysis(DistinctBudget distinctBudget, MonthlySave saveRef = null)
+        {
+            //this.saveRef = saveRef;
+            budget = distinctBudget.name;
+            double total = distinctBudget.getTotal();
+                   
+            double avg = total / distinctBudget.getOccurence();
+            avg = Math.Round(avg, 2);
+
+            if(saveRef != null)
+            {
+                foreach (Budget budget in saveRef.allBudgets)
+                {
+                    if (budget.name.ToUpper() == distinctBudget.name.ToUpper())
+                    {
+                        expensesRef = budget.account.userA.expenses + budget.account.userB.expenses + "€";
+                        evolution = distinctBudget.calculateEvolution(avg, budget).ToString() + "%";
+                        break;
+                    }
+                }
+                if (evolution == null) evolution = "-";
+                if (expensesRef == null) expensesRef = "-";
+            }
+            average = avg + "€";
+            proportion = Math.Round((total / DistinctBudget.getTotalExpenses())*100, 2).ToString() + "%";
+            this.total = total + "€";
+        }
+            
     }
 
     public abstract class Serialise

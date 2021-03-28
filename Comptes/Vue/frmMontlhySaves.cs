@@ -10,23 +10,18 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Comptes.Model;
 using System.Globalization;
+using Comptes.Constants;
+using Comptes.Control;
 
 namespace Comptes
 {
-    public partial class FenSummary : Form
+    public partial class FenMonthlySave : Form
     {
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
 
-        [DllImportAttribute("user32.dll")]
-        private static extern int SendMessage(IntPtr hWnd,
-                         int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
-        private static extern bool ReleaseCapture();
-
+        frmMain frmMain;
         List<DataMonthlyReport> dataTab;
         List<MonthlySave> allMonthlySaves;
-
+        Controler controler;
 
 
 
@@ -35,72 +30,34 @@ namespace Comptes
         /// Récupère les sauvegardes mensuelles et initialise le formulaire.
         /// </summary>
         /// <param name="allMonthlySaves">Liste des sauvegardes mensuelles enregistrées.</param>
-        public FenSummary(List<MonthlySave> allMonthlySaves)
-        {
+        public FenMonthlySave(frmMain frmMain, Controler controler)
+        {           
             InitializeComponent();
+            this.frmMain = frmMain;
+            this.controler = controler;
+            allMonthlySaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
             this.allMonthlySaves = allMonthlySaves;
             this.ShowDialog();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            loadCboMonth();
-            chargeCboYear();
+            frmMain.loadExistingYears(cboYear);
+            cboYear.SelectedIndex = 0;
+            frmMain.loadCboMonth(cboMonth);
+            frmMain.selectCurrentMonth(cboMonth);
             btnDelMonthlyReport.Enabled = false;
         }
 
-        /// <summary>
-        /// Charge les mois de l'année dans un combobox.
-        /// </summary>
-        private void loadCboMonth()
-        {
-            var DateTimeFormatInfo = CultureInfo.GetCultureInfo("fr-FR").DateTimeFormat;
-
-            for (int k = 1; k <= 12; k++)
-            {
-                cboMonth.Items.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(k));
-            }
-            cboMonth.SelectedIndex = 0;
-        }
-
-        /// <summary>
-        /// Charge  dans un combobox les années pour lesquelles une sauvegarde mensuelle existe.
-        /// </summary>
-        private void chargeCboYear()
-        {
-            bool exists = false;
-            foreach (MonthlySave save in allMonthlySaves)
-            {
-                foreach (string cboYearItem in cboYear.Items)
-                {
-                    if (save.year == cboYearItem)
-                    {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (exists == false)
-                {
-                    cboYear.Items.Add(save.year);
-                }
-            }
-            cboYear.SelectedIndex = 0;
-        }
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
+            controler.dragWindow(this, e);
         }
 
         private void menuStrip1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!Focused)
-            {
-                Focus();
-            }
+            controler.focusMenuStrip((MenuStrip)sender);
         }
         private void btnQuitter_Click(object sender, EventArgs e)
         {
@@ -116,7 +73,7 @@ namespace Comptes
         /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, cboMonth.Text, cboYear.Text);
+            MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, controler.monthNumber(cboMonth.SelectedIndex), int.Parse(cboYear.Text));
 
             if (monthlySave != null)
             {
@@ -146,10 +103,9 @@ namespace Comptes
                    expensesB: budget.account.userB.expenses));
             }
 
-            dataTab = tableauMensuel;
 
-            var data = this.dataTab;
-            grdBudgets.DataSource = data;
+            //var data = tableauMensuel;
+            grdBudgets.DataSource = tableauMensuel;
 
             grdBudgets.Columns[1].HeaderText = Const.EXPENSES(DataMonthlyReport.nameUserA);
             grdBudgets.Columns[2].HeaderText = Const.EXPENSES(DataMonthlyReport.nameUserB);
@@ -163,12 +119,17 @@ namespace Comptes
             if ((MessageBox.Show(Const.MSG_DELETEMONTLYSAVE, Const.MSG_TITLE_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes))
             {
 
-                MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, cboMonth.Text, cboYear.Text);
+                MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, controler.monthNumber(cboMonth.SelectedIndex), int.Parse(cboYear.Text));
                 allMonthlySaves.Remove(monthlySave);
                 Serialise.Save(Const.FILE_MONTHLYRECAP, allMonthlySaves);
                 grdBudgets.Visible = false;
                 btnDelMonthlyReport.Enabled = false;
             }
         }
+
+        //public void addToCboYear(string year)
+        //{
+        //    cboYear.Items.Add(year);
+        //}
     }
 }

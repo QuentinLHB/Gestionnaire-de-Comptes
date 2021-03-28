@@ -1,6 +1,6 @@
 ﻿namespace Comptes
 {
-    partial class FenSummary
+    partial class FenMonthlySave
     {
         /// <summary>
         /// Required designer variable.

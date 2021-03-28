@@ -49,37 +49,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controleur\Controleur.cs" />
+    <Compile Include="Controleur\AccountControl.cs" />
+    <Compile Include="Controleur\AnalysisControl.cs" />
+    <Compile Include="Controleur\BudgetControl.cs" />
+    <Compile Include="Controleur\DebtsControl.cs" />
+    <Compile Include="Controleur\DivisionsControl.cs" />
+    <Compile Include="Controleur\LoadControl.cs" />
+    <Compile Include="Controleur\MenuBarControl.cs" />
+    <Compile Include="Controleur\NavigationControl.cs" />
+    <Compile Include="Controleur\UserControl.cs" />
+    <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\Model.cs" />
+    <Compile Include="Vue\NonEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Vue\frmAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Vue\frmAnalysis.Designer.cs">
       <DependentUpon>frmAnalysis.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vue\frmMain\Budgets.cs">
+    <Compile Include="Vue\frmMain\SecondaryEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vue\frmMain\Users.cs">
+    <Compile Include="Vue\frmMain\MainEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vue\frmMain\Menu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Vue\frmMain\Debts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Vue\frmMain\Accounts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Vue\frmMain\Navigation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Vue\frmMain\frmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Vue\frmMain\frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="Vue\frmMain\MainEvents.Designer.cs">
+      <DependentUpon>MainEvents.cs</DependentUpon>
     </Compile>
     <Compile Include="Vue\frmDivisions.cs">
       <SubType>Form</SubType>
@@ -98,8 +95,8 @@
     <EmbeddedResource Include="Vue\frmAnalysis.resx">
       <DependentUpon>frmAnalysis.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vue\frmMain\frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="Vue\frmMain\MainEvents.resx">
+      <DependentUpon>MainEvents.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vue\frmDivisions.resx">
       <DependentUpon>frmDivisions.cs</DependentUpon>
@@ -117,6 +114,7 @@
       <DependentUpon>frmMontlhySaves.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="Properties\DataSources\Comptes.Model.DataAnalysis.datasource" />
     <None Include="Properties\DataSources\Comptes.Model.DataMonthlyReport.datasource" />
     <None Include="Properties\DataSources\Comptes.Model.DataTableauMensuel.datasource" />
     <None Include="Properties\Settings.settings">
