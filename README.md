@@ -8,5 +8,6 @@ Fonctionnalités :
 * Ajout et suppression de répartitions
 * Sauvegarde par sérialisation de chaque mois
 * Tableau récapitulatif des dépenses d'un mois sauvegardé
+* Analyse des dépenses (moyenne par budget, comparaison d'un mois avec les autres...) sur une période souhaitée.
 
 Ce programme a été développé par Quentin Lehembre à des fins personnelles, et pour pratiquer des éléments de cours, en 1ère année de BTS SIO.
