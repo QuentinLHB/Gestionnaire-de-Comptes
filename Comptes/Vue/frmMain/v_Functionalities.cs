@@ -43,7 +43,7 @@ namespace Comptes
             loadThreeYears(cboYear);
             controler.loadData();
             loadDivisions(cboDivisions);
-            refreshResult();
+            refreshTotals();
             accessAddAccount();
         }
 
@@ -63,7 +63,7 @@ namespace Comptes
             fillIfEmpty();
             controler.calculateExpenses(controler.getSelectedAccount(), txtAmountUserA.Text, txtAmountUserB.Text);
             updateListBox(list: Const.ACCOUNT, item: controler.getSelectedAccount().ToString());
-            refreshResult();
+            refreshTotals();
             try { lstBudgets.SelectedIndex++; }
             catch { }
             resetAccountBox();
@@ -80,7 +80,7 @@ namespace Comptes
             if (e.KeyCode == Keys.Delete)
             {
                 controler.emptyAccountData(lstAccounts.SelectedIndex);
-                refreshResult();
+                refreshTotals();
             }
         }
 
@@ -92,8 +92,8 @@ namespace Comptes
         private void lstComptes_DoubleClick(object sender, EventArgs e)
         {
             double[] usersExpenses = controler.getUsersExpenses();
-            txtAmountUserA.Text = usersExpenses[Const.USER_A].ToString() + "€";
-            txtAmountUserB.Text = usersExpenses[Const.USER_B].ToString() + "€";
+            txtAmountUserA.Text = usersExpenses[Const.USER_A].ToString();
+            txtAmountUserB.Text = usersExpenses[Const.USER_B].ToString();
             txtAmountUserA.Focus();
         }
 
@@ -110,7 +110,7 @@ namespace Comptes
                 controler.emptyAccountData(k);
             }
             accessAddAccount();
-            refreshResult();
+            refreshTotals();
         }
 
         private void btnOKBudgets_Click(object sender, EventArgs e)
@@ -140,7 +140,7 @@ namespace Comptes
             updateListBox(Const.BUDGET, controler.getSelectedBudget().ToString());
             updateListBox(Const.ACCOUNT, controler.getSelectedAccount().ToString());
             //controler.updateAccountDislay(controler.getSelectedAccount(lstAccounts), lstAccounts);
-            refreshResult();
+            refreshTotals();
             controler.handleEditionMode(modeEdition: false);
             resetBudget(txtBudgetName);
         }

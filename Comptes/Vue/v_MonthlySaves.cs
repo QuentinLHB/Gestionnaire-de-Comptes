@@ -15,7 +15,7 @@ using Comptes.Control;
 
 namespace Comptes
 {
-    public partial class FenMonthlySave : Form
+    public partial class FrmMonthlySave : Form
     {
 
         frmMain frmMain;
@@ -30,7 +30,7 @@ namespace Comptes
         /// Récupère les sauvegardes mensuelles et initialise le formulaire.
         /// </summary>
         /// <param name="allMonthlySaves">Liste des sauvegardes mensuelles enregistrées.</param>
-        public FenMonthlySave(frmMain frmMain, Controler controler)
+        public FrmMonthlySave(frmMain frmMain, Controler controler)
         {           
             InitializeComponent();
             this.frmMain = frmMain;
@@ -48,6 +48,7 @@ namespace Comptes
             frmMain.loadCboMonth(cboMonth);
             frmMain.selectCurrentMonth(cboMonth);
             btnDelMonthlyReport.Enabled = false;
+            btnToAnalysis.Visible = false;
         }
 
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
@@ -80,6 +81,7 @@ namespace Comptes
                 loadGrid(monthlySave);
                 grdBudgets.Show();
                 btnDelMonthlyReport.Enabled = true;
+                btnToAnalysis.Visible = true;
             }
 
             else
@@ -125,6 +127,11 @@ namespace Comptes
                 grdBudgets.Visible = false;
                 btnDelMonthlyReport.Enabled = false;
             }
+        }
+
+        private void btnToAnalysis_Click(object sender, EventArgs e)
+        {
+            new frmAnalysis(frmMain, controler, this, cboMonth.SelectedIndex, int.Parse(cboYear.Text));            
         }
 
         //public void addToCboYear(string year)

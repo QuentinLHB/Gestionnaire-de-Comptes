@@ -1,5 +1,8 @@
--Déterminer le nb de budgets maximum dans la liste et dans les tableaux, et limiter l'ajout en conséquence
-(ou est-ce qu'il y a un scroll ?)
+- Ligne Total
+
+- Tester si mois de ref existe
+
+- Description des éléments en hover
 
 -Rendre MonthlySaves MVC
 

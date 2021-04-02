@@ -1,6 +1,6 @@
 ﻿namespace Comptes
 {
-    partial class FenMonthlySave
+    partial class FrmMonthlySave
     {
         /// <summary>
         /// Required designer variable.
@@ -47,6 +47,7 @@
             this.cboYear = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnDelMonthlyReport = new System.Windows.Forms.Button();
+            this.btnToAnalysis = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
@@ -260,12 +261,27 @@
             this.btnDelMonthlyReport.UseVisualStyleBackColor = false;
             this.btnDelMonthlyReport.Click += new System.EventHandler(this.btnDelMonthlyReport_Click);
             // 
-            // FenSummary
+            // btnToAnalysis
+            // 
+            this.btnToAnalysis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnToAnalysis.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnToAnalysis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnToAnalysis.Location = new System.Drawing.Point(630, 588);
+            this.btnToAnalysis.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnToAnalysis.Name = "btnToAnalysis";
+            this.btnToAnalysis.Size = new System.Drawing.Size(131, 31);
+            this.btnToAnalysis.TabIndex = 26;
+            this.btnToAnalysis.Text = "Analyse";
+            this.btnToAnalysis.UseVisualStyleBackColor = false;
+            this.btnToAnalysis.Click += new System.EventHandler(this.btnToAnalysis_Click);
+            // 
+            // FrmMonthlySave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(900, 630);
+            this.Controls.Add(this.btnToAnalysis);
             this.Controls.Add(this.btnDelMonthlyReport);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.cboYear);
@@ -277,7 +293,7 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "FenSummary";
+            this.Name = "FrmMonthlySave";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).EndInit();
@@ -310,5 +326,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn expensesB;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnDelMonthlyReport;
+        private System.Windows.Forms.Button btnToAnalysis;
     }
 }

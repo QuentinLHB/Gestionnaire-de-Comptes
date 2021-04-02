@@ -21,20 +21,25 @@ namespace Comptes
         Controler controler;
         //List<DistinctBudget> sortedBudgets;
 
-        public frmAnalysis(frmMain frmMain, Controler controler, int monthRef =-1, int yearRef =-1)
+        public frmAnalysis(frmMain frmMain, Controler controler, FrmMonthlySave frmMonthlySave = null, int monthRef =-1, int yearRef =-1)
         {
             InitializeComponent();
             this.frmMain = frmMain;
             this.controler = controler;
-            loadComponents();
-            
+            loadComponents(monthRef, yearRef);
+            if(frmMonthlySave != null)
+            {
+                frmMonthlySave.Close();
+            }
+            this.ShowDialog();
         }
 
-        private void loadComponents()
+        private void loadComponents(int monthRef, int yearRef)
         {
 
             frmMain.loadCboMonth(cboMonthRef);
-            frmMain.selectCurrentMonth(cboMonthRef);
+            
+            
 
             frmMain.loadCboMonth(cboStartingMonth);
             cboStartingMonth.SelectedIndex = 0; //janvier
@@ -52,7 +57,18 @@ namespace Comptes
             }
             cboEndingYear.SelectedIndex = 0;
             cboYear.SelectedIndex = 0;
-            cboYearRef.SelectedIndex = 0;
+            
+            if(monthRef != -1 && yearRef != -1)
+            {
+                cboMonthRef.SelectedIndex = monthRef;
+                cboYearRef.SelectedItem = yearRef;
+            }
+            else
+            {
+                frmMain.selectCurrentMonth(cboMonthRef);
+                cboYearRef.SelectedIndex = 0;
+            }
+            
 
             cboAnalysisMode.SelectedIndex = 0;
                
@@ -108,6 +124,9 @@ namespace Comptes
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            DataAnalysis.Clear();
+            DistinctBudget.Clear();
+
             MonthlySave saveRef = null;
             if (chkMonthRef.Checked)
             {
@@ -135,12 +154,35 @@ namespace Comptes
             foreach (DistinctBudget budget in controler.getSortedBudgets())
             {
                 gridData.Add(new DataAnalysis(budget, saveRef));
-            }
+            }            
+            DataAnalysis totalRow = new DataAnalysis();
+            gridData.Add(totalRow);
             grdBudgets.DataSource = gridData;
             grdBudgets.Visible = true;
-            grdBudgets.Columns[2].Visible = chkMonthRef.Checked;
-            grdBudgets.Columns[4].Visible = chkMonthRef.Checked;
+
+            bool isNull = MonthlySave.isNull(saveRef);
+            grdBudgets.Columns[2].Visible = !isNull; // mois de ref
+            grdBudgets.Columns[4].Visible = !isNull; // Evolution
+            grdBudgets.Columns[2].HeaderText = ($"{Const.MONTHLYEXPENSES_HEADER} {cboMonthRef.SelectedItem} {cboYearRef.SelectedItem}");
+
+            
+            
         }
+
+        //private string[] calculateTotal()
+        //{
+        //    string[] rowTotal = new string[6];
+        //    rowTotal[0] = "TOTAL";
+        //    rowTotal[1] = DistinctBudget.getTotalExpenses().ToString(); //Total de tous les budgets
+        //    double totalMonthRef = DataAnalysis.expensesMonthRef;
+        //    rowTotal[2] = totalMonthRef.ToString() + "€"; // total du mois de ref
+        //    DistinctBudget.setTotalAverage(DataAnalysis.Items.Count);
+        //    rowTotal[3] = DistinctBudget.getTotalAverage().ToString() + "€"; // Moyenne des moyennes
+        //    rowTotal[4] = DistinctBudget.totalEvolution(totalMonthRef).ToString() + "€"; // Ecart du mois à la moyenne
+        //    rowTotal[5] = "100%"; // La somme des % arrive tjr à 100
+
+        //    return rowTotal;
+        //}
 
 
         private void chkMonthRef_CheckedChanged(object sender, EventArgs e)

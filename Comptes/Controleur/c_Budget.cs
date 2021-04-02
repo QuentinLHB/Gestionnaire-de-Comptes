@@ -80,7 +80,7 @@ namespace Comptes.Control
             {
                 data.allBudgets.RemoveAt(index);
                 frmMain.accessAddAccount();
-                frmMain.refreshResult();
+                frmMain.refreshTotals();
                 return true;
             }
             return false;

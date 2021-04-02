@@ -25,6 +25,8 @@ namespace Comptes.Constants
 
         public const string BALANCEDRESULT = "Résultat équilibré.";
 
+        public const string MONTHLYEXPENSES_HEADER = "Dépenses de";
+
         public static string debtDisplay(string name, double result)
         {
             return ($"{name} doit {result}€.");

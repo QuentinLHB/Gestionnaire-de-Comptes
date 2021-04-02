@@ -69,7 +69,7 @@ namespace Comptes.Control
                     File.Delete(Const.FILE_MONTHLYRECAP);
                 }
                 resetView();
-                frmMain.refreshResult();
+                frmMain.refreshTotals();
 
                 MessageBox.Show(Const.MSG_RESETOK, Const.MSG_TITLE_RESET, MessageBoxButtons.OK);
                 setFlagChange(change: true);
@@ -96,7 +96,7 @@ namespace Comptes.Control
             bool ok = newWindow();
             if (ok)
             {
-                new FenMonthlySave(frmMain, this);
+                new FrmMonthlySave(frmMain, this);
             }
             
         }

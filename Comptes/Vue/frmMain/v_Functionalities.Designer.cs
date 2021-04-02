@@ -557,6 +557,8 @@
             // 
             // menuAnalysis
             // 
+            this.menuAnalysis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.menuAnalysis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuAnalysis.Name = "menuAnalysis";
             this.menuAnalysis.Size = new System.Drawing.Size(376, 26);
             this.menuAnalysis.Text = "Evolution des dépenses";

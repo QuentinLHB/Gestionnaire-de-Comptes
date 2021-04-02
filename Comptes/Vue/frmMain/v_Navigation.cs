@@ -61,13 +61,12 @@ namespace Comptes
         private void menuResetDisplay_Click(object sender, EventArgs e)
         {
             controler.resetView();
-            refreshResult();
+            refreshTotals();
         }
 
         private void menuAnalysis_Click(object sender, EventArgs e)
         {
-            frmAnalysis frmAnalysis = new frmAnalysis(this, controler);
-            frmAnalysis.ShowDialog();
+            controler.newAnalysisWindow();
         }
 
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)

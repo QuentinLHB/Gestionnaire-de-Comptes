@@ -86,16 +86,16 @@ namespace Comptes
         public void refreshDebts()
         {
             double[] debts = controler.getDebts();
-            lblTotalUserA.Text = debts[Const.USER_A].ToString();
-            lblTotalUserB.Text = debts[Const.USER_B].ToString();
+            lblTotalUserA.Text = debts[Const.USER_A].ToString() + "€";
+            lblTotalUserB.Text = debts[Const.USER_B].ToString()+ "€" ;
 
         }
 
 
         /// <summary>
-        /// Affiche le résultat final.
+        /// Met à jour les dettes et affiche le résultat final.
         /// </summary>
-        public void refreshResult()
+        public void refreshTotals()
         {
             lblResults.Text = controler.updateTotals();
         }
@@ -246,6 +246,11 @@ namespace Comptes
             lstBudgets.Items.Clear();
             lstAccounts.Items.Clear();
             btnOKAccount.Enabled = false;
+        }
+
+        public void addDivision(string division)
+        {
+            cboDivisions.Items.Add(division);
         }
     }
 }

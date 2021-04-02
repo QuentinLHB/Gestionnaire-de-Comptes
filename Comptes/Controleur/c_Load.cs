@@ -21,7 +21,7 @@ namespace Comptes.Control
     {
         private frmMain frmMain;
         private FrmDivisions frmDivisions;
-        private FenMonthlySave frmSummary;
+        private FrmMonthlySave frmSummary;
         bool flagDataChange = false;
         bool flagUserNameChange = false;
         AppData data;

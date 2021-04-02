@@ -16,19 +16,8 @@ namespace Comptes
 {
     public partial class FrmDivisions : Form
     {
-        //public const int WM_NCLBUTTONDOWN = 0xA1;
-        //public const int HT_CAPTION = 0x2;
-
-        //[DllImportAttribute("user32.dll")]
-        //private static extern int SendMessage(IntPtr hWnd,
-        //                 int Msg, int wParam, int lParam);
-        //[DllImportAttribute("user32.dll")]
-        //private static extern bool ReleaseCapture();
-
         frmMain frmMain;
-        //AppData data;
         Controler controler;
-
 
         public FrmDivisions(frmMain frmMain, Controler controler)
         {
@@ -40,12 +29,13 @@ namespace Comptes
 
         private void btnAjouterRepartition_Click(object sender, EventArgs e)
         {
-            try
+            if (controler.controlDivisionData(int.Parse(txtDividend.Text)))
             {
                 string division = controler.createNewDivision(txtDividend.Text, txtDivider.Text);
-                cboDivisions.Items.Add(division);
+                frmMain.addDivision(division);
             }
-            catch
+               
+            else
             {
                 MessageBox.Show(Const.MSG_ERR_ADDDIVISION, Const.ERROR, MessageBoxButtons.OK);
             }
@@ -65,11 +55,12 @@ namespace Comptes
             {
                 e.Handled = true;
             }
+
         }
 
         private void txtDividende_KeyUp(object sender, KeyEventArgs e)
         {
-            txtDivider.Text = controler.getDivider(txtDividend.Text);
+            if(txtDividend.Text != "") txtDivider.Text = controler.getDivider(txtDividend.Text);
         }
 
         private void btnSupprimerRepartition_Click(object sender, EventArgs e)

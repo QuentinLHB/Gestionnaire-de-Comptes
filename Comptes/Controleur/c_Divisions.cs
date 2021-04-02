@@ -54,5 +54,18 @@ namespace Comptes.Control
                 MessageBox.Show(Const.MSG_ERR_ADDDIVISION2, Const.ERROR, MessageBoxButtons.OK);
             }
         }
+
+        public bool controlDivisionData(int dividend)
+        {
+            if(dividend != null && dividend >= 0 && dividend <= 100)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
     }
 }

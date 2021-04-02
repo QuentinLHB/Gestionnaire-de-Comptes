@@ -102,6 +102,15 @@ namespace Comptes.Model
             }
             return existingSave;
         }
+        
+        public static bool isNull(MonthlySave monthlySave)
+        {
+            if(monthlySave == null)
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 
@@ -311,6 +320,12 @@ namespace Comptes.Model
             this.name = name;
         }
 
+        public static void Clear()
+        {
+            totalExpenses = 0;
+
+        }
+
         public List<Budget> allMonthes;
         
         public string name { get; set; }
@@ -319,7 +334,7 @@ namespace Comptes.Model
         /// Additionne les dépenses des comptes du même nom.
         /// </summary>
         /// <returns>Total</returns>
-        public double getTotal()
+        public double total()
         {
             double somme = 0;
             foreach(Budget budget in allMonthes)
@@ -329,30 +344,64 @@ namespace Comptes.Model
             return Math.Round(somme, 2);
         }
 
-        public int getOccurence()
+        
+
+        /// <summary>
+        /// Compte le nombre de fois où apparaît le budget.
+        /// </summary>
+        /// <returns></returns>
+        public int occurence()
         {
             return allMonthes.Count;
         }
 
-        public void addBudget(Budget budget)
+        private void addBudget(Budget budget)
         {
             allMonthes.Add(budget);
         }
 
-        public static double getTotalExpenses()
+        private static double totalExpenses = 0;
+        private static void setTotalExpenses()
         {
             double somme = 0;
             foreach (DistinctBudget budget in sortedBudgets)
             {
-                somme += budget.getTotal();
+                somme += budget.total();
             }
-            return somme;
+            totalExpenses= somme;
+        }
+        public static double getTotalExpenses()
+        {
+            if (totalExpenses == 0) setTotalExpenses();
+            return totalExpenses;
         }
 
-        public Budget getLastBudget()
+        //private static double totalAverage = 0;
+        //public static void setTotalAverage(int count)
+        //{
+        //    totalAverage = getTotalExpenses() / count;
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Retourne la moyenne des moyennes. Retourne -1 si la moyenne n'a pas été calculée.</returns>
+        //public static double getTotalAverage()
+        //{
+        //    if (totalAverage == 0) return -1;
+        //    return totalAverage;
+            
+        //}
+
+        public static double totalEvolution(double totalMonthRef, double totalAverage)
         {
-            return allMonthes[allMonthes.Count-1];
+            return Math.Round((totalMonthRef - totalAverage) / totalAverage * 100, 2);
         }
+
+        //public Budget getLastBudget()
+        //{
+        //    return allMonthes[allMonthes.Count-1];
+        //}
 
         public double calculateEvolution(double average, Budget budget)
         {          
@@ -477,24 +526,32 @@ namespace Comptes.Model
 
     public class DataAnalysis
     {
-        //private MonthlySave saveRef;
+        // Champs
+
         public string budget { get; set; }
-
-        public string expensesRef { get; set; }
-
+        public string expensesRef { get; set; }        
         public string total { get; set; }
         public string average { get; set; }
-
         public string evolution { get; set; }
         public string proportion { get; set; }
 
+        // Champs static
+        public static List<DataAnalysis> Items = new List<DataAnalysis>();
+        public static double expensesMonthRef = 0;
+
+        // Constructeurs
+
+        /// <summary>
+        /// Constructeur des lignes pour liaison en datasource
+        /// </summary>
+        /// <param name="distinctBudget">Groupe de budgets du même nom. = Une ligne.</param>
+        /// <param name="saveRef">Sauvegarde de référence si sélectionnée, sinon null.</param>
         public DataAnalysis(DistinctBudget distinctBudget, MonthlySave saveRef = null)
-        {
-            //this.saveRef = saveRef;
+        {            
             budget = distinctBudget.name;
-            double total = distinctBudget.getTotal();
+            double total = distinctBudget.total();
                    
-            double avg = total / distinctBudget.getOccurence();
+            double avg = total / distinctBudget.occurence();
             avg = Math.Round(avg, 2);
 
             if(saveRef != null)
@@ -503,7 +560,9 @@ namespace Comptes.Model
                 {
                     if (budget.name.ToUpper() == distinctBudget.name.ToUpper())
                     {
-                        expensesRef = budget.account.userA.expenses + budget.account.userB.expenses + "€";
+                        double expenses = budget.account.userA.expenses + budget.account.userB.expenses;
+                        expensesMonthRef += expenses;
+                        expensesRef  = expenses + "€";
                         evolution = distinctBudget.calculateEvolution(avg, budget).ToString() + "%";
                         break;
                     }
@@ -511,11 +570,48 @@ namespace Comptes.Model
                 if (evolution == null) evolution = "-";
                 if (expensesRef == null) expensesRef = "-";
             }
+
             average = avg + "€";
             proportion = Math.Round((total / DistinctBudget.getTotalExpenses())*100, 2).ToString() + "%";
             this.total = total + "€";
+            Items.Add(this);
         }
-            
+
+        /// <summary>
+        /// Constructeur de la ligne "total".
+        /// </summary>
+        public DataAnalysis()
+        {
+            budget = "TOTAL";
+            total = DistinctBudget.getTotalExpenses().ToString() + "€";
+            expensesRef = expensesMonthRef.ToString() + "€";
+            double totalAverage = calculateTotalAverage();
+            average = totalAverage.ToString() + "€";
+            evolution = DistinctBudget.totalEvolution(DataAnalysis.expensesMonthRef, totalAverage).ToString() + "%";
+            proportion = "100%";
+        }
+
+        
+
+        private double calculateTotalAverage()
+        {
+            double totalAverage = 0;
+            foreach (DataAnalysis row in DataAnalysis.Items)
+            {
+                totalAverage += double.Parse(row.average.Split('€')[0]);
+                //row.average.Split('%')
+            }
+            return Math.Round((totalAverage / DataAnalysis.Items.Count),2);
+        }
+
+        // Méthodes Static 
+
+        public static void Clear()
+        {
+            Items.Clear();
+            expensesMonthRef = 0;
+
+        }
     }
 
     public abstract class Serialise

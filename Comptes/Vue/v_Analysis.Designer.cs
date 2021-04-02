@@ -69,7 +69,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1000, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(976, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
@@ -82,7 +82,7 @@
             this.btnQuitter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuitter.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuitter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnQuitter.Location = new System.Drawing.Point(922, 0);
+            this.btnQuitter.Location = new System.Drawing.Point(897, 0);
             this.btnQuitter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnQuitter.Name = "btnQuitter";
             this.btnQuitter.Size = new System.Drawing.Size(78, 32);
@@ -95,10 +95,10 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
             this.panel1.Controls.Add(this.lblTitreFen);
-            this.panel1.Location = new System.Drawing.Point(0, 26);
+            this.panel1.Location = new System.Drawing.Point(0, 27);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1000, 95);
+            this.panel1.Size = new System.Drawing.Size(975, 95);
             this.panel1.TabIndex = 20;
             // 
             // lblTitreFen
@@ -124,7 +124,7 @@
             "Entre 2 dates",
             "Année en cours",
             "Depuis toujours"});
-            this.cboAnalysisMode.Location = new System.Drawing.Point(230, 202);
+            this.cboAnalysisMode.Location = new System.Drawing.Point(266, 202);
             this.cboAnalysisMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboAnalysisMode.Name = "cboAnalysisMode";
             this.cboAnalysisMode.Size = new System.Drawing.Size(168, 29);
@@ -136,7 +136,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 10F);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(51, 205);
+            this.label3.Location = new System.Drawing.Point(87, 205);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(154, 21);
@@ -150,7 +150,7 @@
             this.cboYear.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.cboYear.FormattingEnabled = true;
-            this.cboYear.Location = new System.Drawing.Point(432, 202);
+            this.cboYear.Location = new System.Drawing.Point(468, 203);
             this.cboYear.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboYear.Name = "cboYear";
             this.cboYear.Size = new System.Drawing.Size(85, 29);
@@ -165,7 +165,7 @@
             this.panDates.Controls.Add(this.cboStartingMonth);
             this.panDates.Controls.Add(this.cboEndingYear);
             this.panDates.Controls.Add(this.cboEndingMonth);
-            this.panDates.Location = new System.Drawing.Point(432, 186);
+            this.panDates.Location = new System.Drawing.Point(468, 186);
             this.panDates.Name = "panDates";
             this.panDates.Size = new System.Drawing.Size(387, 116);
             this.panDates.TabIndex = 42;
@@ -259,7 +259,7 @@
             this.grdBudgets.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Schoolbook", 10F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
@@ -283,13 +283,13 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.grdBudgets.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdBudgets.EnableHeadersVisualStyles = false;
-            this.grdBudgets.Location = new System.Drawing.Point(86, 321);
+            this.grdBudgets.Location = new System.Drawing.Point(66, 326);
             this.grdBudgets.Name = "grdBudgets";
             this.grdBudgets.ReadOnly = true;
             this.grdBudgets.RowHeadersVisible = false;
             this.grdBudgets.RowHeadersWidth = 51;
             this.grdBudgets.RowTemplate.Height = 24;
-            this.grdBudgets.Size = new System.Drawing.Size(861, 312);
+            this.grdBudgets.Size = new System.Drawing.Size(817, 312);
             this.grdBudgets.TabIndex = 43;
             this.grdBudgets.Visible = false;
             // 
@@ -298,7 +298,7 @@
             this.btnOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
             this.btnOK.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.btnOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.btnOK.Location = new System.Drawing.Point(230, 237);
+            this.btnOK.Location = new System.Drawing.Point(266, 237);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(81, 31);
@@ -314,7 +314,7 @@
             this.cboYearRef.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboYearRef.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.cboYearRef.FormattingEnabled = true;
-            this.cboYearRef.Location = new System.Drawing.Point(432, 139);
+            this.cboYearRef.Location = new System.Drawing.Point(468, 139);
             this.cboYearRef.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboYearRef.Name = "cboYearRef";
             this.cboYearRef.Size = new System.Drawing.Size(85, 29);
@@ -327,7 +327,7 @@
             this.cboMonthRef.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboMonthRef.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.cboMonthRef.FormattingEnabled = true;
-            this.cboMonthRef.Location = new System.Drawing.Point(230, 139);
+            this.cboMonthRef.Location = new System.Drawing.Point(266, 139);
             this.cboMonthRef.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboMonthRef.Name = "cboMonthRef";
             this.cboMonthRef.Size = new System.Drawing.Size(168, 29);
@@ -340,7 +340,7 @@
             this.chkMonthRef.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMonthRef.Font = new System.Drawing.Font("Century Gothic", 10F);
             this.chkMonthRef.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.chkMonthRef.Location = new System.Drawing.Point(30, 143);
+            this.chkMonthRef.Location = new System.Drawing.Point(66, 143);
             this.chkMonthRef.Name = "chkMonthRef";
             this.chkMonthRef.Size = new System.Drawing.Size(193, 25);
             this.chkMonthRef.TabIndex = 49;
@@ -355,16 +355,16 @@
             this.expensesRef.MinimumWidth = 6;
             this.expensesRef.Name = "expensesRef";
             this.expensesRef.ReadOnly = true;
-            this.expensesRef.Width = 125;
+            this.expensesRef.Width = 130;
             // 
             // evolution
             // 
             this.evolution.DataPropertyName = "evolution";
-            this.evolution.HeaderText = "Evolution";
+            this.evolution.HeaderText = "Ecart avec la moyenne";
             this.evolution.MinimumWidth = 6;
             this.evolution.Name = "evolution";
             this.evolution.ReadOnly = true;
-            this.evolution.Width = 125;
+            this.evolution.Width = 130;
             // 
             // budgetDataGridViewTextBoxColumn
             // 
@@ -373,7 +373,7 @@
             this.budgetDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.budgetDataGridViewTextBoxColumn.Name = "budgetDataGridViewTextBoxColumn";
             this.budgetDataGridViewTextBoxColumn.ReadOnly = true;
-            this.budgetDataGridViewTextBoxColumn.Width = 125;
+            this.budgetDataGridViewTextBoxColumn.Width = 150;
             // 
             // totalDataGridViewTextBoxColumn
             // 
@@ -382,7 +382,7 @@
             this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
             this.totalDataGridViewTextBoxColumn.ReadOnly = true;
-            this.totalDataGridViewTextBoxColumn.Width = 125;
+            this.totalDataGridViewTextBoxColumn.Width = 130;
             // 
             // averageDataGridViewTextBoxColumn
             // 
@@ -391,17 +391,17 @@
             this.averageDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.averageDataGridViewTextBoxColumn.Name = "averageDataGridViewTextBoxColumn";
             this.averageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.averageDataGridViewTextBoxColumn.Width = 125;
+            this.averageDataGridViewTextBoxColumn.Width = 130;
             // 
             // proportionDataGridViewTextBoxColumn
             // 
             this.proportionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.proportionDataGridViewTextBoxColumn.DataPropertyName = "proportion";
-            this.proportionDataGridViewTextBoxColumn.HeaderText = "% des dépenses";
+            this.proportionDataGridViewTextBoxColumn.HeaderText = "Part du budget";
             this.proportionDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.proportionDataGridViewTextBoxColumn.Name = "proportionDataGridViewTextBoxColumn";
             this.proportionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.proportionDataGridViewTextBoxColumn.Width = 175;
+            this.proportionDataGridViewTextBoxColumn.Width = 144;
             // 
             // dataAnalysisBindingSource
             // 
@@ -412,7 +412,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.ClientSize = new System.Drawing.Size(1000, 650);
+            this.ClientSize = new System.Drawing.Size(976, 650);
             this.Controls.Add(this.chkMonthRef);
             this.Controls.Add(this.cboMonthRef);
             this.Controls.Add(this.cboYearRef);
