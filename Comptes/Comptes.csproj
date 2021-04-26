@@ -36,8 +36,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942" />
+    <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604" />
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d" />
+    <Reference Include="MySql.Data, Version=8.0.23.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="Renci.SshNet, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,8 +56,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+    <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="comptesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>comptesDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Controleur\c_Account.cs" />
     <Compile Include="Controleur\c_Analysis.cs" />
     <Compile Include="Controleur\c_Budget.cs" />
@@ -58,6 +74,8 @@
     <Compile Include="Controleur\c_Menu.cs" />
     <Compile Include="Controleur\c_Navigation.cs" />
     <Compile Include="Controleur\c_User.cs" />
+    <Compile Include="Data\ConnexionBDD.cs" />
+    <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Vue\v_Methods.cs">
@@ -114,6 +132,17 @@
       <DependentUpon>v_MonthlySaves.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="comptesDataSet.xsc">
+      <DependentUpon>comptesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="comptesDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>comptesDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="comptesDataSet.xss">
+      <DependentUpon>comptesDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\DataSources\Comptes.Model.DataAnalysis.datasource" />
     <None Include="Properties\DataSources\Comptes.Model.DataMonthlyReport.datasource" />
     <None Include="Properties\DataSources\Comptes.Model.DataTableauMensuel.datasource" />
