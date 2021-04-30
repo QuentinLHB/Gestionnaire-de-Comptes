@@ -58,8 +58,11 @@
     <Compile Include="Controleur\c_Menu.cs" />
     <Compile Include="Controleur\c_Navigation.cs" />
     <Compile Include="Controleur\c_User.cs" />
+    <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\Budget.cs" />
     <Compile Include="Model\Constants.cs" />
-    <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\Save.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Vue\v_Methods.cs">
       <SubType>Form</SubType>
     </Compile>
