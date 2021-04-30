@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Comptes.Control;
 using Comptes.Constants;
+using Comptes.Model;
 
 namespace Comptes.Model
 {
@@ -116,193 +117,9 @@ namespace Comptes.Model
 
 
 
-    [SerializableAttribute]
-    public class Budget
-    {
-        private Account _account;
-        private string _name;
-        private double _division;
+ 
 
-        public Budget(string name, double division)
-        {
-            this._name = name;
-            this._division = division;
-            _account = new Account(this);
-        }
-
-        public Account account { 
-            get => _account;
-            }
-
-        public string name { get => _name ; set => _name = value; }
-
-        public double division { get => _division; set => _division = value; }
-
-        public override string ToString()
-        {
-            return name + " : " + (division * 100).ToString() + " / " + (100 - division * 100).ToString();
-        }
-
-        public string displayBudgetName()
-        {
-            return name + " : ";
-        }
-
-        /// <summary>
-        /// Calcule les dettes totales et met à jour l'objet User.
-        /// </summary>
-        /// <param name="allBudgets"></param>
-        public static void calculateDebts(List<Budget> allBudgets)
-        {
-            double totalDebtsUserA = 0;
-            double totalDebtsUserB = 0;
-            foreach (Budget budget in allBudgets)
-            {
-                totalDebtsUserA += budget.account.userB.expenses * budget.division;
-                totalDebtsUserB += budget.account.userA.expenses * (1 - budget.division);
-            }
-
-            User.setDebts(Const.USER_A, Math.Round(totalDebtsUserA, 2));
-            User.setDebts(Const.USER_B, Math.Round(totalDebtsUserB, 2));
-
-            //double[] totalDebts = { Math.Round(totalDebtsUserA, 2), Math.Round(totalDebtsUserB, 2) };
-            //return totalDebts;
-        }
-
-        
-    }
-
-    [SerializableAttribute]
-    public class Account 
-    {
-        private User _userA;
-        private User _userB;
-        private Budget _budget;
-
-
-        public Account(Budget budget)
-        {
-            this._budget = budget;
-            this._userA = new User();
-            this._userB = new User();
-        }
-        public User userA { get => _userA; }
-        public User userB { get => _userB; }
-
-        public Budget budget { get => _budget; }
-
-        public override string ToString()
-        {
-            if (this.userA.expenses != 0 || this.userB.expenses != 0)
-            {
-                return ($"{_budget.name} : [{User.getName(Const.USER_A)} {_userA.expenses}] [{User.getName(Const.USER_B)} {_userB.expenses}]");
-            }
-
-            else
-            {
-                return _budget.name + " : ";
-            }
-
-        }
-
-        public void reset()
-        {
-            _userA.expenses = 0;
-            _userB.expenses= 0;
-        }
-
-
-    }
-
-    [SerializableAttribute]
-    public class User
-    {
-        private static string[] names = new string[2];
-        private static double[] debts = new double[2];
-        //private static string _name;
-        private double _debts;
-        private double _expenses;
-
-        public static void initializeStaticData()
-        {
-            names[Const.USER_A] = Const.DEFAULT_NAME_USER_A;
-            names[Const.USER_B] = Const.DEFAULT_NAME_USER_B;
-            
-        }
-
-        public static void initializeNames(AppData data)
-        {
-            names[Const.USER_A] = data.userNames[Const.USER_A];
-            names[Const.USER_B] = data.userNames[Const.USER_B];
-        }
-
-        public static void Clear()
-        {
-
-        }
-        //public static string name { get => _name; set => _name = value; }
-
-        public static string getName(int index)
-        {
-            return names[index];
-        }
-
-        public static void setName(int index, string name)
-        {
-            names[index] = name;
-        }
-
-        public static double getDebts(int index)
-        {
-            return debts[index];
-        }
-
-        public static void setDebts(int index, double debt)
-        {
-            debts[index] = debt;
-        }
-
-        public double expenses { get => _expenses; set => _expenses = value; }
-
-        //public double debts { get => _debts; set => _debts = value; }
-
-        public static string displayName(int index)
-        {
-            return names[index] + " : ";
-        }
-
-        public static string displayDebts(int index)
-        {
-            return ($"Total dettes {names[index]} :");
-        }
-
-        public User(string name = "")
-        {
-            //User._name = name;
-        }
-
-    }
-
-    public class DataMonthlyReport
-    {
-        public string accountName { get; set; }
-        public static string nameUserA { get; set; }
-        public static string nameUserB { get; set; }
-        public string expensesA { get; set; }
-        public string expensesB { get; set; }
-        public string total { get; set; }
-
-        public DataMonthlyReport(string accountName, double expensesA, double expensesB)
-        {
-            this.accountName = accountName;
-            this.expensesA = expensesA + "€";
-            this.expensesB = expensesB + "€";
-            this.total = (expensesA + expensesB) + "€";
-            DataMonthlyReport.nameUserA = User.getName(Const.USER_A);
-            DataMonthlyReport.nameUserB = User.getName(Const.USER_B);
-            //this.nameUserB = nameUserB;
-        }
-
+  
     }
     /// <summary>
     /// Entité regroupant les données de tous les objets "Budget" portant le même nom.
@@ -672,4 +489,4 @@ namespace Comptes.Model
             }
         }
     }
-}
+

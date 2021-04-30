@@ -75,6 +75,7 @@
             this.cboMonth = new System.Windows.Forms.ComboBox();
             this.cboYear = new System.Windows.Forms.ComboBox();
             this.btnMinimize = new System.Windows.Forms.Button();
+            this.dtpMonth = new System.Windows.Forms.DateTimePicker();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
@@ -652,6 +653,13 @@
             this.btnMinimize.UseVisualStyleBackColor = false;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
+            // dtpMonth
+            // 
+            this.dtpMonth.Location = new System.Drawing.Point(946, 165);
+            this.dtpMonth.Name = "dtpMonth";
+            this.dtpMonth.Size = new System.Drawing.Size(200, 28);
+            this.dtpMonth.TabIndex = 16;
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -660,6 +668,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(1250, 850);
+            this.Controls.Add(this.dtpMonth);
             this.Controls.Add(this.btnMinimize);
             this.Controls.Add(this.cboYear);
             this.Controls.Add(this.cboMonth);
@@ -747,6 +756,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuResetAffichage;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.ToolStripMenuItem menuAnalysis;
+        private System.Windows.Forms.DateTimePicker dtpMonth;
     }
 }
 

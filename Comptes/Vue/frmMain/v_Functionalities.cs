@@ -45,6 +45,8 @@ namespace Comptes
             loadDivisions(cboDivisions);
             refreshTotals();
             accessAddAccount();
+            dtpMonth.CustomFormat = "MMMM / dddd";
+
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
