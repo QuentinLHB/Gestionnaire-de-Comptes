@@ -56,11 +56,6 @@ namespace Comptes.Model
 
             User.setDebts(Const.USER_A, Math.Round(totalDebtsUserA, 2));
             User.setDebts(Const.USER_B, Math.Round(totalDebtsUserB, 2));
-
-            //double[] totalDebts = { Math.Round(totalDebtsUserA, 2), Math.Round(totalDebtsUserB, 2) };
-            //return totalDebts;
         }
-
-
     }
 }

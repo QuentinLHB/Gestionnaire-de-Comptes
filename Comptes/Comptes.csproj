@@ -58,11 +58,18 @@
     <Compile Include="Controleur\c_Menu.cs" />
     <Compile Include="Controleur\c_Navigation.cs" />
     <Compile Include="Controleur\c_User.cs" />
+    <Compile Include="Data\DataAnalysis.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Budget.cs" />
     <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\Save.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Vue\v_UsersNames.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\v_UsersNames.Designer.cs">
+      <DependentUpon>v_UsersNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vue\v_Methods.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,11 +82,11 @@
     <Compile Include="Vue\frmMain\v_Navigation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vue\frmMain\v_Functionalities.cs">
+    <Compile Include="Vue\frmMain\v_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vue\frmMain\v_Functionalities.Designer.cs">
-      <DependentUpon>v_Functionalities.cs</DependentUpon>
+    <Compile Include="Vue\frmMain\v_MainForm.Designer.cs">
+      <DependentUpon>v_MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Vue\v_Divisions.cs">
       <SubType>Form</SubType>
@@ -95,11 +102,14 @@
     <Compile Include="Vue\v_MonthlySaves.Designer.cs">
       <DependentUpon>v_MonthlySaves.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Vue\v_UsersNames.resx">
+      <DependentUpon>v_UsersNames.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vue\v_Analysis.resx">
       <DependentUpon>v_Analysis.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vue\frmMain\v_Functionalities.resx">
-      <DependentUpon>v_Functionalities.cs</DependentUpon>
+    <EmbeddedResource Include="Vue\frmMain\v_MainForm.resx">
+      <DependentUpon>v_MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vue\v_Divisions.resx">
       <DependentUpon>v_Divisions.cs</DependentUpon>

@@ -20,6 +20,7 @@ namespace Comptes.Constants
         public const int USER_A = 0; public const int USER_B = 1;
         public const string DEFAULT_NAME_USER_A = "Utilisateur A";
         public const string DEFAULT_NAME_USER_B = "Utilisateur B";
+        public const int NAME_LENGTH_LIMIT = 10;
 
         public static Dictionary<string, double> initialDivision = new Dictionary<string, double>();
 
@@ -32,6 +33,7 @@ namespace Comptes.Constants
             return ($"{name} doit {result}€.");
 
         }
+        public const string MONTH_YEAR_FORMAT = "MMMM / yyyy";
 
         // Contenu des MessageBox :
         public const string ERROR = "Erreur";

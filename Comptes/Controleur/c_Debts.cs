@@ -57,16 +57,11 @@ namespace Comptes.Control
             }
         }
 
-        public void finalizeMonth(List<MonthlySave> allMonthlySaves, int month, int year)
+        public void finalizeMonth(List<MonthlySave> allMonthlySaves, DateTime date)
         {
-            MonthlySave montlySave = new MonthlySave(
-                month: month,
-                year: year,
-                allBudgets: data.allBudgets);
-
+            MonthlySave montlySave = new MonthlySave(date, data.allBudgets);
             allMonthlySaves.Add(montlySave);
             Serialise.Save(Const.FILE_MONTHLYRECAP, allMonthlySaves);
-
             saveData();
         }
 
@@ -75,7 +70,7 @@ namespace Comptes.Control
         /// </summary>
         /// <param name="month">Mois à sauvegarder.</param>
         /// <param name="year">Année à sauvegarder.</param>
-        public void finalizeMonthDialogs(int month, int year)
+        public void finalizeMonthDialogs(DateTime date)
         {
             // S'il n'y a pas de budget
             if (data.allBudgets.Count != 0)
@@ -88,10 +83,10 @@ namespace Comptes.Control
                         allMonthlySaves = new List<MonthlySave>();
                     }
 
-                    MonthlySave existingSave = MonthlySave.findMonthlySave(allMonthlySaves, month, year);
+                    MonthlySave existingSave = MonthlySave.findMonthlySave(allMonthlySaves, date);
                     if (existingSave == null)
                     {
-                        finalizeMonth(allMonthlySaves, month, year);
+                        finalizeMonth(allMonthlySaves, date);
                     }
 
                     else //Si une save existe
@@ -100,7 +95,7 @@ namespace Comptes.Control
                         if (MessageBox.Show(Const.MSG_REPLACE, Const.ERROR, MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             allMonthlySaves.Remove(existingSave);
-                            finalizeMonth(allMonthlySaves, month, year);
+                            finalizeMonth(allMonthlySaves, date);
                             MessageBox.Show(Const.MSG_REPLACE_YES, Const.MSG_TITLE_REPLACE, MessageBoxButtons.OK);
                         }
 

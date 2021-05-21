@@ -42,6 +42,8 @@ namespace Comptes.Control
             setFlagChange(change: false);
         }
 
+
+
         /// <summary>
         /// Reinitialise le fichier data et les contrôles de l'application.
         /// </summary>
@@ -76,7 +78,11 @@ namespace Comptes.Control
             }
         }
 
-        private bool newWindow()
+        /// <summary>
+        /// Vérifie si une au moins une sauvegarde existe.
+        /// </summary>
+        /// <returns>True si une sauvegarde existe. False sinon.</returns>
+        public bool saveNotNullOrEmpty()
         {
             List<MonthlySave> allSaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
 
@@ -86,31 +92,8 @@ namespace Comptes.Control
             }
             else
             {
-                MessageBox.Show(Const.MSG_ERR_NO_MONTHLYSAVE, Const.MSG_TITLE_ERR_NOSAVE, MessageBoxButtons.OK);
                 return false;
             }
         }
-
-        public void newMonthlySaveWindow()
-        {
-            bool ok = newWindow();
-            if (ok)
-            {
-                new FrmMonthlySave(frmMain, this);
-            }
-            
-        }
-
-        public void newAnalysisWindow()
-        {
-            bool ok = newWindow();
-            if (ok)
-            {
-                new frmAnalysis(frmMain, this);
-            }
-            
-        }
-
-
     }
 }

@@ -45,30 +45,7 @@ namespace Comptes.Model
             _userA.expenses = 0;
             _userB.expenses = 0;
         }
-
-
     }
 
 
-    public class DataMonthlyReport
-    {
-        public string accountName { get; set; }
-        public static string nameUserA { get; set; }
-        public static string nameUserB { get; set; }
-        public string expensesA { get; set; }
-        public string expensesB { get; set; }
-        public string total { get; set; }
-
-        public DataMonthlyReport(string accountName, double expensesA, double expensesB)
-        {
-            this.accountName = accountName;
-            this.expensesA = expensesA + "€";
-            this.expensesB = expensesB + "€";
-            this.total = (expensesA + expensesB) + "€";
-            DataMonthlyReport.nameUserA = User.getName(Const.USER_A);
-            DataMonthlyReport.nameUserB = User.getName(Const.USER_B);
-            //this.nameUserB = nameUserB;
-        }
-
-    }
 }

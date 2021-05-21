@@ -38,19 +38,18 @@
             this.accountName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expensesA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expensesB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataMonthlyReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreFen = new System.Windows.Forms.Label();
             this.lblActionName = new System.Windows.Forms.Label();
-            this.cboMonth = new System.Windows.Forms.ComboBox();
-            this.cboYear = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnDelMonthlyReport = new System.Windows.Forms.Button();
             this.btnToAnalysis = new System.Windows.Forms.Button();
+            this.dtpMonthlySave = new System.Windows.Forms.DateTimePicker();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataMonthlyReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -160,19 +159,6 @@
             this.expensesB.ReadOnly = true;
             this.expensesB.Width = 170;
             // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
-            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
-            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
-            this.totalDataGridViewTextBoxColumn.Width = 170;
-            // 
-            // dataMonthlyReportBindingSource
-            // 
-            this.dataMonthlyReportBindingSource.DataSource = typeof(Comptes.Model.DataMonthlyReport);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
@@ -206,32 +192,6 @@
             this.lblActionName.Size = new System.Drawing.Size(238, 21);
             this.lblActionName.TabIndex = 21;
             this.lblActionName.Text = "Charger la sauvegarde de ";
-            // 
-            // cboMonth
-            // 
-            this.cboMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMonth.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboMonth.FormattingEnabled = true;
-            this.cboMonth.Location = new System.Drawing.Point(350, 157);
-            this.cboMonth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboMonth.Name = "cboMonth";
-            this.cboMonth.Size = new System.Drawing.Size(168, 29);
-            this.cboMonth.TabIndex = 22;
-            // 
-            // cboYear
-            // 
-            this.cboYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboYear.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboYear.FormattingEnabled = true;
-            this.cboYear.Location = new System.Drawing.Point(561, 157);
-            this.cboYear.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboYear.Name = "cboYear";
-            this.cboYear.Size = new System.Drawing.Size(85, 29);
-            this.cboYear.TabIndex = 23;
             // 
             // btnOK
             // 
@@ -275,17 +235,39 @@
             this.btnToAnalysis.UseVisualStyleBackColor = false;
             this.btnToAnalysis.Click += new System.EventHandler(this.btnToAnalysis_Click);
             // 
+            // dtpMonthlySave
+            // 
+            this.dtpMonthlySave.CustomFormat = "MMMM yyyy";
+            this.dtpMonthlySave.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpMonthlySave.Location = new System.Drawing.Point(343, 158);
+            this.dtpMonthlySave.Name = "dtpMonthlySave";
+            this.dtpMonthlySave.ShowUpDown = true;
+            this.dtpMonthlySave.Size = new System.Drawing.Size(200, 22);
+            this.dtpMonthlySave.TabIndex = 27;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalDataGridViewTextBoxColumn.Width = 170;
+            // 
+            // dataMonthlyReportBindingSource
+            // 
+            this.dataMonthlyReportBindingSource.DataSource = typeof(Comptes.Model.DataMonthlyReport);
+            // 
             // FrmMonthlySave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(900, 630);
+            this.Controls.Add(this.dtpMonthlySave);
             this.Controls.Add(this.btnToAnalysis);
             this.Controls.Add(this.btnDelMonthlyReport);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.cboYear);
-            this.Controls.Add(this.cboMonth);
             this.Controls.Add(this.lblActionName);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grdBudgets);
@@ -297,9 +279,9 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,8 +296,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitreFen;
         private System.Windows.Forms.Label lblActionName;
-        private System.Windows.Forms.ComboBox cboMonth;
-        private System.Windows.Forms.ComboBox cboYear;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomCompteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn depensesADataGridViewTextBoxColumn;
@@ -327,5 +307,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnDelMonthlyReport;
         private System.Windows.Forms.Button btnToAnalysis;
+        private System.Windows.Forms.DateTimePicker dtpMonthlySave;
     }
 }

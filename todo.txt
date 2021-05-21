@@ -1,3 +1,17 @@
+- Fonctionnalité de charger une ancienne save dans le main form
+
+- Ne permettre de sélectionner que les mois où il y a des saves
+
+-faire des bindings sur les listbx
+
+- Appuyer sur valider un compte devrait vérifier si du texte est entré : si non, pas d'édit
+
+-Renommer formulaires sur un même format
+
+- Faire d'appData une singleton
+
+- l'initialisation des éléments d'appdata ne devraient pas être dans le contrôleur
+
 - Ligne Total
 
 - Tester si mois de ref existe

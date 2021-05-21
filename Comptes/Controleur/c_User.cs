@@ -19,8 +19,6 @@ namespace Comptes.Control
 {
     public partial class Controler
     {
-
-
         public void setFlagUserChange(bool change)
         {
             flagUserNameChange = change;
@@ -29,7 +27,7 @@ namespace Comptes.Control
         /// <summary>
         /// Modifie le nom de l'utilisateur dans tous les emplacements appropriés.
         /// </summary>
-        /// <param name="user">Utilisateur concerne (A/B)</param>
+        /// <param name="user">Utilisateur concerné (A/B)</param>
         /// <param name="txtUser">Textbox concernée</param>
         /// <param name="lblUser">Label de la rubrique Compte concerné.</param>
         /// <param name="lblNomTotalUser">Label de la rubrique Total concerné.</param>
@@ -59,6 +57,12 @@ namespace Comptes.Control
         public void setUserName(int userIndex, string name)
         {
             User.setName(userIndex, name);
+        }
+
+        public void setDefaultUsersNames()
+        {
+            setUserName(Const.USER_A, Const.DEFAULT_NAME_USER_A);
+            setUserName(Const.USER_B, Const.DEFAULT_NAME_USER_B);
         }
 
         /// <summary>

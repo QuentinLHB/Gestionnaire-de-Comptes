@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using Comptes.Model;
 using System.Globalization;
 using Comptes.Constants;
+using Comptes.Vue;
 
 
 namespace Comptes.Control
@@ -22,44 +23,53 @@ namespace Comptes.Control
         private frmMain frmMain;
         private FrmDivisions frmDivisions;
         private FrmMonthlySave frmSummary;
+        private frmUsersNames frmUsersNames;
         bool flagDataChange = false;
         bool flagUserNameChange = false;
         AppData data;
 
-        public Controler(frmMain vue)
+        /// <summary>
+        /// Point d'entrée de l'application. Initialise les éléments et ouvre le formulaire approprié.
+        /// </summary>
+        public Controler()
         {
-            frmMain = vue;
+            Const.initializeDivisions();
+            loadData();
+            if (User.areNamesDefault())
+            {
+                loadUsersNamesForm();
+            }
+            else
+            {
+                loadMainForm();
+            }
         }
 
+        /// <summary>
+        /// Charge le formulaire permettant de changer les noms d'utilisateurs.
+        /// </summary>
+        public void loadUsersNamesForm()
+        {
+            frmUsersNames = new frmUsersNames(this, frmMain);
+        }
+
+        /// <summary>
+        /// Charge le formulaire principal.
+        /// </summary>
+        public void loadMainForm()
+        {
+            frmMain = new frmMain(this);
+
+            frmMain.ShowDialog();
+        }
+
+        /// <summary>
+        /// Récupère les répartitions sauvegardées.
+        /// </summary>
+        /// <returns>Dictionnaire contenant le texte des répartitions et la valeur décimale.</returns>
         public Dictionary<string, double> getDivisions()
         {
             return data.dctDivisions;
-        }
-
-
-
-        public List<int> getExistingYears()
-        {
-            List<MonthlySave> allMonthlySaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
-            
-            List<int> lstYears = new List<int>();
-            foreach (MonthlySave save in allMonthlySaves)
-            {
-                bool exists = false;
-                foreach (int item in lstYears)
-                {
-                    if (save.year == item)
-                    {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (exists == false)
-                {
-                    lstYears.Add(save.year);
-                }
-            }
-            return lstYears;
         }
 
         /// <summary>
@@ -67,46 +77,22 @@ namespace Comptes.Control
         /// Si aucun fichier enregistré, crée deux users.
         /// </summary>
         public void loadData()
-        {
+        {            
             Object obj = Serialise.Load(Const.FILE_DATA);
 
             if (obj != null)
             {
                 data = (AppData)obj;
                 User.initializeNames(data);
-                // Si les noms enregistrés ne sont pas ceux par défaut
-                if (User.getName(Const.USER_A) != Const.DEFAULT_NAME_USER_A || (User.getName(Const.USER_B)) != Const.DEFAULT_NAME_USER_B)
-                {
-                    frmMain.setUsersTextBox(User.getName(Const.USER_A), User.getName(Const.USER_B));
-                }
-
-                else
-                {
-                    frmMain.setDefaultName();
-                }                
-
             }
 
             else // fichier vide
             {
                 data = new AppData();
-                User.initializeStaticData();
-                frmMain.setDefaultName();
-                //frmMain.loadDivisions()
-                //getDivisions(cboDivisions);
-                // Attention il y avait quelque chose ici que j'ai refactor mais je ne retrouve pas l'utilisation.
-            }
-
-            if (data.allBudgets != null)
-            {
-                foreach (Budget budget in data.allBudgets)
-                {
-                    frmMain.fillLists(budget.ToString(), budget.account.ToString());
-                }
+                User.initializeDefaultNames();
             }
 
             setFlagUserChange(change: false);
-
         }
     }
 }

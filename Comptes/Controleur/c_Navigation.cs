@@ -91,12 +91,22 @@ namespace Comptes.Control
         /// <param name="listToChange">Liste dont l'index doit changer.</param>
         public void listBoxIndexLink(ListBox listChanged, ListBox listToChange)
         {
-            listToChange.SelectedIndex = listChanged.SelectedIndex;
+            try
+            {
+                listToChange.SelectedIndex = listChanged.SelectedIndex;
+            }
+            catch { }
+            
         }
 
         public void minimizeWindow(Form form)
         {
             form.WindowState = FormWindowState.Minimized;
+        }
+
+        public DateTime formatDate(DateTime date)
+        {
+            return date.AddDays(-(date.Day - 1)).Date;
         }
     }
 }

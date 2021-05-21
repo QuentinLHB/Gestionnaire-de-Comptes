@@ -30,11 +30,10 @@ namespace Comptes.Control
         {
             DistinctBudget.sortBudgets((List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP), year);
         }
-        public void sortBudgets(int monthStart, int yearStart, int monthStop, int yearStop)
+        public void sortBudgets(DateTime dateStart, DateTime dateStop)
         {
-            DistinctBudget.sortBudgets((List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP), monthStart, yearStart, monthStop, yearStop);
+            DistinctBudget.sortBudgets((List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP), dateStart, dateStop);
         }
-
 
         public List<DistinctBudget> getSortedBudgets()
         {

@@ -36,17 +36,13 @@ namespace Comptes
             this.frmMain = frmMain;
             this.controler = controler;
             allMonthlySaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
-            this.allMonthlySaves = allMonthlySaves;
+            this.allMonthlySaves = allMonthlySaves;        
             this.ShowDialog();
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            frmMain.loadExistingYears(cboYear);
-            cboYear.SelectedIndex = 0;
-            frmMain.loadCboMonth(cboMonth);
-            frmMain.selectCurrentMonth(cboMonth);
             btnDelMonthlyReport.Enabled = false;
             btnToAnalysis.Visible = false;
         }
@@ -74,7 +70,8 @@ namespace Comptes
         /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, controler.monthNumber(cboMonth.SelectedIndex), int.Parse(cboYear.Text));
+            MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, dtpMonthlySave
+                .Value.Date);
 
             if (monthlySave != null)
             {
@@ -86,7 +83,7 @@ namespace Comptes
 
             else
             {
-                MessageBox.Show($"{Const.MSG_ERR_WRONGSELECTION}\n{cboMonth.SelectedItem} {cboYear.SelectedItem}", Const.ERROR, MessageBoxButtons.OK);
+                MessageBox.Show($"{Const.MSG_ERR_WRONGSELECTION}\n{dtpMonthlySave.Value.Date}", Const.ERROR, MessageBoxButtons.OK);
             }
         }
 
@@ -121,7 +118,7 @@ namespace Comptes
             if ((MessageBox.Show(Const.MSG_DELETEMONTLYSAVE, Const.MSG_TITLE_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes))
             {
 
-                MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, controler.monthNumber(cboMonth.SelectedIndex), int.Parse(cboYear.Text));
+                MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, controler.formatDate(dtpMonthlySave.Value.Date));
                 allMonthlySaves.Remove(monthlySave);
                 Serialise.Save(Const.FILE_MONTHLYRECAP, allMonthlySaves);
                 grdBudgets.Visible = false;
@@ -131,7 +128,7 @@ namespace Comptes
 
         private void btnToAnalysis_Click(object sender, EventArgs e)
         {
-            new frmAnalysis(frmMain, controler, this, cboMonth.SelectedIndex, int.Parse(cboYear.Text));            
+            new frmAnalysis(frmMain, controler, this);            
         }
 
         //public void addToCboYear(string year)

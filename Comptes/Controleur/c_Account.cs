@@ -22,17 +22,17 @@ namespace Comptes.Control
 
 
         /// <summary>
-        ///  Calcule les dépenses des utilisateurs.
+        ///  Calcule les dépenses des utilisateurs et met à jour l'objet.
         /// </summary>
-        /// <param name="compte">Compte concerné.</param>
+        /// <param name="acccount">Compte concerné.</param>
         /// <param name="amountUserA">Montant de l'utilisateur A.</param>
         /// <param name="amountUserB">Montant de l'utilisateur B.</param>
-        public void calculateExpenses(Account compte, string amountUserA, string amountUserB)
+        public void updateAccount(Account acccount, string amountUserA, string amountUserB)
         {
             try
             {
-                compte.userA.expenses = Eval(amountUserA);
-                compte.userB.expenses = Eval(amountUserB);
+                acccount.userA.expenses = Eval(amountUserA);
+                acccount.userB.expenses = Eval(amountUserB);
             }
 
             catch
@@ -41,44 +41,29 @@ namespace Comptes.Control
             }
         }
 
-        ///// <summary>
-        ///// Met à jour l'affichage du compte sélectionné dans la liste.
-        ///// </summary>
-        ///// <param name="account"></param>
-        //public void updateAccountDislay(Account account, ListBox lstAccounts)
-        //{
-        //    lstAccounts.Items[frmMain.Sele] = account;
-        //}
-
         /// <summary>
-        /// Réinitialise l'affichage par défaut d'un item spécifié de la liste des comptes.
+        /// Supprime les données d'un compte.
         /// </summary>
-        /// <param name="index">Index de la liste des comptes.</param>
-        public void emptyAccountData(int index)
+        /// <param name="account">Compte concerné.</param>
+        public void emptyAccountData(Account account)
         {
-            getSelectedAccount().reset();
-            frmMain.updateListBox(Const.ACCOUNT, data.allBudgets[index].displayBudgetName(), index);
+            account.reset();
+        }
+
+        public void resetAllAccounts()
+        {
+            data.allAccounts.Clear();
         }
 
         /// <summary>
         /// Récupère les dépenses des deux utilisateurs
         /// </summary>
         /// <returns>Une liste de deux doubles des dépenses utilisateurs.</returns>
-        public double[] getUsersExpenses()
-        {
-            Account account = getSelectedAccount();            
+        public double[] getUsersExpenses(Account account)
+        {           
             double[] usersExpenses = { account.userA.expenses, account.userB.expenses };
             return usersExpenses;            
         }
 
-        /// <summary>
-        /// Retourne le compte lié à l'item sélectionné dans la liste.
-        /// </summary>
-        /// <param name="lstAccounts">La liste des comptes.</param>
-        /// <returns></returns>
-        public Account getSelectedAccount()
-        {
-            return data.allBudgets[frmMain.getSelectedIndex()].account;
-        }
     }
 }

@@ -39,9 +39,7 @@
             this.cboDivisions = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtUserB = new System.Windows.Forms.TextBox();
-            this.txtUserA = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblUsersNames = new System.Windows.Forms.Label();
             this.gpbComptes = new System.Windows.Forms.GroupBox();
             this.btnResetComptes = new System.Windows.Forms.Button();
             this.txtAmountUserB = new System.Windows.Forms.TextBox();
@@ -49,7 +47,6 @@
             this.lblUserA = new System.Windows.Forms.Label();
             this.btnOKAccount = new System.Windows.Forms.Button();
             this.lstAccounts = new System.Windows.Forms.ListBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.gpbTotal = new System.Windows.Forms.GroupBox();
             this.btnCloture = new System.Windows.Forms.Button();
             this.lblResults = new System.Windows.Forms.Label();
@@ -65,22 +62,22 @@
             this.menuResetAffichage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuRepartition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAjouterRepartition = new System.Windows.Forms.ToolStripMenuItem();
-            this.analyseToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChargerAnalyse = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAnalysis = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuRenameUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreApp = new System.Windows.Forms.Label();
             this.btnQuitter = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cboMonth = new System.Windows.Forms.ComboBox();
-            this.cboYear = new System.Windows.Forms.ComboBox();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gpbAjoutBudget.SuspendLayout();
             this.gpbComptes.SuspendLayout();
             this.gpbTotal.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtAmountUserA
@@ -221,40 +218,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nom du budget :";
             // 
-            // txtUserB
+            // lblUsersNames
             // 
-            this.txtUserB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtUserB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtUserB.Location = new System.Drawing.Point(376, 160);
-            this.txtUserB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtUserB.Name = "txtUserB";
-            this.txtUserB.Size = new System.Drawing.Size(127, 28);
-            this.txtUserB.TabIndex = 3;
-            this.txtUserB.TextChanged += new System.EventHandler(this.txtUserB_TextChanged);
-            this.txtUserB.Leave += new System.EventHandler(this.txtUserB_Leave);
-            // 
-            // txtUserA
-            // 
-            this.txtUserA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.txtUserA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.txtUserA.Location = new System.Drawing.Point(192, 160);
-            this.txtUserA.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtUserA.Name = "txtUserA";
-            this.txtUserA.Size = new System.Drawing.Size(127, 28);
-            this.txtUserA.TabIndex = 1;
-            this.txtUserA.TextChanged += new System.EventHandler(this.txtUserA_TextChanged);
-            this.txtUserA.Leave += new System.EventHandler(this.txtUserA_Leave);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.label3.Location = new System.Drawing.Point(60, 163);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 21);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Comptes de :";
+            this.lblUsersNames.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblUsersNames.AutoSize = true;
+            this.lblUsersNames.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.lblUsersNames.Location = new System.Drawing.Point(142, 16);
+            this.lblUsersNames.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblUsersNames.Name = "lblUsersNames";
+            this.lblUsersNames.Size = new System.Drawing.Size(429, 21);
+            this.lblUsersNames.TabIndex = 0;
+            this.lblUsersNames.Text = "Comptes de 1234567890 et 1234567890 du mois de ";
             // 
             // gpbComptes
             // 
@@ -355,17 +329,6 @@
             this.lstAccounts.SelectedIndexChanged += new System.EventHandler(this.lstComptes_SelectedIndexChanged);
             this.lstAccounts.DoubleClick += new System.EventHandler(this.lstComptes_DoubleClick);
             this.lstAccounts.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lstComptes_KeyUp);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.label4.Location = new System.Drawing.Point(329, 163);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 21);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "et";
             // 
             // gpbTotal
             // 
@@ -491,7 +454,7 @@
             this.menuFichier,
             this.affichageToolStripMenuItem,
             this.menuRepartition,
-            this.analyseToolStripMenu});
+            this.dataToolStripMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1250, 28);
@@ -536,15 +499,16 @@
             this.menuAjouterRepartition.Text = "Editer une répartition";
             this.menuAjouterRepartition.Click += new System.EventHandler(this.menuEditDivisions_Click);
             // 
-            // analyseToolStripMenu
+            // dataToolStripMenu
             // 
-            this.analyseToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dataToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuChargerAnalyse,
-            this.menuAnalysis});
-            this.analyseToolStripMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.analyseToolStripMenu.Name = "analyseToolStripMenu";
-            this.analyseToolStripMenu.Size = new System.Drawing.Size(74, 24);
-            this.analyseToolStripMenu.Text = "Analyse";
+            this.menuAnalysis,
+            this.menuRenameUsers});
+            this.dataToolStripMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataToolStripMenu.Name = "dataToolStripMenu";
+            this.dataToolStripMenu.Size = new System.Drawing.Size(81, 24);
+            this.dataToolStripMenu.Text = "Données";
             // 
             // menuChargerAnalyse
             // 
@@ -562,8 +526,17 @@
             this.menuAnalysis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.menuAnalysis.Name = "menuAnalysis";
             this.menuAnalysis.Size = new System.Drawing.Size(376, 26);
-            this.menuAnalysis.Text = "Evolution des dépenses";
+            this.menuAnalysis.Text = "Analyse";
             this.menuAnalysis.Click += new System.EventHandler(this.menuAnalysis_Click);
+            // 
+            // menuRenameUsers
+            // 
+            this.menuRenameUsers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.menuRenameUsers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.menuRenameUsers.Name = "menuRenameUsers";
+            this.menuRenameUsers.Size = new System.Drawing.Size(376, 26);
+            this.menuRenameUsers.Text = "Renommer les utilisateurs";
+            this.menuRenameUsers.Click += new System.EventHandler(this.menuRenameUsers_Click);
             // 
             // panel1
             // 
@@ -601,43 +574,6 @@
             this.btnQuitter.UseVisualStyleBackColor = false;
             this.btnQuitter.Click += new System.EventHandler(this.btnQuitter_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.label5.Location = new System.Drawing.Point(526, 163);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 21);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "du mois de ";
-            // 
-            // cboMonth
-            // 
-            this.cboMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMonth.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboMonth.FormattingEnabled = true;
-            this.cboMonth.Location = new System.Drawing.Point(655, 160);
-            this.cboMonth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboMonth.Name = "cboMonth";
-            this.cboMonth.Size = new System.Drawing.Size(168, 29);
-            this.cboMonth.TabIndex = 5;
-            // 
-            // cboYear
-            // 
-            this.cboYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboYear.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.cboYear.FormattingEnabled = true;
-            this.cboYear.Location = new System.Drawing.Point(831, 159);
-            this.cboYear.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboYear.Name = "cboYear";
-            this.cboYear.Size = new System.Drawing.Size(85, 29);
-            this.cboYear.TabIndex = 6;
-            // 
             // btnMinimize
             // 
             this.btnMinimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
@@ -655,10 +591,28 @@
             // 
             // dtpMonth
             // 
-            this.dtpMonth.Location = new System.Drawing.Point(946, 165);
+            this.dtpMonth.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.dtpMonth.CustomFormat = "MMMM yyyy";
+            this.dtpMonth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpMonth.Location = new System.Drawing.Point(578, 12);
             this.dtpMonth.Name = "dtpMonth";
+            this.dtpMonth.ShowUpDown = true;
             this.dtpMonth.Size = new System.Drawing.Size(200, 28);
             this.dtpMonth.TabIndex = 16;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.lblUsersNames, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dtpMonth, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(50, 156);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1150, 53);
+            this.tableLayoutPanel1.TabIndex = 17;
             // 
             // frmMain
             // 
@@ -668,20 +622,13 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(1250, 850);
-            this.Controls.Add(this.dtpMonth);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnMinimize);
-            this.Controls.Add(this.cboYear);
-            this.Controls.Add(this.cboMonth);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnQuitter);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gpbTotal);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.gpbComptes);
-            this.Controls.Add(this.txtUserB);
-            this.Controls.Add(this.txtUserA);
             this.Controls.Add(this.gpbAjoutBudget);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Century Schoolbook", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -704,6 +651,8 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -721,13 +670,10 @@
         private System.Windows.Forms.ListBox lstAccounts;
         private System.Windows.Forms.Button btnOKAccount;
         private System.Windows.Forms.Button btnOKBudgets;
-        private System.Windows.Forms.TextBox txtUserB;
-        private System.Windows.Forms.TextBox txtUserA;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblUsersNames;
         private System.Windows.Forms.TextBox txtAmountUserB;
         private System.Windows.Forms.Label lblUserB;
         private System.Windows.Forms.Label lblUserA;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox gpbTotal;
         private System.Windows.Forms.Label lblNomTotalUserB;
         private System.Windows.Forms.Label lblNomTotalUserA;
@@ -747,16 +693,15 @@
         private System.Windows.Forms.Button btnCloture;
         private System.Windows.Forms.ToolStripMenuItem menuRepartition;
         private System.Windows.Forms.ToolStripMenuItem menuAjouterRepartition;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cboMonth;
-        private System.Windows.Forms.ComboBox cboYear;
-        private System.Windows.Forms.ToolStripMenuItem analyseToolStripMenu;
+        private System.Windows.Forms.ToolStripMenuItem dataToolStripMenu;
         private System.Windows.Forms.ToolStripMenuItem menuChargerAnalyse;
         private System.Windows.Forms.ToolStripMenuItem affichageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuResetAffichage;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.ToolStripMenuItem menuAnalysis;
         private System.Windows.Forms.DateTimePicker dtpMonth;
+        private System.Windows.Forms.ToolStripMenuItem menuRenameUsers;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 

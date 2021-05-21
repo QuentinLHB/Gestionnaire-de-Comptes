@@ -22,30 +22,17 @@ namespace Comptes.Control
     {
 
         /// <summary>
-        /// Crée un budget et l'affiche.
+        /// Crée et stocke le nouveau budget.
         /// </summary>
         /// <returns></returns>
-        public void createNewBudget(string budgetName, string division)
+        public void addBudget(string budgetName, string division)
         {
             Budget newBudget = new Budget(
                 name: budgetName,
                 division: data.dctDivisions[division]);
 
             data.allBudgets.Add(newBudget);
-
-            frmMain.addToLstAccount(Const.BUDGET, newBudget.displayBudgetName());
-            frmMain.addToLstAccount(Const.ACCOUNT, newBudget.displayBudgetName());
-
-        }
-
-        /// <summary>
-        /// Retourne le budget à l'index spécifié..
-        /// </summary>
-        /// <param name="index">Index de la liste des budgets.</param>
-        /// <returns>L'objet Budget sélectionné.</returns>
-        public Budget getSelectedBudget()
-        {
-            return data.allBudgets[frmMain.getSelectedIndex()];
+            data.allAccounts.Add(newBudget.account);
         }
 
         /// <summary>
@@ -59,36 +46,50 @@ namespace Comptes.Control
 
 
         /// <summary>
-        /// Update le Budget sélectionné après édition.
+        /// Edite un budget
         /// </summary>
-        public void updateBudget(string budgetName, string division)
+        /// <param name="budget">Budget à éditer</param>
+        /// <param name="budgetName">Nouveau nom du budget</param>
+        /// <param name="division">Répartition au format "x/x"</param>
+        public void updateBudget(Budget budget, string budgetName, string division)
         {
-            Budget selectedBudget = getSelectedBudget();
-            selectedBudget.name = budgetName;
-            selectedBudget.division = data.dctDivisions[division];
+            budget.name = budgetName;
+            budget.division = data.dctDivisions[division];
         }
 
         /// <summary>
-        /// Demande confirmation et supprime le budget sélectionné et le compte associé.
+        /// Supprime le budget des données.
         /// </summary>
-        /// <param name="index">Index du budget à supprimer.</param>
-        /// <returns>True si l'utilisateur a validé.
-        /// False Si l'utilisateur a annulé. </returns>
-        public bool deleteBudget(int index)
+        /// <param name="budget">Budget à supprimer.</param>
+        public void deleteBudget(Budget budget)
         {
-            if (MessageBox.Show(Const.MSG_DELETEBUDGET, Const.MSG_TITLE_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                data.allBudgets.RemoveAt(index);
-                frmMain.accessAddAccount();
-                frmMain.refreshTotals();
-                return true;
-            }
-            return false;
+            data.allBudgets.Remove(budget);
         }
 
+        /// <summary>
+        /// Supprime tous les budgets sauvegardés.
+        /// </summary>
         public void resetAllBudgets()
         {
             data.allBudgets.Clear();
+        }
+
+        /// <summary>
+        /// Retourne la liste des budgets enregistrés.
+        /// </summary>
+        /// <returns></returns>
+        public List<Budget> getAllBudgets()
+        {
+            return data.allBudgets;
+        }
+        
+        /// <summary>
+        /// Retourne la liste des comptes enregistrés.
+        /// </summary>
+        /// <returns></returns>
+        public List<Account> getAllAccounts()
+        {
+            return data.allAccounts;
         }
     }
 }
