@@ -50,15 +50,16 @@ namespace Comptes.Control
         public void finalizeMonthDialogs(DateTime date)
         {
             List<MonthlySave> allMonthlySaves = getMonthlySaves();
-            if (allMonthlySaves == null)
+            if (allMonthlySaves == null) // Si première save
             {
                 allMonthlySaves = new List<MonthlySave>();
             }
 
             MonthlySave existingSave = MonthlySave.findMonthlySave(allMonthlySaves, date);
-            if (existingSave == null)
+            if (existingSave == null) // Cas normal : Première sauvegarde pour le mois.
             {
                 finalizeMonth(allMonthlySaves, date);
+                MessageBox.Show(Const.MSG_FINALIZE, Const.MSG_TITLE_SAVE);
             }
 
             else //Si une save existe

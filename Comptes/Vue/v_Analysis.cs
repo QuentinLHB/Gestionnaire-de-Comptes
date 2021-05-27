@@ -61,6 +61,11 @@ namespace Comptes
 
         // ______________ FONCTIONNALITES _________________________
 
+        /// <summary>
+        /// Change l'affichage en fonction de l'item sélectionné dans le combobox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboAnalysisMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = cboAnalysisMode.SelectedIndex;
@@ -72,24 +77,38 @@ namespace Comptes
             }
         }
 
+        /// <summary>
+        /// Affichage de l'option "Entre deux dates" : DateTimePicker de début et de fin.
+        /// </summary>
         private void displayComponents_betweenTwoDates()
         {
             if (dtpYear.Visible) dtpYear.Visible = false;
             if(!panDates.Visible) panDates.Visible = true;
         }
 
+        /// <summary>
+        /// Affichage de l'otion "Année" : DateTime n'affichant qu'une année.
+        /// </summary>
         private void displayComponents_allYear()
         {
             if (panDates.Visible) panDates.Visible = false;
             if(!dtpYear.Visible) dtpYear.Visible = true;
         }
 
+        /// <summary>
+        /// Affichage de l'option "Depuis toujours" : Aucun objet à afficher.
+        /// </summary>
         private void displayComponents_allTime()
         {
             if (dtpDateStart.Visible) panDates.Visible = false;
             if (dtpYear.Visible) dtpYear.Visible = false;
         }
 
+        /// <summary>
+        /// Affiche la grille en fonction de l'option sélectionnée.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             DataAnalysis.Clear();
@@ -111,6 +130,10 @@ namespace Comptes
         }
 
 
+        /// <summary>
+        /// Crée les objets d'affichage pour l'affichage de la grille.
+        /// </summary>
+        /// <param name="saveRef"></param>
         private void displayGrid(MonthlySave saveRef = null)
         {
             var gridData = new List<DataAnalysis>();
@@ -128,26 +151,27 @@ namespace Comptes
             grdBudgets.Columns[4].Visible = !isNull; // Evolution
             grdBudgets.Columns[2].HeaderText = ($"{Const.MONTHLYEXPENSES_HEADER} {dtpDateRef.Value.ToString("MMMM")} {dtpDateRef.Value.ToString("yyyy")}");
 
-            
-            
+            setHoverText();
         }
 
-        //private string[] calculateTotal()
-        //{
-        //    string[] rowTotal = new string[6];
-        //    rowTotal[0] = "TOTAL";
-        //    rowTotal[1] = DistinctBudget.getTotalExpenses().ToString(); //Total de tous les budgets
-        //    double totalMonthRef = DataAnalysis.expensesMonthRef;
-        //    rowTotal[2] = totalMonthRef.ToString() + "€"; // total du mois de ref
-        //    DistinctBudget.setTotalAverage(DataAnalysis.Items.Count);
-        //    rowTotal[3] = DistinctBudget.getTotalAverage().ToString() + "€"; // Moyenne des moyennes
-        //    rowTotal[4] = DistinctBudget.totalEvolution(totalMonthRef).ToString() + "€"; // Ecart du mois à la moyenne
-        //    rowTotal[5] = "100%"; // La somme des % arrive tjr à 100
+        /// <summary>
+        /// Définit le texte affiché lorsque l'on passe la souris sur les headers des colonnes.
+        /// </summary>
+        private void setHoverText()
+        {
+            grdBudgets.Columns[0].ToolTipText = Const.TOOLTIP_BUDGET;
+            grdBudgets.Columns[1].ToolTipText = Const.TOOLTIP_EXPENSES ;
+            grdBudgets.Columns[2].ToolTipText = Const.TOOLTIP_EXPENSESREF;
+            grdBudgets.Columns[3].ToolTipText = Const.TOOLTIP_AVERAGE;
+            grdBudgets.Columns[4].ToolTipText = Const.TOOLTIP_EVOLUTION;
+            grdBudgets.Columns[5].ToolTipText = Const.TOOLTIP_PROPORTION;
+        }
 
-        //    return rowTotal;
-        //}
-
-
+        /// <summary>
+        /// Désactive le choix d'une date de référence selon la coche de la case.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkMonthRef_CheckedChanged(object sender, EventArgs e)
         {
             dtpDateRef.Enabled = chkMonthRef.Checked;

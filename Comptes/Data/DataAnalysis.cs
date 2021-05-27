@@ -81,9 +81,8 @@ namespace Comptes.Data
             foreach (DataAnalysis row in DataAnalysis.Items)
             {
                 totalAverage += double.Parse(row.average.Split('€')[0]);
-                //row.average.Split('%')
             }
-            return Math.Round((totalAverage / DataAnalysis.Items.Count), 2);
+            return Math.Round(totalAverage, 2);
         }
 
         // Méthodes Static 

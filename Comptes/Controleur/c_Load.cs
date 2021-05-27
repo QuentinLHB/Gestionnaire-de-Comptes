@@ -88,7 +88,7 @@ namespace Comptes.Control
 
             else // fichier vide
             {
-                data = new AppData();
+                data = AppData.getAppData();
                 User.initializeDefaultNames();
             }
 

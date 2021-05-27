@@ -32,7 +32,7 @@ namespace Comptes.Control
             }
             catch
             {
-                MessageBox.Show(Const.MSG_ERR_SAVE, Const.MSG_TITRE_ERR_SAVE, MessageBoxButtons.OK);
+                MessageBox.Show(Const.MSG_ERR_SAVE, Const.MSG_TITLE_SAVE, MessageBoxButtons.OK);
             }
             setFlagChange(change: false);
         }
@@ -49,7 +49,7 @@ namespace Comptes.Control
                 File.Delete(Const.FILE_DATA);
             }
 
-            data.resetData();
+            data.Clear();
             frmMain.resetView();        
             
         }

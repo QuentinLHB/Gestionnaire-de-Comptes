@@ -14,28 +14,66 @@ namespace Comptes.Model
     [SerializableAttribute]
     public class AppData
     {
+        /// <summary>
+        /// Instance unique d'AppData
+        /// </summary>
+        private static AppData instance;
+        /// <summary>
+        /// Noms des deux utilisateurs.
+        /// </summary>
         public string[] usersNames { get; set; } = new string[2];
+        /// <summary>
+        /// Liste des budgets à afficher dans la vue.
+        /// </summary>
         public List<Budget> allBudgets { get; set; } = new List<Budget>();
-
+        /// <summary>
+        /// Liste des comptes à afficher dans la vue.
+        /// </summary>
         public List<Account> allAccounts { get; } = new List<Account>();
+        /// <summary>
+        /// Répartitions : Dans la clé, le texte, dans la valeur, la décimale
+        /// </summary>
+        /// <example>"20/80" - 0.2</example>
         public Dictionary<string, double> dctDivisions { get; } = new Dictionary<string, double>();
 
-        public AppData()
+        /// <summary>
+        /// Constructeur privé de la classe singleton AppData.
+        /// </summary>
+        private AppData()
         {
             usersNames[Const.USER_A] = Const.DEFAULT_NAME_USER_A;
             usersNames[Const.USER_B] = Const.DEFAULT_NAME_USER_B;
             initializeDivisions();
         }
 
-        public void resetData()
+        /// <summary>
+        /// Récupère ou crée l'instance unique d'AppData.
+        /// </summary>
+        /// <returns></returns>
+        public static AppData getAppData()
+        {
+            if(instance == null)
+            {
+                instance = new AppData();
+            }
+
+            return instance;
+        }
+        /// <summary>
+        /// Réinitialise les répartitions par défaut, les noms d'utilisateurs par défaut, et efface les budgets et les comptes.
+        /// </summary>
+        public void Clear()
         {
             dctDivisions.Clear();
             initializeDivisions();
             User.setName(Const.USER_A, Const.DEFAULT_NAME_USER_A);
             User.setName(Const.USER_B, Const.DEFAULT_NAME_USER_B);
             allBudgets.Clear();
+            allAccounts.Clear();
         }
-
+        /// <summary>
+        /// Initialise les répartitions dans le dictionnaire.
+        /// </summary>
         private void initializeDivisions()
         {
             foreach (KeyValuePair<string, double> pair in Const.initialDivision)
@@ -44,7 +82,9 @@ namespace Comptes.Model
             }
         }
 
-
+        /// <summary>
+        /// Sauvegarde les noms enregistrés dans les objets User.
+        /// </summary>
         public void storeUserData()
         {
             for (int userIndex = 0; userIndex < 2; userIndex++)
@@ -59,12 +99,23 @@ namespace Comptes.Model
     [SerializableAttribute]
     public class MonthlySave
     {
+        /// <summary>
+        /// Liste des budgets d'un mois.
+        /// </summary>
         public List<Budget> allBudgets { get; set; }
+        /// <summary>
+        /// Mois et année concernés par la sauvegarde.
+        /// </summary>
         public DateTime Date { get; set; }
 
+        /// <summary>
+        /// Constructeur d'une sauvegarde mensuelle.
+        /// </summary>
+        /// <param name="date">Date concernée par la sauvegarde.</param>
+        /// <param name="allBudgets">Liste des budgets de la sauvegarde.</param>
         public MonthlySave(DateTime date, List<Budget> allBudgets)
         {
-            Date = date;
+            this.Date = date;
             this.allBudgets = allBudgets;
         }
 
@@ -133,26 +184,54 @@ namespace Comptes.Model
             return mostRecentSave;
         }
 
+        /// <summary>
+        /// Vérifie si une sauvegarde mensuelle est nulle.
+        /// </summary>
+        /// <param name="monthlySave">Sauvegarde à vérifier.</param>
+        /// <returns>True si null, false sinon.</returns>
         public static bool isNull(MonthlySave monthlySave)
         {
-            if (monthlySave == null)
-            {
-                return true;
-            }
-            return false;
+            return (monthlySave == null);
         }
 
     }
 
+    /// <summary>
+    /// Classe conteneure des objets à entrer dans le tableau de chargement des sauvegardes mensuelles.
+    /// Un objet = un budget = une ligne.
+    /// </summary>
     public class DataMonthlySave
     {
+        /// <summary>
+        /// Nom du budget.
+        /// </summary>
         public string accountName { get; set; }
+        /// <summary>
+        /// Nom de l'utilisateur A.
+        /// </summary>
         public static string nameUserA { get; set; }
+        /// <summary>
+        /// Nom de l'utilisateur B.
+        /// </summary>
         public static string nameUserB { get; set; }
+        /// <summary>
+        /// Dépenses de l'utilisateur A.
+        /// </summary>
         public string expensesA { get; set; }
+        /// <summary>
+        /// Dépenses de l'utilisateur B.
+        /// </summary>
         public string expensesB { get; set; }
+        /// <summary>
+        /// Dépenses totales.
+        /// </summary>
         public string total { get; set; }
-
+        /// <summary>
+        /// Constructeur des données d'affichage
+        /// </summary>
+        /// <param name="accountName">Nom du budget</param>
+        /// <param name="expensesA">Dépenses de l'utilisateur A.</param>
+        /// <param name="expensesB">Dépenses de l'utilisateur B.</param>
         public DataMonthlySave(string accountName, double expensesA, double expensesB)
         {
             this.accountName = accountName;
@@ -163,10 +242,6 @@ namespace Comptes.Model
             DataMonthlySave.nameUserB = User.getName(Const.USER_B);
         }
     }
-
-
-
-
 
 
     /// <summary>
@@ -185,14 +260,22 @@ namespace Comptes.Model
             this.name = name;
         }
 
+        /// <summary>
+        /// Réinitialise les dépenses d'un budget.
+        /// </summary>
         public static void Clear()
         {
             totalExpenses = 0;
-
         }
 
+        /// <summary>
+        /// Liste des budgets dont le nom est le même (dinstinct).
+        /// </summary>
         public List<Budget> allMonths { get; }
 
+        /// <summary>
+        /// Nom du budget distinct.
+        /// </summary>
         public string name { get; set; }
 
         /// <summary>
@@ -212,18 +295,28 @@ namespace Comptes.Model
         /// <summary>
         /// Compte le nombre de fois où apparaît le budget.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Nombre de mois où apparaît le budget.</returns>
         public int occurence()
         {
             return allMonths.Count;
         }
 
+        /// <summary>
+        /// Ajoute un budget à la liste des budgets.
+        /// </summary>
+        /// <param name="budget"></param>
         private void addBudget(Budget budget)
         {
             allMonths.Add(budget);
         }
 
+        /// <summary>
+        /// Dépenses totales de tous les budgets.
+        /// </summary>
         private static double totalExpenses = 0;
+        /// <summary>
+        /// Détermine le total des dépenses de chaque budget distinct.
+        /// </summary>
         private static void setTotalExpenses()
         {
             double somme = 0;
@@ -233,24 +326,37 @@ namespace Comptes.Model
             }
             totalExpenses = somme;
         }
+
+        /// <summary>
+        /// Retourne le total des dépenses de tous les budgets distincts cumulés.
+        /// </summary>
+        /// <returns></returns>
         public static double getTotalExpenses()
         {
             if (totalExpenses == 0) setTotalExpenses();
             return totalExpenses;
         }
 
-        public static double totalEvolution(double totalMonthRef, double totalAverage)
-        {
-            return Math.Round((totalMonthRef - totalAverage) / totalAverage * 100, 2);
-        }
-
+        /// <summary>
+        /// Evolution entre le mois en cours et la moyenne.
+        /// </summary>
+        /// <param name="average">Moyenne du budget</param>
+        /// <param name="budget">Budget en question.</param>
+        /// <example>Moyenne Budget : 100 ; Budget Mois N : 120 = ((120-100)/100)*100 = 20. </example>
+        /// <returns>L'écart au budget, au format entier.</returns>
         public double calculateEvolution(double average, Budget budget)
         {
-
             double totalLastBudget = budget.account.userA.expenses + budget.account.userB.expenses;
             double evolution = ((totalLastBudget - average) / average) * 100;
             return Math.Round(evolution, 2);
         }
+
+
+        public static double totalEvolution(double totalMonthRef, double totalAverage)
+        {
+            return Math.Round((totalMonthRef - totalAverage) / totalAverage * 100, 2) ;
+        }
+
 
         /// <summary>
         /// Trie tous les budgets des sauvegardes.

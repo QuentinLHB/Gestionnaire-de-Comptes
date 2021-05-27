@@ -202,24 +202,25 @@ namespace Comptes
             // S'il n'y a pas de budget
             if (lstAccounts.Items.Count != 0)
             {
-                if ((MessageBox.Show(Const.MSG_VALIDATIONMONYLYSAVE, Const.MSG_TITLE_VALIDATIONMONYLYSAVE, MessageBoxButtons.YesNo) == DialogResult.Yes))
+                if ((MessageBox.Show(Const.MSG_VALIDATIONMONYLYSAVE(dtpMonth.Value), Const.MSG_TITLE_VALIDATIONMONYLYSAVE, MessageBoxButtons.YesNo) == DialogResult.Yes))
                 {
-                    controler.finalizeMonthDialogs(controler.formatDate(dtpMonth.Value.Date));
-
-                    
-                }
-                
+                    controler.finalizeMonthDialogs(controler.formatDate(dtpMonth.Value.Date));                    
+                }                
             }
-
             else
             {
                 MessageBox.Show(Const.MSG_ERR_FINALIZE, Const.ERROR, MessageBoxButtons.OK);
             }
         }
 
+        /// <summary>
+        /// Remplace la virgule par un point.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtAmountUserA_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == 44)
+            if(e.KeyChar == Const.ASCII_VIRGULE)
             {
                 e.Handled = true;
                 txtAmountUserA.Text += ".";

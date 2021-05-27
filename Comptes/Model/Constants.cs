@@ -14,6 +14,8 @@ namespace Comptes.Constants
         public const string TOTAL = "Total";
         public const int DECEMBER = 11;
 
+        public const int ASCII_VIRGULE = 44;
+
         public const String FILE_MONTHLYRECAP = "SauvegardesMensuelles";
         public const String FILE_DATA = "appData";
 
@@ -42,7 +44,10 @@ namespace Comptes.Constants
         public const string MSG_ERR_NO_MONTHLYSAVE = "Aucune sauvegarde enregistrée.";
 
         public const string MSG_TITLE_VALIDATIONMONYLYSAVE = "Cloturer le mois";
-        public const string MSG_VALIDATIONMONYLYSAVE = "Valider le mois ? Aucune modification ne pourra êttre apportée.";
+        public static string MSG_VALIDATIONMONYLYSAVE(DateTime mois)
+        {
+            return $"Sauvegarder le mois de {mois.ToString("MMMM")}{mois.ToString("yyyy")} ? Aucune modification ne pourra être apportée.";
+        }
 
         public const string MSG_TITLE_SAVEBEFOREQUIT = "Fermeture";
         public const string MSG_SAVEBEFOREQUIT = "Voulez-vous sauvegarder avant de quitter?";
@@ -51,7 +56,7 @@ namespace Comptes.Constants
         public const string MSG_RESET = "Toutes les données seront effacées. Confirmer ?";
         public const string MSG_RESETOK = "L'application a été réinitialisée avec succès.";
 
-        public const string MSG_TITRE_ERR_SAVE = "Sauvegarde";
+        public const string MSG_TITLE_SAVE = "Sauvegarde";
         public const string MSG_ERR_SAVE = ERROR;
 
         public const string MSG_TITRE_ERR_WRONGINPUT = ERROR;
@@ -68,10 +73,19 @@ namespace Comptes.Constants
 
         public const string MSG_ERR_WRONGSELECTION = "Aucune sauvegarde n'a été trouvée pour le mois suivant :";
 
+        public const string MSG_FINALIZE = "Sauvegarde effectuée avec succès.";
+
         public const string MSG_TITLE_REPLACE = "Ecrasement";
         public const string MSG_REPLACE = "Une sauvegarde existe déjà pour ce mois. L'écraser ?";
         public const string MSG_REPLACE_YES = "La sauvegarde mensuelle a été écrasée.";
         public const string MSG_REPLACE_NO = "La sauvgarde n'a pas été effectuée.";
+
+        public const string TOOLTIP_BUDGET = "Budgets créés sur la période choisie.";
+        public const string TOOLTIP_EXPENSES = "Total des dépenses sur la période choisie.";
+        public const string TOOLTIP_EXPENSESREF = "Dépenses du mois de référence.";
+        public const string TOOLTIP_AVERAGE = "Dépenses moyenne du budget sur la période choisie.";
+        public const string TOOLTIP_EVOLUTION = "Ecart entre les dépenses du mois de référence et la moyenne du budget";
+        public const string TOOLTIP_PROPORTION = "Part du budget dans le total sur la période choisie.";
 
         private Const()
         {
