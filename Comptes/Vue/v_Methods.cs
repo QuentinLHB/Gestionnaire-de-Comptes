@@ -12,6 +12,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Globalization;
 using Comptes.Constants;
+using Comptes.Model;
 
 namespace Comptes
 {
@@ -21,7 +22,10 @@ namespace Comptes
     public partial class frmMain : Form
     {
 
-
+        /// <summary>
+        /// Charge les répartitions dans un combobox
+        /// </summary>
+        /// <param name="comboBox">Combobox dans lequel charger les répartitions.</param>
         public void loadDivisions(ComboBox comboBox)
         {
             foreach (KeyValuePair<string, double> pair in controler.getDivisions())
@@ -29,56 +33,7 @@ namespace Comptes
                 comboBox.Items.Add(pair.Key);
             }
             comboBox.SelectedIndex = 0;
-        }
-
-        public void loadCboMonth(ComboBox cboMonth)
-        {   
-            var DateTimeFormatInfo = CultureInfo.GetCultureInfo("fr-FR").DateTimeFormat;
-
-            for (int k = 1; k <= 12; k++)
-            {
-                cboMonth.Items.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(k));
-            }
-
-
-        }
-
-        public void selectCurrentMonth(ComboBox cboMonth)
-        {
-            DateTime date = DateTime.Now;
-
-            if (date.Month != 1)
-            {
-                cboMonth.SelectedIndex = date.Month - 2;
-            }
-            else
-            {
-                cboMonth.SelectedIndex = Const.DECEMBER;
-            }
-        }
-
-        public void loadThreeYears(ComboBox cboYear)
-        {
-            DateTime date = DateTime.Now;
-            for (int year = date.Year - 1; year < (date.Year + 2); year++)
-            {
-                cboYear.Items.Add(year);
-            }
-            cboYear.SelectedIndex = 1;
-        }
-
-        /// <summary>
-        /// Charge les années déjà sauvegardées dans un combo.
-        /// </summary>
-        /// <param name="cboYear"></param>
-        public void loadExistingYears(ComboBox cboYear)
-        {
-            List<int> lstExistingYears = controler.getExistingYears();
-            foreach (int year in lstExistingYears)
-            {
-                cboYear.Items.Add(year);
-            }
-        }
+        } 
 
         /// <summary>
         /// Affiche les dettes des utilisateurs.
@@ -88,7 +43,6 @@ namespace Comptes
             double[] debts = controler.getDebts();
             lblTotalUserA.Text = debts[Const.USER_A].ToString() + "€";
             lblTotalUserB.Text = debts[Const.USER_B].ToString()+ "€" ;
-
         }
 
 
@@ -100,48 +54,15 @@ namespace Comptes
             lblResults.Text = controler.updateTotals();
         }
 
+        /// <summary>
+        /// Recharge les divisions dans le combo.
+        /// </summary>
         public void refreshCboDivisions()
         {
             cboDivisions.Items.Clear();
             loadDivisions(cboDivisions);
         }
 
-        public void addToLstAccount(string list, string item) {
-
-            ListBox listBox = lstBudgets;
-            switch (list)
-            {
-                case Const.ACCOUNT: listBox = lstAccounts; break;
-                case Const.BUDGET: listBox = lstBudgets; break;
-            }
-
-            listBox.Items.Add(item);
-        }
-
-        /// <summary>
-        /// Modifie un élément de la liste.
-        /// </summary>
-        /// <param name="list">Liste à ajouter. Utiliser les constantes BUDGET ou ACCOUNT.</param>
-        /// <param name="item">Element à ajouter</param>
-        /// <param name="index">Index auquel l'ajouter. S'il n'est pas spécifié, ajoute à l'index sélectionné.</param>
-        public void updateListBox(string list, string item, int index = -1)
-        {
-            ListBox listBox = lstBudgets;
-            switch (list)
-            {
-                case Const.ACCOUNT: listBox = lstAccounts; break;
-                case Const.BUDGET: listBox = lstBudgets; break;
-            }
-
-            if (index != -1)
-            {
-                listBox.Items[index] = item;
-            }
-            else
-            {
-                listBox.Items[lstBudgets.SelectedIndex] = item;
-            }
-        }
 
         /// <summary>
         /// Réinitialise la cellule et le focus après la validation d'un bouton.
@@ -152,15 +73,21 @@ namespace Comptes
             txtBudgetName.Focus();
         }
 
+        /// <summary>
+        /// Change les boutons (Ajout/Edit), et empêche le changement de lignes.
+        /// </summary>
+        /// <example>Mode edition true = Bouton Edit Visible, Bouton OK invisible.</example>
+        /// <param name="modeEdition">True si édition, false si ajout.</param>
         public void switchMode(bool modeEdition)
         {
             btnOKBudgets.Visible = !modeEdition;
             btnEdit.Visible = modeEdition;
-        }
+            lstBudgets.Enabled = !modeEdition;
+            lstAccounts.Enabled = !modeEdition;
+            btnResetBudget.Enabled = !modeEdition;
+            btnResetComptes.Enabled = !modeEdition;
 
-        public int getSelectedIndex()
-        {
-            return lstBudgets.SelectedIndex;
+
         }
 
         /// <summary>
@@ -195,6 +122,10 @@ namespace Comptes
                 txtAmountUserB.Text = "0";
             }
         }
+
+        /// <summary>
+        /// Vide les TextBox liés aux comptes.
+        /// </summary>
         public void resetAccountBox()
         {
             txtAmountUserA.Focus();
@@ -202,55 +133,85 @@ namespace Comptes
             txtAmountUserB.Text = "";
         }
 
-        public void setUsersTextBox(string nameUserA, string nameUserB)
+        /// <summary>
+        /// Affiche le nom des utilisateurs dans tous les emplacements.
+        /// </summary>
+        public void displayUsersNames()
         {
-            txtUserA.Text = nameUserA;
-            txtUserB.Text = nameUserB;
+            lblUsersNames.Text = $"Comptes de {User.getName(Const.USER_A)} et {User.getName(Const.USER_B)} du mois de ";
+            lblUserA.Text = controler.getUserNameDisplay(Const.USER_A);
+            lblUserB.Text = controler.getUserNameDisplay(Const.USER_B);
+            lblNomTotalUserA.Text = controler.getUserDebtsDisplay(Const.USER_A);
+            lblNomTotalUserB.Text = controler.getUserDebtsDisplay(Const.USER_B);
         }
 
-        public void setDefaultName() //TODO A AMELIORER
-        {
-            lblUserA.Text = Const.DEFAULT_NAME_USER_A + ":";
-            lblUserB.Text = Const.DEFAULT_NAME_USER_B + ":";
-            lblNomTotalUserA.Text = $"Total dettes {Const.DEFAULT_NAME_USER_A} :";
-            lblNomTotalUserB.Text = $"Total dettes {Const.DEFAULT_NAME_USER_B} :";
-        }
-
-        public void fillLists(string budget, string account)
-        {
-            lstBudgets.Items.Add(budget);
-            lstAccounts.Items.Add(account);
-        }
-
+        /// <summary>
+        /// Réinitialise les éléments de la vue : TextBox vides, combo initialisé sans ajout, 
+        /// </summary>
         public void resetView()
         {
             foreach (System.Windows.Forms.Control control in this.Controls)
             {
-                if (control is TextBox)
+                var textbox = control as TextBox;
+                if (textbox != null)
                 {
-                    ((TextBox)control).Text = string.Empty;
+                    textbox.Text = string.Empty;
                 }
-
-                else if (control is GroupBox)
+                
+                else 
                 {
-                    GroupBox groupbox = (GroupBox)control;
+                    var groupbox = control as GroupBox;
+                    if(groupbox != null)
                     foreach (System.Windows.Forms.Control subcontrol in groupbox.Controls)
                     {
-                        if (subcontrol is TextBox)
+                        var subTextbox = subcontrol as TextBox;
+                        if (subTextbox != null)
                         {
-                            ((TextBox)subcontrol).Text = string.Empty;
+                            subTextbox.Text = string.Empty;
                         }
                     }
                 }
             }
-            lstBudgets.Items.Clear();
-            lstAccounts.Items.Clear();
+
+            controler.setDefaultUsersNames();
+            displayUsersNames();
+            controler.resetAllBudgets();
+            controler.resetAllAccounts();
+            refreshLists();
             btnOKAccount.Enabled = false;
+        }
+
+        private void emptyAllAccounts()
+        {
+            for (int k = 0; k < lstAccounts.Items.Count; k++)
+            {
+                lstAccounts.SelectedIndex = k;
+                controler.emptyAccountData((Account)lstAccounts.SelectedItem);
+            }
         }
 
         public void addDivision(string division)
         {
             cboDivisions.Items.Add(division);
+        }
+
+        private void refreshAccountList()
+        {
+            bdgAccounts.ResetBindings();
+        }
+
+        private void refreshLists()
+        {
+            bdgBudgets.ResetBindings();
+            refreshAccountList();
+        }
+
+        public void loadMonthlySave(DateTime monthYear)
+        {
+            refreshLists();
+            dtpMonth.Value = monthYear;
+            refreshTotals();
+            accessAddAccount();
         }
     }
 }

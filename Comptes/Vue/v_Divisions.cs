@@ -27,9 +27,14 @@ namespace Comptes
             frmMain.loadDivisions(cboDivisions);
         }
 
+        /// <summary>
+        /// Ajoute la répartition aux données et à la Vue.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjouterRepartition_Click(object sender, EventArgs e)
         {
-            if (controler.controlDivisionData(int.Parse(txtDividend.Text)))
+            if (controler.validateDivisionData(txtDividend.Text))
             {
                 string division = controler.createNewDivision(txtDividend.Text, txtDivider.Text);
                 frmMain.addDivision(division);
@@ -39,7 +44,6 @@ namespace Comptes
             {
                 MessageBox.Show(Const.MSG_ERR_ADDDIVISION, Const.ERROR, MessageBoxButtons.OK);
             }
-
             controler.setFlagChange(change: true);
             Close();
         }

@@ -91,12 +91,28 @@ namespace Comptes.Control
         /// <param name="listToChange">Liste dont l'index doit changer.</param>
         public void listBoxIndexLink(ListBox listChanged, ListBox listToChange)
         {
-            listToChange.SelectedIndex = listChanged.SelectedIndex;
+            try
+            {
+                listToChange.SelectedIndex = listChanged.SelectedIndex;
+            }
+            catch { } 
+            
         }
 
         public void minimizeWindow(Form form)
         {
             form.WindowState = FormWindowState.Minimized;
+        }
+
+        /// <summary>
+        /// Retourne le premier jour du mois passé en paramètre/
+        /// </summary>
+        /// <param name="date">Une date quelconque.</param>
+        /// <returns>Premier jour du mois.</returns>
+        /// <example>29/12/2020 12:13 => 01/12/20 00h00</example>
+        public DateTime formatDate(DateTime date)
+        {
+            return date.AddDays(-(date.Day - 1)).Date;
         }
     }
 }

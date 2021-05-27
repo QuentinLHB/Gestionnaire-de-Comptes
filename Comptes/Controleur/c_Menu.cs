@@ -20,11 +20,6 @@ namespace Comptes.Control
     public partial class Controler
     {
 
-        public void addDivision(string division, ComboBox cboDivisions)
-        {
-
-        }
-
         /// <summary>
         /// Sauvegarde les données affichées par sérialisation.
         /// </summary>
@@ -37,10 +32,12 @@ namespace Comptes.Control
             }
             catch
             {
-                MessageBox.Show(Const.MSG_ERR_SAVE, Const.MSG_TITRE_ERR_SAVE, MessageBoxButtons.OK);
+                MessageBox.Show(Const.MSG_ERR_SAVE, Const.MSG_TITLE_SAVE, MessageBoxButtons.OK);
             }
             setFlagChange(change: false);
         }
+
+
 
         /// <summary>
         /// Reinitialise le fichier data et les contrôles de l'application.
@@ -52,7 +49,7 @@ namespace Comptes.Control
                 File.Delete(Const.FILE_DATA);
             }
 
-            data.resetData();
+            data.Clear();
             frmMain.resetView();        
             
         }
@@ -76,9 +73,13 @@ namespace Comptes.Control
             }
         }
 
-        private bool newWindow()
+        /// <summary>
+        /// Vérifie si une au moins une sauvegarde existe.
+        /// </summary>
+        /// <returns>True si une sauvegarde existe. False sinon.</returns>
+        public bool saveNotNullOrEmpty()
         {
-            List<MonthlySave> allSaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
+            List<MonthlySave> allSaves = getMonthlySaves();
 
             if (allSaves != null && allSaves.Count != 0)
             {
@@ -86,31 +87,8 @@ namespace Comptes.Control
             }
             else
             {
-                MessageBox.Show(Const.MSG_ERR_NO_MONTHLYSAVE, Const.MSG_TITLE_ERR_NOSAVE, MessageBoxButtons.OK);
                 return false;
             }
         }
-
-        public void newMonthlySaveWindow()
-        {
-            bool ok = newWindow();
-            if (ok)
-            {
-                new FrmMonthlySave(frmMain, this);
-            }
-            
-        }
-
-        public void newAnalysisWindow()
-        {
-            bool ok = newWindow();
-            if (ok)
-            {
-                new frmAnalysis(frmMain, this);
-            }
-            
-        }
-
-
     }
 }

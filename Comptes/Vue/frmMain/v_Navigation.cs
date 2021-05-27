@@ -50,7 +50,15 @@ namespace Comptes
         /// <param name="e">Clic</param>
         private void menuMonthlySaves_Click(object sender, EventArgs e)
         {
-            controler.newMonthlySaveWindow();
+            if (controler.saveNotNullOrEmpty())
+            {
+                new FrmMonthlySave(this, controler);
+            }
+
+            else
+            {
+                MessageBox.Show(Const.MSG_ERR_NO_MONTHLYSAVE, Const.MSG_TITLE_ERR_NOSAVE, MessageBoxButtons.OK);
+            }
         }
 
         /// <summary>
@@ -66,8 +74,17 @@ namespace Comptes
 
         private void menuAnalysis_Click(object sender, EventArgs e)
         {
-            controler.newAnalysisWindow();
+            if (controler.saveNotNullOrEmpty())
+            {
+                new frmAnalysis(this, controler, controler.getMaxDate());
+            }
+
+            else
+            {
+                MessageBox.Show(Const.MSG_ERR_NO_MONTHLYSAVE, Const.MSG_TITLE_ERR_NOSAVE, MessageBoxButtons.OK);
+            }
         }
+    
 
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -105,52 +122,10 @@ namespace Comptes
             this.Close();
         }
 
-        private void txtUserA_TextChanged(object sender, EventArgs e)
+        private void menuRenameUsers_Click(object sender, EventArgs e)
         {
-            controler.updateNomPers(Const.USER_A, txtUserA, lblUserA, lblNomTotalUserA, Const.DEFAULT_NAME_USER_A);
-
+            controler.loadUsersNamesForm();
+            displayUsersNames();
         }
-
-        private void txtUserB_TextChanged(object sender, EventArgs e)
-        {
-            controler.updateNomPers(Const.USER_B, txtUserB, lblUserB, lblNomTotalUserB, Const.DEFAULT_NAME_USER_B);
-        }
-
-        private void txtUserA_Leave(object sender, EventArgs e)
-        {
-            controler.updateLstComptes(lstAccounts);
-        }
-
-        private void txtUserB_Leave(object sender, EventArgs e)
-        {
-            controler.updateLstComptes(lstAccounts);
-        }
-
-        /// <summary>
-        /// Modifie le nom de l'utilisateur dans tous les emplacements appropriés.
-        /// </summary>
-        /// <param name="user">Utilisateur concerne (A/B)</param>
-        /// <param name="txtUser">Textbox concernée</param>
-        /// <param name="lblUser">Label de la rubrique Compte concerné.</param>
-        /// <param name="lblNomTotalUser">Label de la rubrique Total concerné.</param>
-        /// <param name="nomDefaut">Nom par défaut à afficher si saisie nulle</param>
-        public void updateNomPers(int userIndex, TextBox txtUser, Label lblUser, Label lblNomTotalUser, string nomDefaut)
-        {
-            if (txtUser.Text != string.Empty)
-            {
-
-                controler.setUserName(userIndex, txtUser.Text);
-            }
-
-            else
-            {
-                controler.setUserName(userIndex, nomDefaut);
-            }
-
-            lblUser.Text = controler.getUserNameDisplay(userIndex);
-            lblNomTotalUser.Text = controler.getUserDebtsDisplay(userIndex);
-            controler.setFlagUserChange(change: true);
-        }
-
     }
 }

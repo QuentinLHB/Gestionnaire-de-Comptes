@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Comptes.Control;
 
 namespace Comptes.BoW
 {
@@ -22,7 +23,7 @@ namespace Comptes.BoW
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            new Controler();
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

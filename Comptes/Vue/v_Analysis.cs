@@ -12,66 +12,35 @@ using Comptes.Model;
 using System.Globalization;
 using Comptes.Control;
 using Comptes.Constants;
+using Comptes.Data;
 
 namespace Comptes
 {
     public partial class frmAnalysis : Form
     {
-        frmMain frmMain;
+        DateTime dateRef;
         Controler controler;
-        //List<DistinctBudget> sortedBudgets;
 
-        public frmAnalysis(frmMain frmMain, Controler controler, FrmMonthlySave frmMonthlySave = null, int monthRef =-1, int yearRef =-1)
+        public frmAnalysis(frmMain frmMain, Controler controler, DateTime dateRef, FrmMonthlySave frmMonthlySave = null)
         {
             InitializeComponent();
-            this.frmMain = frmMain;
             this.controler = controler;
-            loadComponents(monthRef, yearRef);
-            if(frmMonthlySave != null)
+            this.dateRef = dateRef;
+            loadComponents();
+            if (frmMonthlySave != null)
             {
                 frmMonthlySave.Close();
             }
+            
             this.ShowDialog();
         }
 
-        private void loadComponents(int monthRef, int yearRef)
+        private void loadComponents()
         {
-
-            frmMain.loadCboMonth(cboMonthRef);
-            
-            
-
-            frmMain.loadCboMonth(cboStartingMonth);
-            cboStartingMonth.SelectedIndex = 0; //janvier
-
-            frmMain.loadCboMonth(cboEndingMonth);
-            cboEndingMonth.SelectedIndex = 11; //décembre
-
-            frmMain.loadExistingYears(cboStartingYear);
-            cboStartingYear.SelectedIndex = 0;
-            foreach (int item in cboStartingYear.Items) 
-            {
-                cboYear.Items.Add(item);
-                cboEndingYear.Items.Add(item);
-                cboYearRef.Items.Add(item);
-            }
-            cboEndingYear.SelectedIndex = 0;
-            cboYear.SelectedIndex = 0;
-            
-            if(monthRef != -1 && yearRef != -1)
-            {
-                cboMonthRef.SelectedIndex = monthRef;
-                cboYearRef.SelectedItem = yearRef;
-            }
-            else
-            {
-                frmMain.selectCurrentMonth(cboMonthRef);
-                cboYearRef.SelectedIndex = 0;
-            }
-            
-
             cboAnalysisMode.SelectedIndex = 0;
-               
+            dtpDateStart.Value = controler.getMinDate();
+            dtpDateEnd.Value = controler.getMaxDate();
+            dtpDateRef.Value = dateRef;
         }
 
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
@@ -79,8 +48,6 @@ namespace Comptes
             controler.dragWindow(this, e);
             
         }
-
-
 
         private void menuStrip1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -94,34 +61,54 @@ namespace Comptes
 
         // ______________ FONCTIONNALITES _________________________
 
+        /// <summary>
+        /// Change l'affichage en fonction de l'item sélectionné dans le combobox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboAnalysisMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = cboAnalysisMode.SelectedIndex;
             switch (index)
             {
-                case 0: displayCompnents_betweenTwoDates(); break;
-                case 1: displayCompnents_allYear(); break;
-                case 2: displayCompnents_allTime(); break;
+                case 0: displayComponents_betweenTwoDates(); break;
+                case 1: displayComponents_allYear(); break;
+                case 2: displayComponents_allTime(); break;
             }
         }
-        private void displayCompnents_betweenTwoDates()
+
+        /// <summary>
+        /// Affichage de l'option "Entre deux dates" : DateTimePicker de début et de fin.
+        /// </summary>
+        private void displayComponents_betweenTwoDates()
         {
-            if (cboYear.Visible) cboYear.Visible = false;
+            if (dtpYear.Visible) dtpYear.Visible = false;
             if(!panDates.Visible) panDates.Visible = true;
         }
 
-        private void displayCompnents_allYear()
+        /// <summary>
+        /// Affichage de l'otion "Année" : DateTime n'affichant qu'une année.
+        /// </summary>
+        private void displayComponents_allYear()
         {
-            if (cboStartingMonth.Visible) panDates.Visible = false;
-            if(!cboYear.Visible) cboYear.Visible = true;
+            if (panDates.Visible) panDates.Visible = false;
+            if(!dtpYear.Visible) dtpYear.Visible = true;
         }
 
-        private void displayCompnents_allTime()
+        /// <summary>
+        /// Affichage de l'option "Depuis toujours" : Aucun objet à afficher.
+        /// </summary>
+        private void displayComponents_allTime()
         {
-            if (cboStartingMonth.Visible) panDates.Visible = false;
-            if (cboYear.Visible) cboYear.Visible = false;
+            if (dtpDateStart.Visible) panDates.Visible = false;
+            if (dtpYear.Visible) dtpYear.Visible = false;
         }
 
+        /// <summary>
+        /// Affiche la grille en fonction de l'option sélectionnée.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             DataAnalysis.Clear();
@@ -130,24 +117,23 @@ namespace Comptes
             MonthlySave saveRef = null;
             if (chkMonthRef.Checked)
             {
-                List<MonthlySave> allMonthlySaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
-                saveRef = MonthlySave.findMonthlySave(allMonthlySaves, controler.monthNumber(cboMonthRef.SelectedIndex), (int)cboYearRef.SelectedItem);
+                List<MonthlySave> allMonthlySaves = controler.getMonthlySaves();
+                saveRef = MonthlySave.findMonthlySave(allMonthlySaves, controler.formatDate(dtpDateRef.Value));
             }
             switch (cboAnalysisMode.SelectedIndex)
             {
-                case 0: controler.sortBudgets(
-                    monthStart: controler.monthNumber(cboStartingMonth.SelectedIndex), 
-                    yearStart: int.Parse(cboStartingYear.Text),
-                    monthStop: controler.monthNumber(cboEndingMonth.SelectedIndex),
-                    yearStop: int.Parse(cboEndingYear.Text)); 
-                    break;
-                case 1: controler.sortBudgets(year: int.Parse(cboYear.Text)); break;
-                case 2: controler.sortBudgets(); ; break;
+                case 0: controler.sortBudgets(controler.formatDate(dtpDateStart.Value), controler.formatDate(dtpDateEnd.Value)); break;
+                case 1: controler.sortBudgets(year: dtpYear.Value.Year); break;
+                case 2: controler.sortBudgets(); break;
             }
             displayGrid(saveRef);
         }
 
 
+        /// <summary>
+        /// Crée les objets d'affichage pour l'affichage de la grille.
+        /// </summary>
+        /// <param name="saveRef"></param>
         private void displayGrid(MonthlySave saveRef = null)
         {
             var gridData = new List<DataAnalysis>();
@@ -163,32 +149,32 @@ namespace Comptes
             bool isNull = MonthlySave.isNull(saveRef);
             grdBudgets.Columns[2].Visible = !isNull; // mois de ref
             grdBudgets.Columns[4].Visible = !isNull; // Evolution
-            grdBudgets.Columns[2].HeaderText = ($"{Const.MONTHLYEXPENSES_HEADER} {cboMonthRef.SelectedItem} {cboYearRef.SelectedItem}");
+            grdBudgets.Columns[2].HeaderText = ($"{Const.MONTHLYEXPENSES_HEADER} {dtpDateRef.Value.ToString("MMMM")} {dtpDateRef.Value.ToString("yyyy")}");
 
-            
-            
+            setHoverText();
         }
 
-        //private string[] calculateTotal()
-        //{
-        //    string[] rowTotal = new string[6];
-        //    rowTotal[0] = "TOTAL";
-        //    rowTotal[1] = DistinctBudget.getTotalExpenses().ToString(); //Total de tous les budgets
-        //    double totalMonthRef = DataAnalysis.expensesMonthRef;
-        //    rowTotal[2] = totalMonthRef.ToString() + "€"; // total du mois de ref
-        //    DistinctBudget.setTotalAverage(DataAnalysis.Items.Count);
-        //    rowTotal[3] = DistinctBudget.getTotalAverage().ToString() + "€"; // Moyenne des moyennes
-        //    rowTotal[4] = DistinctBudget.totalEvolution(totalMonthRef).ToString() + "€"; // Ecart du mois à la moyenne
-        //    rowTotal[5] = "100%"; // La somme des % arrive tjr à 100
+        /// <summary>
+        /// Définit le texte affiché lorsque l'on passe la souris sur les headers des colonnes.
+        /// </summary>
+        private void setHoverText()
+        {
+            grdBudgets.Columns[0].ToolTipText = Const.TOOLTIP_BUDGET;
+            grdBudgets.Columns[1].ToolTipText = Const.TOOLTIP_EXPENSES ;
+            grdBudgets.Columns[2].ToolTipText = Const.TOOLTIP_EXPENSESREF;
+            grdBudgets.Columns[3].ToolTipText = Const.TOOLTIP_AVERAGE;
+            grdBudgets.Columns[4].ToolTipText = Const.TOOLTIP_EVOLUTION;
+            grdBudgets.Columns[5].ToolTipText = Const.TOOLTIP_PROPORTION;
+        }
 
-        //    return rowTotal;
-        //}
-
-
+        /// <summary>
+        /// Désactive le choix d'une date de référence selon la coche de la case.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkMonthRef_CheckedChanged(object sender, EventArgs e)
         {
-            cboMonthRef.Enabled = chkMonthRef.Checked;
-            cboYearRef.Enabled = chkMonthRef.Checked;
+            dtpDateRef.Enabled = chkMonthRef.Checked;
         }
     }
 }
