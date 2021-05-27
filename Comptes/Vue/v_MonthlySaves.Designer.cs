@@ -42,9 +42,10 @@
             this.lblTitreFen = new System.Windows.Forms.Label();
             this.lblActionName = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
-            this.btnDelMonthlyReport = new System.Windows.Forms.Button();
+            this.btnDelMonthlySave = new System.Windows.Forms.Button();
             this.btnToAnalysis = new System.Windows.Forms.Button();
             this.dtpMonthlySave = new System.Windows.Forms.DateTimePicker();
+            this.btnEditMonthlySave = new System.Windows.Forms.Button();
             this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataMonthlyReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).BeginInit();
@@ -58,7 +59,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(900, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(900, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
@@ -198,7 +199,7 @@
             this.btnOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
             this.btnOK.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.btnOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.btnOK.Location = new System.Drawing.Point(679, 155);
+            this.btnOK.Location = new System.Drawing.Point(561, 153);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(81, 31);
@@ -207,19 +208,19 @@
             this.btnOK.UseVisualStyleBackColor = false;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // btnDelMonthlyReport
+            // btnDelMonthlySave
             // 
-            this.btnDelMonthlyReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.btnDelMonthlyReport.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.btnDelMonthlyReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.btnDelMonthlyReport.Location = new System.Drawing.Point(561, 199);
-            this.btnDelMonthlyReport.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnDelMonthlyReport.Name = "btnDelMonthlyReport";
-            this.btnDelMonthlyReport.Size = new System.Drawing.Size(199, 31);
-            this.btnDelMonthlyReport.TabIndex = 25;
-            this.btnDelMonthlyReport.Text = "Supprimer";
-            this.btnDelMonthlyReport.UseVisualStyleBackColor = false;
-            this.btnDelMonthlyReport.Click += new System.EventHandler(this.btnDelMonthlyReport_Click);
+            this.btnDelMonthlySave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnDelMonthlySave.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnDelMonthlySave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnDelMonthlySave.Location = new System.Drawing.Point(719, 199);
+            this.btnDelMonthlySave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnDelMonthlySave.Name = "btnDelMonthlySave";
+            this.btnDelMonthlySave.Size = new System.Drawing.Size(138, 31);
+            this.btnDelMonthlySave.TabIndex = 25;
+            this.btnDelMonthlySave.Text = "Supprimer";
+            this.btnDelMonthlySave.UseVisualStyleBackColor = false;
+            this.btnDelMonthlySave.Click += new System.EventHandler(this.btnDelMonthlyReport_Click);
             // 
             // btnToAnalysis
             // 
@@ -245,6 +246,20 @@
             this.dtpMonthlySave.Size = new System.Drawing.Size(200, 22);
             this.dtpMonthlySave.TabIndex = 27;
             // 
+            // btnEditMonthlySave
+            // 
+            this.btnEditMonthlySave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnEditMonthlySave.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnEditMonthlySave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnEditMonthlySave.Location = new System.Drawing.Point(562, 199);
+            this.btnEditMonthlySave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnEditMonthlySave.Name = "btnEditMonthlySave";
+            this.btnEditMonthlySave.Size = new System.Drawing.Size(138, 31);
+            this.btnEditMonthlySave.TabIndex = 28;
+            this.btnEditMonthlySave.Text = "Editer";
+            this.btnEditMonthlySave.UseVisualStyleBackColor = false;
+            this.btnEditMonthlySave.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
             // totalDataGridViewTextBoxColumn
             // 
             this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
@@ -256,7 +271,7 @@
             // 
             // dataMonthlyReportBindingSource
             // 
-            this.dataMonthlyReportBindingSource.DataSource = typeof(Comptes.Model.DataMonthlyReport);
+            this.dataMonthlyReportBindingSource.DataSource = typeof(Comptes.Model.DataMonthlySave);
             // 
             // FrmMonthlySave
             // 
@@ -264,9 +279,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(900, 630);
+            this.Controls.Add(this.btnEditMonthlySave);
             this.Controls.Add(this.dtpMonthlySave);
             this.Controls.Add(this.btnToAnalysis);
-            this.Controls.Add(this.btnDelMonthlyReport);
+            this.Controls.Add(this.btnDelMonthlySave);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.lblActionName);
             this.Controls.Add(this.panel1);
@@ -305,8 +321,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn expensesA;
         private System.Windows.Forms.DataGridViewTextBoxColumn expensesB;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button btnDelMonthlyReport;
+        private System.Windows.Forms.Button btnDelMonthlySave;
         private System.Windows.Forms.Button btnToAnalysis;
         private System.Windows.Forms.DateTimePicker dtpMonthlySave;
+        private System.Windows.Forms.Button btnEditMonthlySave;
     }
 }

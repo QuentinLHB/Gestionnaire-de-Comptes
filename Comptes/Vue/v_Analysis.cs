@@ -18,29 +18,29 @@ namespace Comptes
 {
     public partial class frmAnalysis : Form
     {
-        //frmMain frmMain;
+        DateTime dateRef;
         Controler controler;
 
-        public frmAnalysis(frmMain frmMain, Controler controler, FrmMonthlySave frmMonthlySave = null)
+        public frmAnalysis(frmMain frmMain, Controler controler, DateTime dateRef, FrmMonthlySave frmMonthlySave = null)
         {
             InitializeComponent();
-            //this.frmMain = frmMain;
             this.controler = controler;
+            this.dateRef = dateRef;
             loadComponents();
-            if(frmMonthlySave != null)
+            if (frmMonthlySave != null)
             {
                 frmMonthlySave.Close();
             }
-            //dtpDateRef.
+            
             this.ShowDialog();
         }
 
         private void loadComponents()
         {
-            dtpDateRef.CustomFormat = Const.MONTH_YEAR_FORMAT;
-            dtpDateStart.CustomFormat = Const.MONTH_YEAR_FORMAT;
-            dtpDateEnd.CustomFormat = Const.MONTH_YEAR_FORMAT;
-            cboAnalysisMode.SelectedIndex = 0;               
+            cboAnalysisMode.SelectedIndex = 0;
+            dtpDateStart.Value = controler.getMinDate();
+            dtpDateEnd.Value = controler.getMaxDate();
+            dtpDateRef.Value = dateRef;
         }
 
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
@@ -66,25 +66,25 @@ namespace Comptes
             int index = cboAnalysisMode.SelectedIndex;
             switch (index)
             {
-                case 0: displayCompnents_betweenTwoDates(); break;
-                case 1: displayCompnents_allYear(); break;
-                case 2: displayCompnents_allTime(); break;
+                case 0: displayComponents_betweenTwoDates(); break;
+                case 1: displayComponents_allYear(); break;
+                case 2: displayComponents_allTime(); break;
             }
         }
 
-        private void displayCompnents_betweenTwoDates()
+        private void displayComponents_betweenTwoDates()
         {
             if (dtpYear.Visible) dtpYear.Visible = false;
             if(!panDates.Visible) panDates.Visible = true;
         }
 
-        private void displayCompnents_allYear()
+        private void displayComponents_allYear()
         {
-            if (dtpDateStart.Visible) panDates.Visible = false;
+            if (panDates.Visible) panDates.Visible = false;
             if(!dtpYear.Visible) dtpYear.Visible = true;
         }
 
-        private void displayCompnents_allTime()
+        private void displayComponents_allTime()
         {
             if (dtpDateStart.Visible) panDates.Visible = false;
             if (dtpYear.Visible) dtpYear.Visible = false;
@@ -98,7 +98,7 @@ namespace Comptes
             MonthlySave saveRef = null;
             if (chkMonthRef.Checked)
             {
-                List<MonthlySave> allMonthlySaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
+                List<MonthlySave> allMonthlySaves = controler.getMonthlySaves();
                 saveRef = MonthlySave.findMonthlySave(allMonthlySaves, controler.formatDate(dtpDateRef.Value));
             }
             switch (cboAnalysisMode.SelectedIndex)
@@ -126,7 +126,7 @@ namespace Comptes
             bool isNull = MonthlySave.isNull(saveRef);
             grdBudgets.Columns[2].Visible = !isNull; // mois de ref
             grdBudgets.Columns[4].Visible = !isNull; // Evolution
-            grdBudgets.Columns[2].HeaderText = ($"{Const.MONTHLYEXPENSES_HEADER} {dtpDateRef.Value.Date}");
+            grdBudgets.Columns[2].HeaderText = ($"{Const.MONTHLYEXPENSES_HEADER} {dtpDateRef.Value.ToString("MMMM")} {dtpDateRef.Value.ToString("yyyy")}");
 
             
             

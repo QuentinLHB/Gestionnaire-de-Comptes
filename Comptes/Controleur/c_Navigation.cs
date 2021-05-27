@@ -95,7 +95,7 @@ namespace Comptes.Control
             {
                 listToChange.SelectedIndex = listChanged.SelectedIndex;
             }
-            catch { }
+            catch { } 
             
         }
 
@@ -104,6 +104,12 @@ namespace Comptes.Control
             form.WindowState = FormWindowState.Minimized;
         }
 
+        /// <summary>
+        /// Retourne le premier jour du mois passé en paramètre/
+        /// </summary>
+        /// <param name="date">Une date quelconque.</param>
+        /// <returns>Premier jour du mois.</returns>
+        /// <example>29/12/2020 12:13 => 01/12/20 00h00</example>
         public DateTime formatDate(DateTime date)
         {
             return date.AddDays(-(date.Day - 1)).Date;

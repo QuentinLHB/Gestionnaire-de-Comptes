@@ -74,7 +74,7 @@ namespace Comptes
         }
 
         /// <summary>
-        /// Change les boutons (Ajout/Edit).        /// 
+        /// Change les boutons (Ajout/Edit), et empêche le changement de lignes.
         /// </summary>
         /// <example>Mode edition true = Bouton Edit Visible, Bouton OK invisible.</example>
         /// <param name="modeEdition">True si édition, false si ajout.</param>
@@ -82,6 +82,12 @@ namespace Comptes
         {
             btnOKBudgets.Visible = !modeEdition;
             btnEdit.Visible = modeEdition;
+            lstBudgets.Enabled = !modeEdition;
+            lstAccounts.Enabled = !modeEdition;
+            btnResetBudget.Enabled = !modeEdition;
+            btnResetComptes.Enabled = !modeEdition;
+
+
         }
 
         /// <summary>
@@ -146,19 +152,22 @@ namespace Comptes
         {
             foreach (System.Windows.Forms.Control control in this.Controls)
             {
-                if (control is TextBox)
+                var textbox = control as TextBox;
+                if (textbox != null)
                 {
-                    ((TextBox)control).Text = string.Empty;
+                    textbox.Text = string.Empty;
                 }
-
-                else if (control is GroupBox)
+                
+                else 
                 {
-                    GroupBox groupbox = (GroupBox)control;
+                    var groupbox = control as GroupBox;
+                    if(groupbox != null)
                     foreach (System.Windows.Forms.Control subcontrol in groupbox.Controls)
                     {
-                        if (subcontrol is TextBox)
+                        var subTextbox = subcontrol as TextBox;
+                        if (subTextbox != null)
                         {
-                            ((TextBox)subcontrol).Text = string.Empty;
+                            subTextbox.Text = string.Empty;
                         }
                     }
                 }
@@ -195,6 +204,14 @@ namespace Comptes
         {
             bdgBudgets.ResetBindings();
             refreshAccountList();
+        }
+
+        public void loadMonthlySave(DateTime monthYear)
+        {
+            refreshLists();
+            dtpMonth.Value = monthYear;
+            refreshTotals();
+            accessAddAccount();
         }
     }
 }

@@ -24,15 +24,15 @@ namespace Comptes.Control
         /// </summary>
         public void sortBudgets()
         {
-            DistinctBudget.sortBudgets((List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP));
+            DistinctBudget.sortBudgets(getMonthlySaves());
         }
         public void sortBudgets(int year)
         {
-            DistinctBudget.sortBudgets((List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP), year);
+            DistinctBudget.sortBudgets(getMonthlySaves(), year);
         }
         public void sortBudgets(DateTime dateStart, DateTime dateStop)
         {
-            DistinctBudget.sortBudgets((List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP), dateStart, dateStop);
+            DistinctBudget.sortBudgets(getMonthlySaves(), dateStart, dateStop);
         }
 
         public List<DistinctBudget> getSortedBudgets()
@@ -40,15 +40,6 @@ namespace Comptes.Control
             return DistinctBudget.getSortedBudget();
         }
 
-        /// <summary>
-        /// Convertit l'index des combobox de mois en le numéro de mois de 1 à 12.
-        /// </summary>
-        /// <param name="monthIndex"></param>
-        public int monthNumber(int monthIndex)
-        {
-            monthIndex = (monthIndex + 1) % 12;
-            if (monthIndex == 0) monthIndex = 12;
-            return monthIndex;
-        }
+
     }
 }

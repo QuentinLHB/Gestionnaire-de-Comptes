@@ -13,7 +13,6 @@ namespace Comptes.Model
     {
         private static string[] names = new string[2];
         private static double[] debts = new double[2];
-        private double _debts;
         private double _expenses;
 
         public static void initializeDefaultNames()

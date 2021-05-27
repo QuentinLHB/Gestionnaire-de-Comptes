@@ -94,5 +94,32 @@ namespace Comptes.Control
 
             setFlagUserChange(change: false);
         }
+
+        /// <summary>
+        /// Récupère les sauvegardes mensuelles sérialisées.
+        /// </summary>
+        /// <returns>Liste des sauvegardes mensuelles.</returns>
+        public List<MonthlySave> getMonthlySaves()
+        {
+            return (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
+        }
+
+        /// <summary>
+        /// Charge les données dans le formulaire principal
+        /// </summary>
+        /// <param name="monthlySave"></param>
+        public void loadMontlySave(DateTime dateToLoad)
+        {
+            MonthlySave monthlySave = MonthlySave.findMonthlySave(getMonthlySaves(), dateToLoad);
+            data.allBudgets.Clear();
+            data.allAccounts.Clear();
+            foreach (Budget budget in monthlySave.allBudgets)
+            {
+                data.allBudgets.Add(budget);
+                data.allAccounts.Add(budget.account);
+            }
+            frmMain.loadMonthlySave(monthlySave.Date);
+        }
+
     }
 }

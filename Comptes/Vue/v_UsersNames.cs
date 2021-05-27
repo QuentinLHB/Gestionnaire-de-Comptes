@@ -30,6 +30,7 @@ namespace Comptes.Vue
             InitializeComponent();
             this.frmMain = frmMain;
             if (frmMain != null) fillUsersNames();
+            txtUserA.Focus();
             this.ShowDialog();
         }
 
@@ -47,18 +48,12 @@ namespace Comptes.Vue
         /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(txtUserA.Text == "" || txtUserB.Text == "")
-            {
-                if(txtUserA.Text == "") controler.setUserName(Const.USER_A, Const.DEFAULT_NAME_USER_A);
-                if(txtUserB.Text == "") controler.setUserName(Const.USER_B, Const.DEFAULT_NAME_USER_B);
-            }
 
-            else
-            {
-                controler.setUserName(Const.USER_A, txtUserA.Text);
-                controler.setUserName(Const.USER_B, txtUserB.Text);
-            }
-
+            if (txtUserA.Text == "") controler.setUserName(Const.USER_A, Const.DEFAULT_NAME_USER_A);
+            else controler.setUserName(Const.USER_A, txtUserA.Text);
+            if (txtUserB.Text == "") controler.setUserName(Const.USER_B, Const.DEFAULT_NAME_USER_B);            
+            else controler.setUserName(Const.USER_B, txtUserB.Text);
+            
             this.Hide();
             if (frmMain == null)
             {
@@ -119,7 +114,7 @@ namespace Comptes.Vue
 
         private void testLengthLimit(TextBox txtUser, KeyPressEventArgs e)
         {
-            if (txtUserA.Text.Length > Const.NAME_LENGTH_LIMIT)
+            if (txtUser.Text.Length > Const.NAME_LENGTH_LIMIT && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }

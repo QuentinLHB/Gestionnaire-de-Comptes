@@ -20,11 +20,6 @@ namespace Comptes.Control
     public partial class Controler
     {
 
-        public void addDivision(string division, ComboBox cboDivisions)
-        {
-
-        }
-
         /// <summary>
         /// Sauvegarde les données affichées par sérialisation.
         /// </summary>
@@ -84,7 +79,7 @@ namespace Comptes.Control
         /// <returns>True si une sauvegarde existe. False sinon.</returns>
         public bool saveNotNullOrEmpty()
         {
-            List<MonthlySave> allSaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
+            List<MonthlySave> allSaves = getMonthlySaves();
 
             if (allSaves != null && allSaves.Count != 0)
             {

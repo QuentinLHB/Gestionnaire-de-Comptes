@@ -15,7 +15,7 @@ namespace Comptes.Model
     public class AppData
     {
         public string[] usersNames { get; set; } = new string[2];
-        public List<Budget> allBudgets { get; } = new List<Budget>();
+        public List<Budget> allBudgets { get; set; } = new List<Budget>();
 
         public List<Account> allAccounts { get; } = new List<Account>();
         public Dictionary<string, double> dctDivisions { get; } = new Dictionary<string, double>();
@@ -81,6 +81,58 @@ namespace Comptes.Model
             return allSaves.Find(o => o.Date.Equals(monthToFind));
         }
 
+        /// <summary>
+        /// Détermine la date minimale de toutes les saves passées en paramètre.
+        /// </summary>
+        /// <param name="allSaves">Sauvegardes dans lequelles faire la recherche.</param>
+        /// <returns>La date minimale.</returns>
+        public static DateTime getMinDate(List<MonthlySave> allSaves)
+        {
+            DateTime min = DateTime.Today;
+
+            foreach(MonthlySave save in allSaves)
+            {
+                if(save.Date.CompareTo(min) < 0)
+                {
+                    min = save.Date;
+                }
+            }
+            return min;
+        }
+
+        /// <summary>
+        /// Détermine la date maximale de toutes les saves passées en paramètre.
+        /// </summary>
+        /// <param name="allSaves">Sauvegardes dans lequelles faire la recherche.</param>
+        /// <returns>La date maximale.</returns>
+        public static DateTime getMaxDate(List<MonthlySave> allSaves)
+        {
+            DateTime max = new DateTime();
+
+            foreach(MonthlySave save in allSaves)
+            {
+                if(save.Date.CompareTo(max) > 0)
+                {
+                    max = save.Date;
+                }
+            }
+            return max;
+        }
+
+        public static MonthlySave getMostRecentSave(List<MonthlySave> allSaves)
+        {
+            MonthlySave mostRecentSave = null;
+
+            foreach (MonthlySave save in allSaves)
+            {
+                if (save.Date.CompareTo(mostRecentSave.Date) > 0)
+                {
+                    mostRecentSave = save;
+                }
+            }
+            return mostRecentSave;
+        }
+
         public static bool isNull(MonthlySave monthlySave)
         {
             if (monthlySave == null)
@@ -92,7 +144,7 @@ namespace Comptes.Model
 
     }
 
-    public class DataMonthlyReport
+    public class DataMonthlySave
     {
         public string accountName { get; set; }
         public static string nameUserA { get; set; }
@@ -101,14 +153,14 @@ namespace Comptes.Model
         public string expensesB { get; set; }
         public string total { get; set; }
 
-        public DataMonthlyReport(string accountName, double expensesA, double expensesB)
+        public DataMonthlySave(string accountName, double expensesA, double expensesB)
         {
             this.accountName = accountName;
             this.expensesA = expensesA + "€";
             this.expensesB = expensesB + "€";
             this.total = (expensesA + expensesB) + "€";
-            DataMonthlyReport.nameUserA = User.getName(Const.USER_A);
-            DataMonthlyReport.nameUserB = User.getName(Const.USER_B);
+            DataMonthlySave.nameUserA = User.getName(Const.USER_A);
+            DataMonthlySave.nameUserB = User.getName(Const.USER_B);
         }
     }
 

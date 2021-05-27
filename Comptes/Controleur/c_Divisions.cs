@@ -55,17 +55,20 @@ namespace Comptes.Control
             }
         }
 
-        public bool controlDivisionData(int dividend)
+        /// <summary>
+        /// Vérifie les données entrées par l'utilisateur.
+        /// </summary>
+        /// <param name="dividend">Le string de la valeur entrée.</param>
+        /// <returns>True si :
+        /// * Une valeur a bien été entrée.
+        /// * La valeur est bien comprise entre 0 et 100 inclus.</returns>
+        public bool validateDivisionData(string dividend)
         {
-            if(dividend != null && dividend >= 0 && dividend <= 100)
-            {
-                return true;
-            }
-
-            else
+            if(dividend == null)
             {
                 return false;
             }
+            return (int.Parse(dividend) >= 0 && int.Parse(dividend) <= 100);        
         }
     }
 }

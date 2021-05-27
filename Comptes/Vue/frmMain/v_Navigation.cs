@@ -76,7 +76,7 @@ namespace Comptes
         {
             if (controler.saveNotNullOrEmpty())
             {
-                new frmAnalysis(this, controler);
+                new frmAnalysis(this, controler, controler.getMaxDate());
             }
 
             else

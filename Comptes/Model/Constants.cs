@@ -20,7 +20,7 @@ namespace Comptes.Constants
         public const int USER_A = 0; public const int USER_B = 1;
         public const string DEFAULT_NAME_USER_A = "Utilisateur A";
         public const string DEFAULT_NAME_USER_B = "Utilisateur B";
-        public const int NAME_LENGTH_LIMIT = 10;
+        public const int NAME_LENGTH_LIMIT = 9;
 
         public static Dictionary<string, double> initialDivision = new Dictionary<string, double>();
 

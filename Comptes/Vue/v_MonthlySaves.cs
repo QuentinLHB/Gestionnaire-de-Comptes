@@ -19,8 +19,7 @@ namespace Comptes
     {
 
         frmMain frmMain;
-        List<DataMonthlyReport> dataTab;
-        List<MonthlySave> allMonthlySaves;
+        //List<MonthlySave> allMonthlySaves;
         Controler controler;
 
 
@@ -35,16 +34,15 @@ namespace Comptes
             InitializeComponent();
             this.frmMain = frmMain;
             this.controler = controler;
-            allMonthlySaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
-            this.allMonthlySaves = allMonthlySaves;        
+            //allMonthlySaves = controler.getMonthlySaves();
+            dtpMonthlySave.Value = controler.getMaxDate();
             this.ShowDialog();
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            btnDelMonthlyReport.Enabled = false;
-            btnToAnalysis.Visible = false;
+            enableButtons(enable: false);
         }
 
         private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
@@ -56,6 +54,12 @@ namespace Comptes
         {
             controler.focusMenuStrip((MenuStrip)sender);
         }
+
+        /// <summary>
+        /// Quitte le formuaire sur un clic sur le bouton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnQuitter_Click(object sender, EventArgs e)
         {
             Close();
@@ -70,44 +74,36 @@ namespace Comptes
         /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, dtpMonthlySave
-                .Value.Date);
+            DateTime selectedDate = dtpMonthlySave.Value;
 
-            if (monthlySave != null)
+            if (controler.checkForASave(selectedDate))
             {
-                loadGrid(monthlySave);
+                loadGrid(selectedDate);
                 grdBudgets.Show();
-                btnDelMonthlyReport.Enabled = true;
-                btnToAnalysis.Visible = true;
+                enableButtons(true);
             }
 
-            else
-            {
-                MessageBox.Show($"{Const.MSG_ERR_WRONGSELECTION}\n{dtpMonthlySave.Value.Date}", Const.ERROR, MessageBoxButtons.OK);
-            }
+            else showDateError();
+        }
+
+
+
+        private void showDateError()
+        {
+            MessageBox.Show($"{Const.MSG_ERR_WRONGSELECTION}\n{dtpMonthlySave.Value.ToString("MMMM")} {dtpMonthlySave.Value.Year}", Const.ERROR, MessageBoxButtons.OK);
         }
 
         /// <summary>
         /// Peuple la grille avec les données de la sauvegarde choisie.
         /// </summary>
         /// <param name="saveMensuelle">Sauvegarde à afficher.</param>
-        private void loadGrid(MonthlySave saveMensuelle)
+        private void loadGrid(DateTime monthToLoad)
         {
-            var tableauMensuel = new List<DataMonthlyReport>();
-            foreach (Budget budget in saveMensuelle.allBudgets)
-            {
-                tableauMensuel.Add(new DataMonthlyReport(
-                   accountName: budget.name,
-                   expensesA: budget.account.userA.expenses,
-                   expensesB: budget.account.userB.expenses));
-            }
+            var dataMonthlySave = controler.dataMonthlySave(monthToLoad);
+            grdBudgets.DataSource = dataMonthlySave;
 
-
-            //var data = tableauMensuel;
-            grdBudgets.DataSource = tableauMensuel;
-
-            grdBudgets.Columns[1].HeaderText = Const.EXPENSES(DataMonthlyReport.nameUserA);
-            grdBudgets.Columns[2].HeaderText = Const.EXPENSES(DataMonthlyReport.nameUserB);
+            grdBudgets.Columns[1].HeaderText = Const.EXPENSES(DataMonthlySave.nameUserA);
+            grdBudgets.Columns[2].HeaderText = Const.EXPENSES(DataMonthlySave.nameUserB);
 
             grdBudgets.Visible = true;
 
@@ -117,23 +113,28 @@ namespace Comptes
         {
             if ((MessageBox.Show(Const.MSG_DELETEMONTLYSAVE, Const.MSG_TITLE_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes))
             {
-
-                MonthlySave monthlySave = MonthlySave.findMonthlySave(allMonthlySaves, controler.formatDate(dtpMonthlySave.Value.Date));
-                allMonthlySaves.Remove(monthlySave);
-                Serialise.Save(Const.FILE_MONTHLYRECAP, allMonthlySaves);
+                controler.deleteMonthlySave(dtpMonthlySave.Value);
                 grdBudgets.Visible = false;
-                btnDelMonthlyReport.Enabled = false;
+                enableButtons(false);
             }
         }
 
         private void btnToAnalysis_Click(object sender, EventArgs e)
         {
-            new frmAnalysis(frmMain, controler, this);            
+            new frmAnalysis(frmMain, controler, controler.formatDate(dtpMonthlySave.Value), this);            
         }
 
-        //public void addToCboYear(string year)
-        //{
-        //    cboYear.Items.Add(year);
-        //}
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (controler.checkForASave(dtpMonthlySave.Value)) controler.loadMontlySave(dtpMonthlySave.Value);
+            this.Close();
+        }
+
+        private void enableButtons(bool enable)
+        {
+            btnDelMonthlySave.Enabled = enable;
+            btnEditMonthlySave.Enabled = enable;
+            btnToAnalysis.Visible = enable;
+        }
     }
 }

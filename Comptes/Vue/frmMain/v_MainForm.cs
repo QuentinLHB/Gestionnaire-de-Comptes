@@ -69,15 +69,16 @@ namespace Comptes
         /// <param name="e">Clic</param>
         private void btnOKComptes_Click(object sender, EventArgs e)
         {
-            
-            fillIfEmpty();
-            controler.updateAccount((Account)lstAccounts.SelectedItem, txtAmountUserA.Text, txtAmountUserB.Text);
-            refreshAccountList();
-            refreshTotals();
+            if(!(txtAmountUserA.Text.Equals("") && (txtAmountUserB.Text.Equals("")))){ 
+                fillIfEmpty();
+                controler.updateAccount((Account)lstAccounts.SelectedItem, txtAmountUserA.Text, txtAmountUserB.Text);
+                refreshAccountList();
+                refreshTotals();                
+                resetAccountBox();
+                controler.setFlagChange(change: true);
+            }
             try { lstBudgets.SelectedIndex++; }
             catch { }
-            resetAccountBox();
-            controler.setFlagChange(change: true);
         }
 
         /// <summary>
@@ -103,8 +104,8 @@ namespace Comptes
         private void lstComptes_DoubleClick(object sender, EventArgs e)
         {
             double[] usersExpenses = controler.getUsersExpenses((Account)lstAccounts.SelectedItem);
-            txtAmountUserA.Text = usersExpenses[Const.USER_A].ToString();
-            txtAmountUserB.Text = usersExpenses[Const.USER_B].ToString();
+            txtAmountUserA.Text = (usersExpenses[Const.USER_A].ToString()).Replace(",", ".");
+            txtAmountUserB.Text = (usersExpenses[Const.USER_B].ToString()).Replace(",", ".");
             txtAmountUserA.Focus();
         }
 
@@ -121,6 +122,11 @@ namespace Comptes
             refreshTotals();
         }
 
+        /// <summary>
+        /// Crée un nouveau budget avec les informations entrées.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOKBudgets_Click(object sender, EventArgs e)
         {
             controler.addBudget(txtBudgetName.Text, cboDivisions.SelectedItem.ToString());
@@ -131,13 +137,14 @@ namespace Comptes
             controler.setFlagChange(change: true);
         }
 
+        
         private void lstBudgets_DoubleClick(object sender, EventArgs e)
         {
             Budget selectedBudget = (Budget)lstBudgets.SelectedItem;
             txtBudgetName.Text = selectedBudget.name;
             cboDivisions.SelectedItem = selectedBudget.division.ToString(); //ne fonctionne pas
             txtBudgetName.Focus();
-            controler.handleEditionMode(modeEdition: true);
+            switchMode(modeEdition: true);
 
         }
 
@@ -146,7 +153,7 @@ namespace Comptes
             controler.updateBudget((Budget)lstBudgets.SelectedItem, txtBudgetName.Text, cboDivisions.SelectedItem.ToString());
             refreshLists();
             refreshTotals();
-            controler.handleEditionMode(modeEdition: false);
+            switchMode(modeEdition: false);
             resetBudget(txtBudgetName);
         }
 
@@ -179,8 +186,10 @@ namespace Comptes
         private void btnResetBudget_Click(object sender, EventArgs e)
         {
             controler.resetAllBudgets();
+            controler.resetAllAccounts();
             refreshLists();
-            controler.saveData();
+            refreshTotals();
+            controler.setFlagChange(change: true);
         }
 
         /// <summary>
@@ -190,9 +199,33 @@ namespace Comptes
         /// <param name="e"></param>
         private void btnCloture_Click(object sender, EventArgs e)
         {
-            controler.finalizeMonthDialogs(controler.formatDate(dtpMonth.Value.Date));
+            // S'il n'y a pas de budget
+            if (lstAccounts.Items.Count != 0)
+            {
+                if ((MessageBox.Show(Const.MSG_VALIDATIONMONYLYSAVE, Const.MSG_TITLE_VALIDATIONMONYLYSAVE, MessageBoxButtons.YesNo) == DialogResult.Yes))
+                {
+                    controler.finalizeMonthDialogs(controler.formatDate(dtpMonth.Value.Date));
+
+                    
+                }
+                
+            }
+
+            else
+            {
+                MessageBox.Show(Const.MSG_ERR_FINALIZE, Const.ERROR, MessageBoxButtons.OK);
+            }
         }
 
-
+        private void txtAmountUserA_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == 44)
+            {
+                e.Handled = true;
+                txtAmountUserA.Text += ".";
+                txtAmountUserA.SelectionStart = txtAmountUserA.Text.Length;
+                txtAmountUserA.SelectionLength = 0;
+            }
+        }
     }
 }

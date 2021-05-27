@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnQuitter = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -44,12 +44,16 @@
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblStart = new System.Windows.Forms.Label();
             this.grdBudgets = new System.Windows.Forms.DataGridView();
-            this.expensesRef = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.evolution = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataAnalysisBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnOK = new System.Windows.Forms.Button();
             this.chkMonthRef = new System.Windows.Forms.CheckBox();
             this.dtpDateRef = new System.Windows.Forms.DateTimePicker();
+            this.budget = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expenses = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expensesRef = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.average = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.evolution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.proportion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panDates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).BeginInit();
@@ -115,7 +119,7 @@
             this.cboAnalysisMode.FormattingEnabled = true;
             this.cboAnalysisMode.Items.AddRange(new object[] {
             "Entre 2 dates",
-            "Année en cours",
+            "Année précise",
             "Depuis toujours"});
             this.cboAnalysisMode.Location = new System.Drawing.Point(266, 202);
             this.cboAnalysisMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -138,7 +142,6 @@
             // 
             // panDates
             // 
-            this.panDates.Controls.Add(this.dtpYear);
             this.panDates.Controls.Add(this.dtpDateEnd);
             this.panDates.Controls.Add(this.dtpDateStart);
             this.panDates.Controls.Add(this.lblEnd);
@@ -153,14 +156,15 @@
             this.dtpYear.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.dtpYear.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
             this.dtpYear.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.dtpYear.CustomFormat = "MMMM";
+            this.dtpYear.CustomFormat = "yyyy";
             this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpYear.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.dtpYear.Location = new System.Drawing.Point(0, 17);
+            this.dtpYear.Location = new System.Drawing.Point(472, 203);
             this.dtpYear.Name = "dtpYear";
             this.dtpYear.ShowUpDown = true;
             this.dtpYear.Size = new System.Drawing.Size(106, 28);
             this.dtpYear.TabIndex = 52;
+            this.dtpYear.Visible = false;
             // 
             // dtpDateEnd
             // 
@@ -169,7 +173,7 @@
             this.dtpDateEnd.CustomFormat = "MMMM yyyy";
             this.dtpDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpDateEnd.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.dtpDateEnd.Location = new System.Drawing.Point(121, 72);
+            this.dtpDateEnd.Location = new System.Drawing.Point(64, 72);
             this.dtpDateEnd.Name = "dtpDateEnd";
             this.dtpDateEnd.ShowUpDown = true;
             this.dtpDateEnd.Size = new System.Drawing.Size(200, 28);
@@ -182,7 +186,7 @@
             this.dtpDateStart.CustomFormat = "MMMM yyyy";
             this.dtpDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpDateStart.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.dtpDateStart.Location = new System.Drawing.Point(121, 17);
+            this.dtpDateStart.Location = new System.Drawing.Point(64, 17);
             this.dtpDateStart.Name = "dtpDateStart";
             this.dtpDateStart.ShowUpDown = true;
             this.dtpDateStart.Size = new System.Drawing.Size(200, 28);
@@ -219,29 +223,35 @@
             this.grdBudgets.AllowUserToResizeColumns = false;
             this.grdBudgets.AllowUserToResizeRows = false;
             this.grdBudgets.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.grdBudgets.AutoGenerateColumns = false;
             this.grdBudgets.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.grdBudgets.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grdBudgets.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Schoolbook", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdBudgets.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Schoolbook", 10F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdBudgets.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.grdBudgets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdBudgets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.budget,
+            this.expenses,
             this.expensesRef,
-            this.evolution});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(66)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Schoolbook", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdBudgets.DefaultCellStyle = dataGridViewCellStyle2;
+            this.average,
+            this.evolution,
+            this.proportion});
+            this.grdBudgets.DataSource = this.dataAnalysisBindingSource;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(66)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Schoolbook", 10F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdBudgets.DefaultCellStyle = dataGridViewCellStyle6;
             this.grdBudgets.EnableHeadersVisualStyles = false;
             this.grdBudgets.Location = new System.Drawing.Point(66, 326);
             this.grdBudgets.Name = "grdBudgets";
@@ -252,24 +262,6 @@
             this.grdBudgets.Size = new System.Drawing.Size(817, 312);
             this.grdBudgets.TabIndex = 43;
             this.grdBudgets.Visible = false;
-            // 
-            // expensesRef
-            // 
-            this.expensesRef.DataPropertyName = "expensesRef";
-            this.expensesRef.HeaderText = "Dépenses mois de ref.";
-            this.expensesRef.MinimumWidth = 6;
-            this.expensesRef.Name = "expensesRef";
-            this.expensesRef.ReadOnly = true;
-            this.expensesRef.Width = 130;
-            // 
-            // evolution
-            // 
-            this.evolution.DataPropertyName = "evolution";
-            this.evolution.HeaderText = "Ecart avec la moyenne";
-            this.evolution.MinimumWidth = 6;
-            this.evolution.Name = "evolution";
-            this.evolution.ReadOnly = true;
-            this.evolution.Width = 130;
             // 
             // btnOK
             // 
@@ -313,12 +305,67 @@
             this.dtpDateRef.Size = new System.Drawing.Size(200, 28);
             this.dtpDateRef.TabIndex = 52;
             // 
+            // budget
+            // 
+            this.budget.DataPropertyName = "budget";
+            this.budget.HeaderText = "Budget";
+            this.budget.MinimumWidth = 6;
+            this.budget.Name = "budget";
+            this.budget.ReadOnly = true;
+            this.budget.Width = 125;
+            // 
+            // expenses
+            // 
+            this.expenses.DataPropertyName = "total";
+            this.expenses.HeaderText = "Total dépenses";
+            this.expenses.MinimumWidth = 6;
+            this.expenses.Name = "expenses";
+            this.expenses.ReadOnly = true;
+            this.expenses.Width = 125;
+            // 
+            // expensesRef
+            // 
+            this.expensesRef.DataPropertyName = "expensesRef";
+            this.expensesRef.HeaderText = "Dépenses mois de ref.";
+            this.expensesRef.MinimumWidth = 6;
+            this.expensesRef.Name = "expensesRef";
+            this.expensesRef.ReadOnly = true;
+            this.expensesRef.Width = 130;
+            // 
+            // average
+            // 
+            this.average.DataPropertyName = "average";
+            this.average.HeaderText = "Moyenne";
+            this.average.MinimumWidth = 6;
+            this.average.Name = "average";
+            this.average.ReadOnly = true;
+            this.average.Width = 125;
+            // 
+            // evolution
+            // 
+            this.evolution.DataPropertyName = "evolution";
+            this.evolution.HeaderText = "Ecart avec la moyenne";
+            this.evolution.MinimumWidth = 6;
+            this.evolution.Name = "evolution";
+            this.evolution.ReadOnly = true;
+            this.evolution.Width = 130;
+            // 
+            // proportion
+            // 
+            this.proportion.DataPropertyName = "proportion";
+            this.proportion.HeaderText = "Part du budget";
+            this.proportion.MinimumWidth = 6;
+            this.proportion.Name = "proportion";
+            this.proportion.ReadOnly = true;
+            this.proportion.Width = 125;
+            // 
             // frmAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(976, 650);
+            this.Controls.Add(this.dtpYear);
             this.Controls.Add(this.dtpDateRef);
             this.Controls.Add(this.chkMonthRef);
             this.Controls.Add(this.btnOK);
@@ -363,13 +410,17 @@
         private System.Windows.Forms.CheckBox chkMonthRef;
         private System.Windows.Forms.DataGridViewTextBoxColumn budgetDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn expensesRef;
         private System.Windows.Forms.DataGridViewTextBoxColumn averageDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn evolution;
         private System.Windows.Forms.DataGridViewTextBoxColumn proportionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DateTimePicker dtpYear;
         private System.Windows.Forms.DateTimePicker dtpDateEnd;
         private System.Windows.Forms.DateTimePicker dtpDateStart;
         private System.Windows.Forms.DateTimePicker dtpDateRef;
+        private System.Windows.Forms.DataGridViewTextBoxColumn budget;
+        private System.Windows.Forms.DataGridViewTextBoxColumn expenses;
+        private System.Windows.Forms.DataGridViewTextBoxColumn expensesRef;
+        private System.Windows.Forms.DataGridViewTextBoxColumn average;
+        private System.Windows.Forms.DataGridViewTextBoxColumn evolution;
+        private System.Windows.Forms.DataGridViewTextBoxColumn proportion;
     }
 }

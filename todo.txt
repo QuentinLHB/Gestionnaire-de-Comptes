@@ -1,14 +1,4 @@
-- Fonctionnalité de charger une ancienne save dans le main form
 
-- Ne permettre de sélectionner que les mois où il y a des saves
-
--faire des bindings sur les listbx
-
-- Appuyer sur valider un compte devrait vérifier si du texte est entré : si non, pas d'édit
-
--Renommer formulaires sur un même format
-
-- Faire d'appData une singleton
 
 - l'initialisation des éléments d'appdata ne devraient pas être dans le contrôleur
 
@@ -16,36 +6,10 @@
 
 - Tester si mois de ref existe
 
-- Description des éléments en hover
-
--Rendre MonthlySaves MVC
-
-- des € se mettent dans les txtbox quand on edit un compte
-
-- Changer une répartition d'un budget doit recalculer le compte associé et donc le total.
-
-- optimiser updateTotaux() car refait tout le calcul à chaque fois
-
-- Gérer le ping pong des selectedindex des listes (tester avec le bouton edit)
-
-- Remplacer le tostring() de compte par une fonction à part entière
-
-- quand le message d'erreur de saisie apparaît, la sélection passe au suivant à tort
-
-- Rendre l'application responsive
-
-- Permettre le minimize
-
--Quand on édite, on ne peut pas changer de control OU si on change de ctrl, l'edit saute
-
-- Corriger bug sur FenRepartition : crash si rien n'est entré (pb de parse)
-
-- Créer un paramètre sauvegarde auto
-- Créer un paramètre chargement M ou M-1 (changer SelectCurrentMonth)
-
-- Si la save est vierge de budget, l'app crash si on essaie de charger
-
-- Changer les virgules en point dans la saisie des chiffres, enlever les espaces avant après??
-
 - Dépenses totales d'un mois
+
+
+
+On peut charger des dates qui n'existent pas (ref et dates)
+
 

@@ -65,54 +65,8 @@ namespace Comptes.Control
             saveData();
         }
 
-        /// <summary>
-        /// Enregistre les données du mois.
-        /// </summary>
-        /// <param name="month">Mois à sauvegarder.</param>
-        /// <param name="year">Année à sauvegarder.</param>
-        public void finalizeMonthDialogs(DateTime date)
-        {
-            // S'il n'y a pas de budget
-            if (data.allBudgets.Count != 0)
-            {
-                if ((MessageBox.Show(Const.MSG_VALIDATIONMONYLYSAVE, Const.MSG_TITLE_VALIDATIONMONYLYSAVE, MessageBoxButtons.YesNo) == DialogResult.Yes))
-                {
-                    List<MonthlySave> allMonthlySaves = (List<MonthlySave>)Serialise.Load(Const.FILE_MONTHLYRECAP);
-                    if (allMonthlySaves == null)
-                    {
-                        allMonthlySaves = new List<MonthlySave>();
-                    }
 
-                    MonthlySave existingSave = MonthlySave.findMonthlySave(allMonthlySaves, date);
-                    if (existingSave == null)
-                    {
-                        finalizeMonth(allMonthlySaves, date);
-                    }
 
-                    else //Si une save existe
-                    {
-                        // Si souhaite écraser
-                        if (MessageBox.Show(Const.MSG_REPLACE, Const.ERROR, MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            allMonthlySaves.Remove(existingSave);
-                            finalizeMonth(allMonthlySaves, date);
-                            MessageBox.Show(Const.MSG_REPLACE_YES, Const.MSG_TITLE_REPLACE, MessageBoxButtons.OK);
-                        }
-
-                        // Si ne souhaite pas écraser
-                        else
-                        {
-                            MessageBox.Show(Const.MSG_REPLACE_NO, Const.MSG_TITLE_REPLACE, MessageBoxButtons.OK);
-                        }
-                    }
-
-                }
-            }
-
-            else
-            {
-                MessageBox.Show(Const.MSG_ERR_FINALIZE, Const.ERROR, MessageBoxButtons.OK);
-            }
-        }
+        
     }
 }

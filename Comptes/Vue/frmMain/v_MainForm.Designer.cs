@@ -89,6 +89,7 @@
             this.txtAmountUserA.Name = "txtAmountUserA";
             this.txtAmountUserA.Size = new System.Drawing.Size(184, 28);
             this.txtAmountUserA.TabIndex = 2;
+            this.txtAmountUserA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAmountUserA_KeyPress);
             // 
             // txtBudgetName
             // 

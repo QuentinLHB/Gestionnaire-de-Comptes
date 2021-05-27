@@ -36,16 +36,6 @@ namespace Comptes.Control
         }
 
         /// <summary>
-        /// Intervertit les boutons d'ajout et d'édition.
-        /// </summary>
-        /// <param name="modeEdition"></param>
-        public void handleEditionMode(bool modeEdition)
-        {
-            frmMain.switchMode(modeEdition);
-        }
-
-
-        /// <summary>
         /// Edite un budget
         /// </summary>
         /// <param name="budget">Budget à éditer</param>
@@ -63,6 +53,7 @@ namespace Comptes.Control
         /// <param name="budget">Budget à supprimer.</param>
         public void deleteBudget(Budget budget)
         {
+            data.allAccounts.Remove(budget.account);
             data.allBudgets.Remove(budget);
         }
 
