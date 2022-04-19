@@ -38,6 +38,8 @@
             this.accountName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expensesA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expensesB = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataMonthlyReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitreFen = new System.Windows.Forms.Label();
             this.lblActionName = new System.Windows.Forms.Label();
@@ -46,11 +48,9 @@
             this.btnToAnalysis = new System.Windows.Forms.Button();
             this.dtpMonthlySave = new System.Windows.Forms.DateTimePicker();
             this.btnEditMonthlySave = new System.Windows.Forms.Button();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataMonthlyReportBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -59,7 +59,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(900, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(900, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
@@ -159,6 +159,19 @@
             this.expensesB.Name = "expensesB";
             this.expensesB.ReadOnly = true;
             this.expensesB.Width = 170;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalDataGridViewTextBoxColumn.Width = 170;
+            // 
+            // dataMonthlyReportBindingSource
+            // 
+            this.dataMonthlyReportBindingSource.DataSource = typeof(Comptes.Model.DataMonthlySave);
             // 
             // panel1
             // 
@@ -260,19 +273,6 @@
             this.btnEditMonthlySave.UseVisualStyleBackColor = false;
             this.btnEditMonthlySave.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "total";
-            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
-            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
-            this.totalDataGridViewTextBoxColumn.Width = 170;
-            // 
-            // dataMonthlyReportBindingSource
-            // 
-            this.dataMonthlyReportBindingSource.DataSource = typeof(Comptes.Model.DataMonthlySave);
-            // 
             // FrmMonthlySave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -292,12 +292,13 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmMonthlySave";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataMonthlyReportBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

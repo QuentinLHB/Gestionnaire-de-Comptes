@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnQuitter = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -38,22 +38,22 @@
             this.cboAnalysisMode = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panDates = new System.Windows.Forms.Panel();
-            this.dtpYear = new System.Windows.Forms.DateTimePicker();
             this.dtpDateEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpDateStart = new System.Windows.Forms.DateTimePicker();
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblStart = new System.Windows.Forms.Label();
+            this.dtpYear = new System.Windows.Forms.DateTimePicker();
             this.grdBudgets = new System.Windows.Forms.DataGridView();
-            this.dataAnalysisBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnOK = new System.Windows.Forms.Button();
-            this.chkMonthRef = new System.Windows.Forms.CheckBox();
-            this.dtpDateRef = new System.Windows.Forms.DateTimePicker();
             this.budget = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expenses = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expensesRef = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.average = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.evolution = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.proportion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataAnalysisBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnOK = new System.Windows.Forms.Button();
+            this.chkMonthRef = new System.Windows.Forms.CheckBox();
+            this.dtpDateRef = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.panDates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdBudgets)).BeginInit();
@@ -66,7 +66,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(976, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(976, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip1_MouseDown);
@@ -151,21 +151,6 @@
             this.panDates.Size = new System.Drawing.Size(387, 116);
             this.panDates.TabIndex = 42;
             // 
-            // dtpYear
-            // 
-            this.dtpYear.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.dtpYear.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
-            this.dtpYear.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.dtpYear.CustomFormat = "yyyy";
-            this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpYear.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.dtpYear.Location = new System.Drawing.Point(472, 203);
-            this.dtpYear.Name = "dtpYear";
-            this.dtpYear.ShowUpDown = true;
-            this.dtpYear.Size = new System.Drawing.Size(106, 28);
-            this.dtpYear.TabIndex = 52;
-            this.dtpYear.Visible = false;
-            // 
             // dtpDateEnd
             // 
             this.dtpDateEnd.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
@@ -216,6 +201,21 @@
             this.lblStart.TabIndex = 46;
             this.lblStart.Text = "De :";
             // 
+            // dtpYear
+            // 
+            this.dtpYear.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.dtpYear.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
+            this.dtpYear.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.dtpYear.CustomFormat = "yyyy";
+            this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpYear.ImeMode = System.Windows.Forms.ImeMode.Alpha;
+            this.dtpYear.Location = new System.Drawing.Point(472, 203);
+            this.dtpYear.Name = "dtpYear";
+            this.dtpYear.ShowUpDown = true;
+            this.dtpYear.Size = new System.Drawing.Size(106, 28);
+            this.dtpYear.TabIndex = 52;
+            this.dtpYear.Visible = false;
+            // 
             // grdBudgets
             // 
             this.grdBudgets.AllowUserToAddRows = false;
@@ -227,14 +227,14 @@
             this.grdBudgets.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.grdBudgets.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grdBudgets.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Schoolbook", 10F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdBudgets.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Schoolbook", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(17)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdBudgets.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdBudgets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdBudgets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.budget,
@@ -244,14 +244,14 @@
             this.evolution,
             this.proportion});
             this.grdBudgets.DataSource = this.dataAnalysisBindingSource;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(66)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Schoolbook", 10F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdBudgets.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(66)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Schoolbook", 10F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdBudgets.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdBudgets.EnableHeadersVisualStyles = false;
             this.grdBudgets.Location = new System.Drawing.Point(66, 326);
             this.grdBudgets.Name = "grdBudgets";
@@ -262,48 +262,6 @@
             this.grdBudgets.Size = new System.Drawing.Size(817, 312);
             this.grdBudgets.TabIndex = 43;
             this.grdBudgets.Visible = false;
-            // 
-            // btnOK
-            // 
-            this.btnOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
-            this.btnOK.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.btnOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.btnOK.Location = new System.Drawing.Point(266, 237);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(81, 31);
-            this.btnOK.TabIndex = 44;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = false;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // chkMonthRef
-            // 
-            this.chkMonthRef.AutoSize = true;
-            this.chkMonthRef.Checked = true;
-            this.chkMonthRef.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMonthRef.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.chkMonthRef.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.chkMonthRef.Location = new System.Drawing.Point(66, 143);
-            this.chkMonthRef.Name = "chkMonthRef";
-            this.chkMonthRef.Size = new System.Drawing.Size(193, 25);
-            this.chkMonthRef.TabIndex = 49;
-            this.chkMonthRef.Text = "Mois de référence :";
-            this.chkMonthRef.UseVisualStyleBackColor = true;
-            this.chkMonthRef.CheckedChanged += new System.EventHandler(this.chkMonthRef_CheckedChanged);
-            // 
-            // dtpDateRef
-            // 
-            this.dtpDateRef.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
-            this.dtpDateRef.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
-            this.dtpDateRef.CustomFormat = "MMMM yyyy";
-            this.dtpDateRef.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateRef.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.dtpDateRef.Location = new System.Drawing.Point(266, 138);
-            this.dtpDateRef.Name = "dtpDateRef";
-            this.dtpDateRef.ShowUpDown = true;
-            this.dtpDateRef.Size = new System.Drawing.Size(200, 28);
-            this.dtpDateRef.TabIndex = 52;
             // 
             // budget
             // 
@@ -359,6 +317,48 @@
             this.proportion.ReadOnly = true;
             this.proportion.Width = 125;
             // 
+            // btnOK
+            // 
+            this.btnOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
+            this.btnOK.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.btnOK.Location = new System.Drawing.Point(266, 237);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(81, 31);
+            this.btnOK.TabIndex = 44;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = false;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // chkMonthRef
+            // 
+            this.chkMonthRef.AutoSize = true;
+            this.chkMonthRef.Checked = true;
+            this.chkMonthRef.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMonthRef.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.chkMonthRef.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.chkMonthRef.Location = new System.Drawing.Point(66, 143);
+            this.chkMonthRef.Name = "chkMonthRef";
+            this.chkMonthRef.Size = new System.Drawing.Size(193, 25);
+            this.chkMonthRef.TabIndex = 49;
+            this.chkMonthRef.Text = "Mois de référence :";
+            this.chkMonthRef.UseVisualStyleBackColor = true;
+            this.chkMonthRef.CheckedChanged += new System.EventHandler(this.chkMonthRef_CheckedChanged);
+            // 
+            // dtpDateRef
+            // 
+            this.dtpDateRef.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
+            this.dtpDateRef.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
+            this.dtpDateRef.CustomFormat = "MMMM yyyy";
+            this.dtpDateRef.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateRef.ImeMode = System.Windows.Forms.ImeMode.Alpha;
+            this.dtpDateRef.Location = new System.Drawing.Point(266, 138);
+            this.dtpDateRef.Name = "dtpDateRef";
+            this.dtpDateRef.ShowUpDown = true;
+            this.dtpDateRef.Size = new System.Drawing.Size(200, 28);
+            this.dtpDateRef.TabIndex = 52;
+            // 
             // frmAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -381,6 +381,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmAnalysis";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAnalysis";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -57,24 +57,24 @@
             this.btnAjouterRepartition.UseVisualStyleBackColor = false;
             this.btnAjouterRepartition.Click += new System.EventHandler(this.btnAjouterRepartition_Click);
             // 
-            // txtDiviseur
+            // txtDivider
             // 
             this.txtDivider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
             this.txtDivider.Enabled = false;
             this.txtDivider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.txtDivider.Location = new System.Drawing.Point(377, 139);
             this.txtDivider.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtDivider.Name = "txtDiviseur";
+            this.txtDivider.Name = "txtDivider";
             this.txtDivider.Size = new System.Drawing.Size(52, 26);
             this.txtDivider.TabIndex = 15;
             // 
-            // txtDividende
+            // txtDividend
             // 
             this.txtDividend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
             this.txtDividend.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(35)))), ((int)(((byte)(54)))));
             this.txtDividend.Location = new System.Drawing.Point(289, 139);
             this.txtDividend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtDividend.Name = "txtDividende";
+            this.txtDividend.Name = "txtDividend";
             this.txtDividend.Size = new System.Drawing.Size(52, 26);
             this.txtDividend.TabIndex = 14;
             this.txtDividend.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDividende_KeyPress);
@@ -118,7 +118,7 @@
             this.menuStripRepartition.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStripRepartition.Location = new System.Drawing.Point(0, 0);
             this.menuStripRepartition.Name = "menuStripRepartition";
-            this.menuStripRepartition.Size = new System.Drawing.Size(733, 30);
+            this.menuStripRepartition.Size = new System.Drawing.Size(733, 24);
             this.menuStripRepartition.TabIndex = 18;
             this.menuStripRepartition.Text = "menuStrip1";
             this.menuStripRepartition.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStripRepartition_MouseDown);
@@ -150,7 +150,7 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "Supprimer une répartition :";
             // 
-            // cboRepartition
+            // cboDivisions
             // 
             this.cboDivisions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(228)))), ((int)(((byte)(250)))));
             this.cboDivisions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -159,7 +159,7 @@
             this.cboDivisions.FormattingEnabled = true;
             this.cboDivisions.Location = new System.Drawing.Point(290, 197);
             this.cboDivisions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cboDivisions.Name = "cboRepartition";
+            this.cboDivisions.Name = "cboDivisions";
             this.cboDivisions.Size = new System.Drawing.Size(168, 29);
             this.cboDivisions.TabIndex = 21;
             // 
@@ -187,7 +187,7 @@
             this.btnSupprimerRepartition.UseVisualStyleBackColor = false;
             this.btnSupprimerRepartition.Click += new System.EventHandler(this.btnSupprimerRepartition_Click);
             // 
-            // FrmRepartition
+            // FrmDivisions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -209,7 +209,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStripRepartition;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FrmRepartition";
+            this.Name = "FrmDivisions";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

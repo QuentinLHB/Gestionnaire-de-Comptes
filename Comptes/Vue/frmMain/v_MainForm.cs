@@ -40,10 +40,20 @@ namespace Comptes
         private void Form1_Load(object sender, EventArgs e)
         {
             initBindings();
+            initDtpMonth();
             displayUsersNames();
             loadDivisions(cboDivisions);
             refreshTotals();
             accessAddAccount();
+        }
+
+        /// <summary>
+        /// Initialise le date time picker au mois précédent
+        /// </summary>
+        private void initDtpMonth()
+        {
+            DateTime date = DateTime.Now.Subtract(new TimeSpan(28, 0, 0, 0));
+            dtpMonth.Value = date;
         }
 
         private void initBindings()
